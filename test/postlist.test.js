@@ -5,9 +5,9 @@ import '@testing-library/jest-dom/extend-expect';
 
 afterEach(cleanup);
 
-describe("Tests for postlist", () => {
-    it('Should be a thing.', () => {
-        
+describe("Tests for postlist, which is a list inclusion of all posts on the page.", () => {
+    it('List should render 5 items by default.', () => {
+
     })
 
 
