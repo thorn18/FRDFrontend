@@ -1,8 +1,8 @@
 import React from 'react'
-import { render, cleanup, fireEvent } from '@testing-libarary/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 //import TestEvent from './/';
 import '@testing-library/jest-dom/extend-expect';
-import axios, { axiosMock } from 'axios';
+import   axiosMock  from 'axios';
 
 afterEach(cleanup);
 jest.mock('axios');
@@ -15,11 +15,11 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
     it('List updates when bottom of page is reached and there are more posts to load (atleast 5 more posts can be loaded', () => {
         //aleast 10 entries in fakePosts
         const fakePosts = [];
-        const { getByTestId } = render(<PostList />);
+        const { getByTestId } = render(< PostList/>);
         //if length doesn't work, use getAllByTestId
-        expect(getByTestId('post-list').length).toBe(5);
+        expect(getByTestId('post-list').attributes.length).toBe(5);
         fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
-        expect(getByTestId('post-list').length).toBe(10);
+        expect(getByTestId('post-list').attributes.length).toBe(10);
     });
 
     it('List updates when bottom of page is reached and there are more posts to load (less than 5 more posts can be loaded', () => {
@@ -27,9 +27,9 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
         const fakePosts = [];
         const { getByTestId } = render(<PostList />);
         //if length doesn't work, use getAllByTestId
-        expect(getByTestId('post-list').length).toBe(5);
+        expect(getByTestId('post-list').attributes.length).toBe(5);
         fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
-        expect(getByTestId('post-list').length).toBe(8);
+        expect(getByTestId('post-list').attributes.length).toBe(8);
     });
 
     it('List updates when bottom of page is reached and there are no more posts to load', () => {
@@ -37,14 +37,14 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
         const fakePosts = [];
         const { getByTestId } = render(<PostList />);
         //if length doesn't work, use getAllByTestId
-        expect(getByTestId('post-list').length).toBe(4);
+        expect(getByTestId('post-list').attributes.length).toBe(4);
         fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
-        expect(getByTestId('post-list').length).toBe(4);
+        expect(getByTestId('post-list').attributes.length).toBe(4);
     });
 
     it('When bottom of page is reached there is a call to axios', () => {
         const fakePosts = [];
-        const { getByTestId } = render(<PostList />);
+        const { getByTestId } = render(<PostList >);
 
         axiosMock.get.mockResultValueOnce({
             Data: {
@@ -66,8 +66,7 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
         const fakePosts = [];
         const {getByTestId}=render(<PostList/>);
         //if length doesn't work, use getAllByTestId
-        expect(getByTestId('post-list').length).toBe(5);
-        axiosMock.get.mockResultValueOnce(error);
+        axiosMock.get.mockResultValueOnce(ErrorEvent);
         //something happens?
         expect(getByTestId('error-message')).toHaveAttribute('visible');
         
