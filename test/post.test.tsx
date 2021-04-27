@@ -1,11 +1,24 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import '@testing-libary/jest-dom/extend-expect';
+import "@testing-library/jest-dom/extend-expect";
 import PostComponent from '../src/post/post';
-import { expect } from '@jest/globals';
-import { it } from 'jest-circus';
 
 afterEach(cleanup);
+
+// const props: Post = {
+//     post: {
+//         id: '',
+//         username: '',
+//         description: '',
+//         timestamp: '',
+//         imageId: ''
+//     },
+//     user: {
+//         id: '',
+//         username: '',
+//         profileImage: ''
+//     }
+// }
 
 describe('elements display correctly', () => {
 
@@ -30,3 +43,4 @@ describe('elements display correctly', () => {
     })
 
 });
+
