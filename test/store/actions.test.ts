@@ -7,11 +7,10 @@ describe('Tests for Redux actions', () => {
     //in the future, will need add post, add comment, login, etc
 
     test('should create an action with no payload', () => {
-        const testPosts = [{}];
         const testAction = {
             type: actions.postActionTypes.gettingPosts
         }
-        expect(actions.gettingPosts()).toEqual(testPosts);
+        expect(actions.gettingPosts()).toEqual(testAction);
     });
 
     test('should create an action with the posts that it got via axios', () => {
@@ -20,7 +19,7 @@ describe('Tests for Redux actions', () => {
             type: actions.postActionTypes.gotPostsSuccess,
             payload: testPosts
         }
-        expect(actions.gotPostsSuccess(testPosts)).toEqual(testPosts);
+        expect(actions.gotPostsSuccess(testPosts)).toEqual(testAction);
     });
 
     test('should create an action with the error that it got via axios', () => {
@@ -29,7 +28,7 @@ describe('Tests for Redux actions', () => {
             type: actions.postActionTypes.gotPostsFailed,
             payload: testError
         }
-        expect(actions.gotPostsFailed(testError)).toEqual(testError);
+        expect(actions.gotPostsFailed(testError)).toEqual(testAction);
     });
 
 });
