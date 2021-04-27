@@ -6,6 +6,5 @@ const PostList = (/*props:PostProps*/) => {
         <h1 data-testid = "testone">Hello World</h1>
     )
 }
-
 export default PostList;
 
