@@ -7,21 +7,21 @@ export enum postActionTypes {
 
 export const gettingPosts = () => {
     return {
-        type: gettingPosts
+        type: postActionTypes.gettingPosts
     }
 }
 
 //TODO: import Post class if and when it exists
 export const gotPostsSuccess = (posts: any) => {
     return {
-        type: gotPostsSuccess,
+        type: postActionTypes.gotPostsSuccess,
         payload: posts
     }
 }
 
 export const gotPostsFailed = (error: String) => {
     return {
-        type: gotPostsSuccess,
+        type: postActionTypes.gotPostsFailed,
         payload: error
     }
 }

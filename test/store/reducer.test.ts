@@ -1,16 +1,16 @@
 import { postActionTypes } from '../../src/store/actions';
-import * as reducer from '../../src/store/reducer';
+import postsReducer from '../../src/store/reducer';
 
 describe('tests of posts reducer', () => {
 
     test('That entering an empty action returns initial state', () => {
-        const testInitialState = {posts: []};
-        expect(reducer.postsReducer(undefined, {})).toEqual(testInitialState);
+        const testInitialState = {posts: [], loading: false};
+        expect(postsReducer(undefined, {})).toEqual(testInitialState);
     });
 
     test('That gettingPosts action adds loading: true to the state', () => {
-        const testInitialState = {posts: []};
-        expect(reducer.postsReducer(testInitialState, {type: postActionTypes.gettingPosts}))
+        const testInitialState = {posts: [], loading: false};
+        expect(postsReducer(testInitialState, {type: postActionTypes.gettingPosts}))
         .toEqual({posts: [], loading: true});
     });
 
@@ -18,7 +18,7 @@ describe('tests of posts reducer', () => {
         const testInitialState = {posts: [], loading: true};
         //TODO will have to change to actual posts if/when Post class exists
         const newPosts = ['hello', 'world'];
-        expect(reducer.postsReducer(testInitialState, {type: postActionTypes.gotPostsSuccess, payload: newPosts}))
+        expect(postsReducer(testInitialState, {type: postActionTypes.gotPostsSuccess, payload: newPosts}))
         .toEqual({posts: newPosts, loading: false});
     });
 
@@ -26,7 +26,7 @@ describe('tests of posts reducer', () => {
         const testInitialState = {posts: ['old', 'posts'], loading: true};
         //TODO will have to change to actual posts if/when Post class exists
         const newPosts = ['hello', 'world'];
-        expect(reducer.postsReducer(testInitialState, {type: postActionTypes.gotPostsSuccess, payload: newPosts}))
+        expect(postsReducer(testInitialState, {type: postActionTypes.gotPostsSuccess, payload: newPosts}))
         .toEqual({posts: ['old', 'posts', ...newPosts], loading: false});
     });
 
@@ -34,7 +34,7 @@ describe('tests of posts reducer', () => {
         const testInitialState = {posts: [], loading: true};
         //TODO will have to change to actual posts if/when Post class exists
         const error = 'error';
-        expect(reducer.postsReducer(testInitialState, {type: postActionTypes.gotPostsFailed, payload: error}))
+        expect(postsReducer(testInitialState, {type: postActionTypes.gotPostsFailed, payload: error}))
         .toEqual({posts: [], loading: false, error: error});
     });
 })
