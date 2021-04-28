@@ -1,5 +1,5 @@
 import axios from 'axios';
-import PostService from './post.service';
+import PostService from '../src/post/postService';
 //import { render, rest, setupServer, fireEvent, waitFor, cleanup, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 

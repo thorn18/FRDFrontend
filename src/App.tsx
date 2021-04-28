@@ -1,15 +1,17 @@
 import React from 'react';
 import store from './store/store';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
+import PostList from './post/PostComponent';
+import Navbar from './component/Navbar/Navbar'
 
 function App() {
 
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.tsx</code> and save to reload.
@@ -22,9 +24,10 @@ function App() {
           >
             Learn React
         </a>
-        </header>
+        </header> */}
+        <Navbar />
       </div>
-    </Provider>
+    // </Provider>
   );
 }
 

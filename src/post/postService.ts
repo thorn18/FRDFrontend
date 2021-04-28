@@ -18,6 +18,7 @@ class PostService {
     // }
 
     getAllPosts() {
+        console.log("Attempting to get all posts");
         return (dispatch: (arg0: { type: postActionTypes; payload?: any; }) => void) => {
             dispatch(gettingPosts()); //action
             return axios.get(`${this.URI}/posts`)
