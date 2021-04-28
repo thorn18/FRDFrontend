@@ -11,21 +11,27 @@ interface postProp {
  * This component displays the individual post content
  * @param: post - the post consist of the post information, user, and comments
  */
-function PostComponent(props: postProp){
+function PostComponent(props: postProp) {
 
     const { post } = props;
 
-    return(
+    return (
         <div className="postCard">
             <div className="postHeader">
-                {/* <p className="headerText">username</p> */}
+                {post.user.profileImage ? <img className="pfp" src={post.user.profileImage} />
+                    : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
+                <span className="headerText">{post.user.username}</span>
             </div>
-            <img className="postImage" src={post.post.imageId}/>
+            <img className="postImage" src={post.post.imageId} />
             <div className="postStats">
                 <p className="postLikes">{post.post.likes} likes</p>
                 {/* <p className="numComments"></p> */}
             </div>
-            <p className="postDesc">{post.post.description}</p>
+            <div className="descriptionCard">
+                <p className="descriptionUser">{post.post.username} <span className="postDesc">{post.post.description}</span></p>
+                {/* <span className="descriptionUser">{post.post.username}</span>
+                <span className="postDesc">{post.post.description}</span> */}
+            </div>
             {/* TO DO: will have to map comments some way */}
             {/* <p className="postComments">{post.comments}</p> */}
         </div>
