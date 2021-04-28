@@ -3,6 +3,7 @@ import store from './store/store';
 import { Provider } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
+import PostList from './post/postlist';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           >
             Learn React
         </a>
+        <PostList></PostList>
         </header>
       </div>
     </Provider>
