@@ -2,7 +2,7 @@ import React from 'react'
 import { render, cleanup, fireEvent } from '@testing-library/react';
 //import TestEvent from './/';
 import '@testing-library/jest-dom/extend-expect';
-import   axiosMock  from 'axios';
+import axiosMock from 'axios';
 
 afterEach(cleanup);
 jest.mock('axios');
@@ -63,6 +63,7 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
 
     it('Message displays when an error occurs',()=>{
         //aleast 10 entries in fakePosts
+        
         const fakePosts = [];
         const {getByTestId}=render(<PostList/>);
         //if length doesn't work, use getAllByTestId
