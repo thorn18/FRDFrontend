@@ -20,10 +20,6 @@ const PostList = () => {
         getPosts();
     }, [])
 
-    /**
-     * This function will populate the post list component for the page.
-     */
-
     return (
         <div id='postListMain' data-testid='postListMain'   >
             {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} data-testid="post-test" post={post} />)}
