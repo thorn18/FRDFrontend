@@ -1,4 +1,5 @@
 import * as actions from '../../src/store/actions';
+import Post from '../../src/models/post';
 
 describe('Tests for Redux actions', () => {
 
@@ -14,7 +15,7 @@ describe('Tests for Redux actions', () => {
     });
 
     test('should create an action with the posts that it got via axios', () => {
-        const testPosts = [{}];
+        const testPosts: Post[] = [];
         const testAction = {
             type: actions.postActionTypes.gotPostsSuccess,
             payload: testPosts
