@@ -18,7 +18,7 @@ const PostList = (props: Post[]) => {
 
     return (
         <div id='postListMain' data-testID='postListMain'>
-            {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} />)}
+            {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} post = {post}/>)}
             <script>
                 {getPosts()}
             </script>
