@@ -22,9 +22,5 @@
   },
   "include": [
     "src"
-<<<<<<< HEAD
 , "test/postService.test.ts"  ]
-=======
-  ]
->>>>>>> 424d903f3223752fef9a89aa8fc2ade56a25fad3
 }
