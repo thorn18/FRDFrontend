@@ -1,11 +1,24 @@
 import { postActionTypes } from './actions';
+import Post from '../models/post';
 
-const initialPostsState = {
+//interfaces to give states types
+export interface PostsState {
+    posts: Post[],
+    loading: boolean
+}
+
+export interface AppState {
+    postsState: PostsState
+}
+
+//initial states
+export const initialPostsState: PostsState = {
     posts: [],
     loading: false
 }
 
-const postsReducer = (state: any = initialPostsState, action: any) => {
+//reducers
+const postsReducer = (state: PostsState = initialPostsState, action: any) => {
     switch(action.type) {
         case postActionTypes.gettingPosts:
             return {posts: state.posts, loading: true};
