@@ -1,47 +1,49 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
-import PostComponent from '../src/post/post';
+import PostComponent from '../src/post/PostComponent';
 import Post from '../src/models/post';
 
 afterEach(cleanup);
+const date = new Date();
 
 const props: Post = {
     post: {
-        id: '',
-        username: '',
-        description: '',
-        //timestamp: '',
-        //likes: 0,
-        imageId: ''
+        id: '1',
+        username: 'Bob',
+        description: 'My test post!',
+        timestamp: date,
+        likes: 0,
+        imageId: 'image'
     },
-    user: {
-        id: '',
-        username: '',
-        profileImage: ''
-    }
+    // user: {
+    //     id: '',
+    //     username: '',
+    //     profileImage: ''
+    // },
+    // comments: []
 }
 
 describe('elements display correctly', () => {
 
     it('has an image', () => {
-        const { getByTestId } = render(<PostComponent />);
-        expect(getByTestId('postImage')).not.toBeNull();
+        const { container } = render(<PostComponent {...props}/>);
+        expect(container).toContainHTML('image');
     })
 
     it('has a description', () => {
-        const { getByTestId } = render(<PostComponent />);
-        expect(getByTestId('postDescription')).not.toBeNull();
+        const { container } = render(<PostComponent {...props}/>);
+        expect(container).toHaveTextContent('My test post!');
     })
 
     it('has a timestamp', () => {
-        const { getByTestId } = render(<PostComponent />);
-        expect(getByTestId('postDescription')).not.toBeNull();
+        const { container } = render(<PostComponent {...props}/>);
+        expect(container).toHaveTextContent(date.toDateString());
     })
 
     it('has a number of likes', () => {
-        const { getByTestId } = render(<PostComponent />);
-        expect(getByTestId('postDescription')).not.toBeNull();
+        const { container } = render(<PostComponent {...props}/>);
+        expect(container).toHaveTextContent('0');
     })
 
 });

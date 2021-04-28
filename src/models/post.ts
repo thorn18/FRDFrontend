@@ -5,10 +5,10 @@ export default interface Post {
         id: string,
         username: string,
         description: string,
-        //timestamp: Date,
-        //likes: number,
+        timestamp: Date,
+        likes: number,
         imageId: string
     },
-    user: User,
-    //comments: Comment[]
+    // user: User,
+    // comments: Comment[]
 }
