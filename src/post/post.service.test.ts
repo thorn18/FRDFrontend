@@ -17,7 +17,7 @@ test ('getAllPosts returns a promise with some data in it', async () => {
     let obj = {data: []};
 
     axios.get = jest.fn().mockResolvedValue(obj);
-    await PostService.getAllPosts().then((postArr: any) => {
+    await PostService.getAllPosts().then((postArr) => {
         dataObj = postArr;
     });
 
