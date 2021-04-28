@@ -1,7 +1,7 @@
 import axios from 'axios';
-import PostService from '../src/post/post.service';
+import PostService from './post.service';
 import React from 'react'
-import { render, rest, setupServer, fireEvent, waitFor, cleanup, screen } from '@testing-library/react';
+//import { render, rest, setupServer, fireEvent, waitFor, cleanup, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 /*
@@ -10,14 +10,14 @@ import '@testing-library/jest-dom/extend-expect';
 -make sure the data object is returned from the function
 */
 
-afterEach(cleanup);
+//afterEach(cleanup);
 
 test.only ('getAllPosts returns a promise with some data in it', async () => {
     let dataObj;
     let obj = {data: []};
 
     axios.get = jest.fn().mockResolvedValue(obj);
-    await PostService.getAllPosts().then((postArr) => {
+    await PostService.getAllPosts().then((postArr: any) => {
         dataObj = postArr;
     });
 
