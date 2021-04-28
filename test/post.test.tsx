@@ -16,33 +16,28 @@ const props: Post = {
         likes: 0,
         imageId: 'image'
     },
-    // user: {
-    //     id: '',
-    //     username: '',
-    //     profileImage: ''
-    // },
-    // comments: []
+    user: {
+        id: '',
+        username: '',
+        profileImage: ''
+    },
+    comments: []
 }
 
 describe.skip('elements display correctly', () => {
 
     it('has an image', () => {
-        const { container } = render(<PostComponent {...props}/>);
+        const { container } = render(<PostComponent post={props}/>);
         expect(container).toContainHTML('image');
     })
 
     it('has a description', () => {
-        const { container } = render(<PostComponent {...props}/>);
+        const { container } = render(<PostComponent post={props}/>);
         expect(container).toHaveTextContent('My test post!');
     })
 
-    it('has a timestamp', () => {
-        const { container } = render(<PostComponent {...props}/>);
-        expect(container).toHaveTextContent(date.toDateString());
-    })
-
     it('has a number of likes', () => {
-        const { container } = render(<PostComponent {...props}/>);
+        const { container } = render(<PostComponent post={props}/>);
         expect(container).toHaveTextContent('0');
     })
 
