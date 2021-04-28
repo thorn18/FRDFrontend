@@ -3,12 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import PostComponent from './PostComponent'
 import Post from '../models/post'
 import initialPostsState from '../store/reducer'
+import PostService from './post.service'
 
 let post_state: Post[] = useSelector((state: initialPostsState) => state.postsReducer.posts);
 let [postStateLocal, setPostStateLocal] = useState(post_state);
 
 const dispatch = useDispatch();
-const getPosts = () => dispatch(getAllPosts());
+const getPosts = () => PostService.getAllPosts();
+
+useEffect(() => {
+    getPosts();
+}, [])
 
 const PostList = (props: Post[]) => {
 
@@ -17,11 +22,8 @@ const PostList = (props: Post[]) => {
      */
 
     return (
-        <div id='postListMain' data-testID='postListMain'>
-            {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} post = {post}/>)}
-            <script>
-                {getPosts()}
-            </script>
+        <div id='postListMain' data-testID='postListMain'   >
+            {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} data-testid = "post-test" post={post} />)}
         </div>
     )
 }
