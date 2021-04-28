@@ -1,9 +1,10 @@
 import { postActionTypes } from './actions';
+import Post from '../models/post';
 
 //interfaces to give states types
-interface PostsState {
-    posts: [],
-    loading: false
+export interface PostsState {
+    posts: Post[],
+    loading: boolean
 }
 
 export interface AppState {
