@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import PostComponent from '../post/post'
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PostComponent from './PostComponent'
+import Post from '../models/post'
+import initialPostsState from '../store/reducer'
 
-let post_state:Post[] = useSelector((state:PostState) => state.postReducer.posts);
-let [postStateLocal,setPostStateLocal] = useState(post_state);
+let post_state: Post[] = useSelector((state: initialPostsState) => state.postsReducer.posts);
+let [postStateLocal, setPostStateLocal] = useState(post_state);
 
-const PostList = (props:Post[]) => {
+const dispatch = useDispatch();
+const getPosts = () => dispatch(getAllPosts());
+
+const PostList = (props: Post[]) => {
 
     /**
      * This function will populate the post list component for the page.
      */
 
     return (
-        <div id = 'postListMain' data-testID = 'postListMain'>
-            {postStateLocal.map((post:Post) => <Post key={post.id} />)}
+        <div id='postListMain' data-testID='postListMain'>
+            {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} />)}
+            <script>
+                {getPosts()}
+            </script>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, cleanup, fireEvent} from '@testing-library/react';
-import PostList from '../../src/post/postlist';
+import PostList from '../../src/post/postList';
 import '@testing-library/jest-dom/extend-expect';
 
 afterEach(cleanup);
