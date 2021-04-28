@@ -1,4 +1,3 @@
-
 export enum postActionTypes {
     gettingPosts = "GETTING_POSTS",
     gotPostsSuccess = "GOT_POSTS_SUCCESS",
