@@ -1,0 +1,41 @@
+.postCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style:solid;
+    border-color:rgb(202, 202, 202);
+    border-width: 1px;
+    width: 500px;
+    height: max-content;
+}
+.postHeader{
+    height:45px;
+    width: max-content;
+}
+.headerText{
+    padding-left: 10px;
+    font-weight: bold;
+    width: 500px;
+    text-align: left;
+    align-self: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.postImage{
+    width: 500px;
+}
+.postStats{
+    height:25px;
+    width: 500px;
+}
+.postLikes{
+    padding-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color:rgb(180, 180, 180)
+}
+.postDesc{
+    width: 500px;
+    padding-left: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
