@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from '../models/post';
 import User from '../models/user';
+import './postComponent.css';
 
 interface postProp {
     post: Post
@@ -12,7 +13,9 @@ function PostComponent(props: postProp){
 
     return(
         <div className="postCard">
-            <div className="postHeader"></div>
+            <div className="postHeader">
+                {/* <p className="headerText">username</p> */}
+            </div>
             <img className="postImage" src={post.post.imageId}/>
             <div className="postStats">
                 <p className="postLikes">{post.post.likes} likes</p>
