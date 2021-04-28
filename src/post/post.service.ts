@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { gettingPosts, gotPostsFailed, gotPostsSuccess, postActionTypes } from '../store/actions';
 //import {Post} from './post';
 
 class PostService {
@@ -16,14 +17,14 @@ class PostService {
     //     return axios.get(this.URI).then(result => result.data);
     // }
 
-    getAllPosts = () => {
-        return dispatch => {
+    getAllPosts() {
+        return (dispatch: (arg0: { type: postActionTypes; payload?: any; }) => void) => {
             dispatch(gettingPosts()); //action
-            return axios.get(`url/${id}`)
+            return axios.get(`${this.URI}`)
             .then(response => {
-                dispatch(fetchCharacterSuccess(response.data));
+                dispatch(gotPostsSuccess(response.data)); //type any as of now
             }).catch(err => {
-                dispatch(fetchCharacterFailed(err)); //action
+                dispatch(gotPostsFailed(err)); //action
             });
         };
 };
