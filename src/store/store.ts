@@ -3,9 +3,9 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import postsReducer from './reducer';
 
- //creates the universal store by combining reducers
+//creates the universal store by combining reducers
 const store = createStore(combineReducers({
-    posts: postsReducer
+    postsState: postsReducer
 }), applyMiddleware(thunk, logger));
 //Logger automatically logs prev state, action, next state
 
