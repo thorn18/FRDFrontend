@@ -9,6 +9,6 @@ export default interface Post {
         likes: number,
         imageId: string
     },
-    // user: User,
-    // comments: Comment[]
+    user: User,
+    comments: Comment[]
 }

@@ -6,6 +6,7 @@ import './App.css';
 import PostList from './post/PostList';
 
 function App() {
+
   return (
     <Provider store={store}>
       <div className="App">
