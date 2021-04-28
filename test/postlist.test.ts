@@ -15,10 +15,10 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
     it('List updates when bottom of page is reached and there are more posts to load (atleast 5 more posts can be loaded', () => {
         //aleast 10 entries in fakePosts
         const fakePosts = [];
-        const { getByTestId } = render(< PostList/>);
+        const { getByTestId } = render(<PostList/>);
         //if length doesn't work, use getAllByTestId
         expect(getByTestId('post-list').attributes.length).toBe(5);
-        fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
+        fireEvent.scroll(getByTestId('scroll-container'), { target: { scrollY: 100 } });
         expect(getByTestId('post-list').attributes.length).toBe(10);
     });
 
@@ -28,7 +28,7 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
         const { getByTestId } = render(<PostList />);
         //if length doesn't work, use getAllByTestId
         expect(getByTestId('post-list').attributes.length).toBe(5);
-        fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
+        fireEvent.scroll(getByTestId('scroll-container'), { target: { scrollY: 100 } });
         expect(getByTestId('post-list').attributes.length).toBe(8);
     });
 
@@ -38,7 +38,7 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
         const { getByTestId } = render(<PostList />);
         //if length doesn't work, use getAllByTestId
         expect(getByTestId('post-list').attributes.length).toBe(4);
-        fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
+        fireEvent.scroll(getByTestId('scroll-container'), { target: { scrollY: 100 } });
         expect(getByTestId('post-list').attributes.length).toBe(4);
     });
 
@@ -55,7 +55,7 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
             }
         });
 
-        fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
+        fireEvent.scroll(getByTestId('scroll-container'), { target: { scrollY: 100 } });
         //Maybe more depending on how the code ends up, does one call retur 5 posts or are we doing 5 calls to get 5 posts
         expect(axiosMock.get).toHaveBeenCalledTimes(1);
         expect(axiosMock.get).toHaveBeenCalledWith(url);
@@ -85,7 +85,7 @@ describe("Tests for postlist, which is a list inclusion of all posts on the page
             }
         });
 
-        fireEvent.scroll(scrollContainer, { target: { scrollY: 100 } });
+        fireEvent.scroll(getByTestId('scroll-container'), { target: { scrollY: 100 } });
         //something happens?
         expect(getByTestId('error-message')).not.toHaveAttribute('visible');
         
