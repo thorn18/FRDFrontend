@@ -3,16 +3,28 @@ import { useSelector } from 'react-redux';
 
 const PostList = (/*props:PostProps*/) => {
 
-    function doSomething() {
+    let post_state:Post[] = useSelector((state:PostState) => state.postReducer.posts);
 
+
+    /**
+     * This function will populate the post list component for the page.
+     */
+    function PopulatePostList() {
+        
     };
 
     return (
         <>
-            <h1 data-testid="testone">Hello World</h1>
-            <button data-testid="button" onClick={doSomething}>0</button>
+            <ol className = "postlist" data-testid = "postlist" id = "postlistmain">
+                
+            </ol>
+            <script type = 'text/javascript'>
+                PopulatePostList();
+            </script>
         </>
     )
 }
 export default PostList;
+
+
 
