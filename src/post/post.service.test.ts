@@ -11,7 +11,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 //afterEach(cleanup);
 
-test.only ('getAllPosts returns a promise with some data in it', async () => {
+test.skip('getAllPosts returns a promise with some data in it', async () => {
     let dataObj;
     let obj = {data: []};
 
