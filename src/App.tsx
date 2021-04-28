@@ -3,7 +3,7 @@ import store from './store/store';
 import { Provider } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
-import PostList from './post/postlist';
+import PostList from './post/PostList';
 
 function App() {
   return (

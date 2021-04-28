@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PostComponent from './PostComponent'
 import Post from '../models/post'
 import initialPostsState from '../store/reducer'
-import PostService from './post.service'
+import PostService from './postService'
 import { AppState } from '../store/reducer'
 import './postlist.css';
 
