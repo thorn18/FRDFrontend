@@ -7,6 +7,10 @@ interface postProp {
     post: Post
 }
 
+/**
+ * This component displays the individual post content
+ * @param: post - the post consist of the post information, user, and comments
+ */
 function PostComponent(props: postProp){
 
     const { post } = props;
