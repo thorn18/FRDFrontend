@@ -6,7 +6,6 @@ describe('test login menu', () => {
     afterEach(cleanup)
 
     it('renders with menu closed', () => {
-        const {getByTestId} = render(<Navbar/>);
     })
 })
 
