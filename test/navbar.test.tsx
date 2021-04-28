@@ -1,15 +1,14 @@
-import React from 'react'
-import { render, fireEvent, cleanup } from '@testing-library/react'
-import Navbar from '../src/component/Navbar/Navbar'
+import React from "react";
+import { render, fireEvent, cleanup, screen } from "@testing-library/react";
+import Navbar from "../src/component/Navbar/Navbar";
+import "@testing-library/jest-dom/extend-expect";
 
 afterEach(cleanup);
 
-describe('test login menu', () => {
-    it('renders with menu closed', () => {
-        const { getByTestId } = render(<Navbar/>);
+describe("test login menu", () => {
+  it("renders with menu closed", () => {
+    render(<Navbar />);
 
-        // expect(getByTestId("login-link")).toBeDisabled();
-
-    })
-})
-
+    expect(screen.getByRole("button")).toHaveAttribute("disabled");
+  });
+});
