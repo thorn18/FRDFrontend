@@ -1,3 +1,4 @@
+import Post from '../models/post';
 
 export enum postActionTypes {
     gettingPosts = "GETTING_POSTS",
@@ -11,8 +12,7 @@ export const gettingPosts = () => {
     }
 }
 
-//TODO: import Post class if and when it exists
-export const gotPostsSuccess = (posts: any) => {
+export const gotPostsSuccess = (posts: Post[]) => {
     return {
         type: postActionTypes.gotPostsSuccess,
         payload: posts
