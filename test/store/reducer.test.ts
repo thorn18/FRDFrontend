@@ -1,6 +1,7 @@
 import { postActionTypes } from '../../src/store/actions';
 import postsReducer, { PostsState } from '../../src/store/reducer';
 import Post from '../../src/models/post';
+import { post1, post2, post3, post4 } from '../testData';
 
 describe('tests of posts reducer', () => {
 
@@ -20,87 +21,15 @@ describe('tests of posts reducer', () => {
     test('That gotPostsSuccess action adds posts and sets loading: false to the state', () => {
         const initialPosts: Post[] = [];
         const testInitialState: PostsState = { posts: initialPosts, loading: true };
-        const newPosts: Post[] =
-            [{
-                post: {
-                    id: '3',
-                    username: 'user3',
-                    description: 'post 3',
-                    timestamp: new Date(),
-                    likes: 4,
-                    imageId: 'img3'
-                },
-                user: { id: 'userId3', username: 'user3', profileImage: 'prof3' },
-                comments: []
-            },
-            {
-                post: {
-                    id: '4',
-                    username: 'user4',
-                    description: 'post 4',
-                    timestamp: new Date(),
-                    likes: 8,
-                    imageId: 'img4'
-                },
-                user: { id: 'userId3', username: 'user4', profileImage: 'prof4' },
-                comments: []
-            }];
+        const newPosts: Post[] = [post1, post2];
         expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: newPosts }))
             .toEqual({ posts: newPosts, loading: false });
     });
 
     test('That gotPostsSuccess action doesn\'t override posts and sets loading: false to the state', () => {
-        const oldPosts: Post[] =
-            [{
-                post: {
-                    id: '1',
-                    username: 'user1',
-                    description: 'post 1',
-                    timestamp: new Date(),
-                    likes: 3,
-                    imageId: 'img1'
-                },
-                user: { id: 'userId1', username: 'user1', profileImage: 'prof1' },
-                comments: []
-            },
-            {
-                post: {
-                    id: '2',
-                    username: 'user2',
-                    description: 'post 2',
-                    timestamp: new Date(),
-                    likes: 5,
-                    imageId: 'img2'
-                },
-                user: { id: 'userId2', username: 'user2', profileImage: 'prof2' },
-                comments: []
-            }];
+        const oldPosts: Post[] = [post1, post2];
         const testInitialState: PostsState = { posts: oldPosts, loading: true };
-        const newPosts: Post[] =
-            [{
-                post: {
-                    id: '3',
-                    username: 'user3',
-                    description: 'post 3',
-                    timestamp: new Date(),
-                    likes: 4,
-                    imageId: 'img3'
-                },
-                user: { id: 'userId3', username: 'user3', profileImage: 'prof3' },
-                comments: []
-            },
-            {
-                post: {
-                    id: '4',
-                    username: 'user4',
-                    description: 'post 4',
-                    timestamp: new Date(),
-                    likes: 8,
-                    imageId: 'img4'
-                },
-                user: { id: 'userId4', username: 'user4', profileImage: 'prof4' },
-                comments: []
-            }];
+        const newPosts: Post[] = [post3, post4];
         expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: newPosts }))
             .toEqual({ posts: [...oldPosts, ...newPosts], loading: false });
     });
