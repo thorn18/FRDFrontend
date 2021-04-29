@@ -1,6 +1,14 @@
 #navbar {
     display: flex;
     justify-content: space-around;
+    padding: 1em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    background-color: #FFFFFF;
+
+}
+
+#navbar .nav-action-items {
+    display: flex;
 }
 
 #navbar .closed {
@@ -8,12 +16,13 @@
 }
 
 #navbar .open {
+    position: absolute;
     border: 1px solid #E6E6E6;
 }
 
-#navbar .open a{
-    text-decoration: none;
-    color: black;
+#navbar .login-menu {
+    border: 2px solid deeppink;
+    width: 2em;
 }
 
 .wrapper {
@@ -36,6 +45,8 @@
     text-align: center;
     width: 250px;
     height: 2rem;
+    border: 1px solid gray;
     color: gray;
+    background-color: #FAFAFA;
     font-weight: 700;
 }
