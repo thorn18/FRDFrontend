@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { gettingPosts, gotPostsFailed, gotPostsSuccess, postActionTypes } from '../store/actions';
-//import {Post} from './post';
+//import Post from '../models/post';
 
 class PostService {
     private URI: string;
