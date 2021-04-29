@@ -1,19 +1,20 @@
 import React from 'react'
-import {render, cleanup, fireEvent} from '@testing-library/react';
+import {render, cleanup, fireEvent, getByTestId, getAllByTestId} from '@testing-library/react';
+import Post from '../../src/models/post';
 import PostList from '../../src/post/PostList';
 import '@testing-library/jest-dom/extend-expect';
+import {Provider} from 'react-redux';
+import store from '../../src/store/store';
 
 afterEach(cleanup);
 
-describe.skip("Tests for postlist, which is a list inclusion of all posts on the page.", () => {
+describe("render PostList, which is a list that includes all posts on the page.", () => {
     
-    it('Basic Test', () => {
-        const {getByTestId} = render(<PostList/>);
-        expect(getByTestId('testone')).toHaveTextContent('Hello World');
+    it('PostList creates map of PostComponents', () => {
+        jest.mock('../../src/post/PostComponent', () => () => 'PostComponent');
+        const {container, getAllByTestId} = render(<Provider store = {store}> <PostList/></Provider>)
+        const descendant = getAllByTestId('postListMain')[0]
+        expect(container).toContainElement(descendant)
     })
-
-    it("Test2" , () => {
-        const {getByTestId} = render(<PostList/>);
-        expect(getByTestId('button')).toHaveTextContent("0");
-    })
+    
 })
