@@ -1,5 +1,4 @@
 import User from './user';
-import Reply from './reply';
 
 export default interface Post {
     post: {
@@ -11,5 +10,5 @@ export default interface Post {
         imageId: string
     },
     user: User,
-    replies: Reply[]
+    comments: Comment[]
 }
