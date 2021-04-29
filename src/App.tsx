@@ -1,10 +1,10 @@
 import React from 'react';
 import store from './store/store';
 import { Provider } from 'react-redux';
-import logo from './logo.svg';
 import './App.css';
 import PostComponent from './post/PostComponent';
 import Post from './models/post';
+import Navbar from './component/Navbar/Navbar'
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
     user: {
       id: '1',
       username: 'Bob',
-      profileImage: ''
+      profileImage: 'https://i.ibb.co/C2t0FH7/circle-cropped.png'
     },
     //replies: []
   }
@@ -64,7 +64,6 @@ function App() {
         </header>
       </div> */}
     </Provider>
-  );
+  )
 }
-
 export default App;
