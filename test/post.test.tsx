@@ -3,45 +3,13 @@ import { render, cleanup } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import PostComponent from '../src/post/PostComponent';
 import Post from '../src/models/post';
+import { post0, noProfilePic } from './testData';
 
 afterEach(cleanup);
-const date = new Date();
 
-const props: Post = {
-    post: {
-        id: '1',
-        username: 'Bob',
-        description: 'My test post!',
-        timestamp: date,
-        likes: 0,
-        imageId: 'image'
-    },
-    user: {
-        id: '1',
-        username: 'Bob',
-        profileImage: 'profilePic'
-    },
-    comments: []
-}
+const props: Post = post0
 
-const noProfilePic: Post = {
-    post: {
-        id: '1',
-        username: 'Bob',
-        description: 'My test post!',
-        timestamp: date,
-        likes: 0,
-        imageId: 'image'
-    },
-    user: {
-        id: '1',
-        username: 'Bob',
-        profileImage: null
-    },
-    comments: []
-}
-
-describe.skip('elements display correctly', () => {
+describe('elements display correctly', () => {
 
     it('has an image', () => {
         const { container } = render(<PostComponent post={props}/>);
