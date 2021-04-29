@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import './App.css';
 import PostComponent from './post/PostComponent';
 import Post from './models/post';
-import Navbar from './component/Navbar/Navbar'
+//import Navbar from './component/Navbar/Navbar'
 
 function App() {
 
@@ -22,9 +22,9 @@ function App() {
     user: {
       id: '1',
       username: 'Bob',
-      profileImage: 'https://i.ibb.co/C2t0FH7/circle-cropped.png'
+      profileImage: 'https://toppng.com/uploads/preview/round-sun-11549817278pdkszux96x.png'
     },
-    //replies: []
+    replies: []
   }
 
   const noProfilePic: Post = {
@@ -41,7 +41,7 @@ function App() {
       username: 'Bob',
       profileImage: null
     },
-    //replies: []
+    replies: []
   }
 
   return (

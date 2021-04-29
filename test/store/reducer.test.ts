@@ -31,7 +31,7 @@ describe('tests of posts reducer', () => {
                     imageId: 'img3'
                 },
                 user: { id: 'userId3', username: 'user3', profileImage: 'prof3' },
-                comments: []
+                replies: []
             },
             {
                 post: {
@@ -43,7 +43,7 @@ describe('tests of posts reducer', () => {
                     imageId: 'img4'
                 },
                 user: { id: 'userId3', username: 'user4', profileImage: 'prof4' },
-                comments: []
+                replies: []
             }];
         expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: newPosts }))
             .toEqual({ posts: newPosts, loading: false });
@@ -61,7 +61,7 @@ describe('tests of posts reducer', () => {
                     imageId: 'img1'
                 },
                 user: { id: 'userId1', username: 'user1', profileImage: 'prof1' },
-                comments: []
+                replies: []
             },
             {
                 post: {
@@ -73,7 +73,7 @@ describe('tests of posts reducer', () => {
                     imageId: 'img2'
                 },
                 user: { id: 'userId2', username: 'user2', profileImage: 'prof2' },
-                comments: []
+                replies: []
             }];
         const testInitialState: PostsState = { posts: oldPosts, loading: true };
         const newPosts: Post[] =
@@ -87,7 +87,7 @@ describe('tests of posts reducer', () => {
                     imageId: 'img3'
                 },
                 user: { id: 'userId3', username: 'user3', profileImage: 'prof3' },
-                comments: []
+                replies: []
             },
             {
                 post: {
@@ -99,7 +99,7 @@ describe('tests of posts reducer', () => {
                     imageId: 'img4'
                 },
                 user: { id: 'userId4', username: 'user4', profileImage: 'prof4' },
-                comments: []
+                replies: []
             }];
         expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: newPosts }))
             .toEqual({ posts: [...oldPosts, ...newPosts], loading: false });

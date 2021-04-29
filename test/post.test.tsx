@@ -21,7 +21,7 @@ const props: Post = {
         username: 'Bob',
         profileImage: 'profilePic'
     },
-    //comments: []
+    replies: []
 }
 
 const noProfilePic: Post = {
@@ -38,10 +38,10 @@ const noProfilePic: Post = {
         username: 'Bob',
         profileImage: null
     },
-    //replies: []
+    replies: []
 }
 
-describe.skip('elements display correctly', () => {
+describe('elements display correctly', () => {
 
     it('has an image', () => {
         const { container } = render(<PostComponent post={props}/>);
