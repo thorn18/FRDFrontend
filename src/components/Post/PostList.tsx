@@ -7,7 +7,6 @@ import PostService from '../../services/postService'
 import { AppState } from '../../store/reducer'
 
 
-
 const PostList = () => {
 
     let post_state: Post[] = useSelector((state: AppState) => state.postsState.posts);
