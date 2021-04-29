@@ -2,7 +2,7 @@ import Post from "../src/models/post";
 
 export const post0: Post = {
     post: {
-        id: '0',
+        id: '1',
         username: 'Bob',
         description: 'My test post!',
         timestamp: new Date('Tue Apr 20 2021 00:00:00 GMT-0500 (Central Daylight Time'),
@@ -10,11 +10,11 @@ export const post0: Post = {
         imageId: 'image'
     },
     user: {
-        id: '0',
-        username: 'Bob',
-        profileImage: 'profilePic'
+        id: '',
+        username: '',
+        profileImage: ''
     },
-    replies: []
+    comments: []
 }
 
 export const post1: Post = {
@@ -27,7 +27,7 @@ export const post1: Post = {
         imageId: 'img1'
     },
     user: { id: 'userId1', username: 'user1', profileImage: 'prof1' },
-    replies: []
+    comments: []
 }
 
 export const post2: Post = {
@@ -40,7 +40,7 @@ export const post2: Post = {
         imageId: 'img2'
     },
     user: { id: 'userId2', username: 'user2', profileImage: 'prof2' },
-    replies: []
+    comments: []
 }
 
 export const post3: Post = {
@@ -53,7 +53,7 @@ export const post3: Post = {
         imageId: 'img3'
     },
     user: { id: 'userId3', username: 'user3', profileImage: 'prof3' },
-    replies: []
+    comments: []
 }
 
 export const post4: Post = {
@@ -66,22 +66,5 @@ export const post4: Post = {
         imageId: 'img4'
     },
     user: { id: 'userId3', username: 'user4', profileImage: 'prof4' },
-    replies: []
-}
-
-export const noProfilePic: Post = {
-    post: {
-        id: '5',
-        username: 'user5',
-        description: 'post 5',
-        timestamp: new Date('Sat Apr 24 2021 00:00:00 GMT-0500 (Central Daylight Time'),
-        likes: 0,
-        imageId: 'image'
-    },
-    user: {
-        id: '1',
-        username: 'user5',
-        profileImage: null
-    },
-    replies: []
+    comments: []
 }
