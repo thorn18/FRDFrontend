@@ -4,7 +4,7 @@ import { gettingPosts, gotPostsFailed, gotPostsSuccess, postActionTypes } from '
 
 class PostService {
     private URI: string;
-    constructor(){
+    constructor() {
         //URL of the API 
         this.URI = "http://35.223.52.208";
     }
@@ -20,13 +20,16 @@ class PostService {
     getAllPosts() {
         console.log("Attempting to get all posts");
         return (dispatch: (arg0: { type: postActionTypes; payload?: any; }) => void) => {
+            console.log("inside dispatch");
             dispatch(gettingPosts()); //action
             return axios.get(`${this.URI}/posts`)
-            .then(response => {
-                dispatch(gotPostsSuccess(response.data)); //type any as of now
-            }).catch(err => {
-                dispatch(gotPostsFailed(err)); //action
-            });
+                .then(response => {
+                    console.log(response);
+                    dispatch(gotPostsSuccess(response.data)); //type any as of now
+                }).catch(err => {
+                    console.log(err);
+                    dispatch(gotPostsFailed(err)); //action
+                });
         };
     }
 

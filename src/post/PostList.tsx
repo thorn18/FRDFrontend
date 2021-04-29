@@ -5,7 +5,7 @@ import Post from '../models/post'
 import initialPostsState from '../store/reducer'
 import PostService from './postService'
 import { AppState } from '../store/reducer'
-import './postlist.css';
+import './postList.css';
 
 
 const PostList = () => {
@@ -14,11 +14,20 @@ const PostList = () => {
     let [postStateLocal, setPostStateLocal] = useState(post_state);
 
     const dispatch = useDispatch();
-    const getPosts = () => PostService.getAllPosts();
+    const getPosts = () => dispatch(PostService.getAllPosts());
 
     useEffect(() => {
         getPosts();
+        sortStorePosts();
     }, [])
+
+    function sortStorePosts() {
+        let unsortedposts: Post[] = useSelector((state: AppState) => state.postsState.posts);
+        let sortedlist = unsortedposts.sort((a, b) => {
+            return a.post.timestamp.getTime() - b.post.timestamp.getTime()
+        });
+        setPostStateLocal(sortedlist);
+    }
 
     return (
         <div id='postListMain' data-testid='postListMain'   >
