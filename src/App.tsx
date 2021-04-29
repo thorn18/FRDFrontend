@@ -1,6 +1,7 @@
 import React from 'react';
 import store from './store/store';
 import { Provider } from 'react-redux';
+import logo from './logo.svg';
 import './App.css';
 import Navbar from './component/Navbar/Navbar'
 import PostList from './post/PostList';
@@ -14,7 +15,6 @@ function App() {
         <PostList />
       </div>
     </Provider>
-  );
+  )
 }
-
 export default App;
