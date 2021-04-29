@@ -79,7 +79,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'kubectl rollout restart deployment/photon-ui --namespace=Team-Photon'
+                sh 'kubectl rollout restart deployment/photon-ui --namespace=photon'
             }
          }
     }
