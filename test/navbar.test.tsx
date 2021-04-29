@@ -11,4 +11,12 @@ describe("test login menu", () => {
 
     expect(screen.getByRole("button")).toHaveAttribute("disabled");
   });
-});
+  
+  it("renders the menu button when open", async () => {
+    const { getByTestId, getByRole } = render(<Navbar />);
+
+    fireEvent.click(getByTestId('login-link'));
+
+    expect(getByRole('button')).toBeVisible();
+  })
+})
