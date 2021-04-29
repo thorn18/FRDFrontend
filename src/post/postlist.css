@@ -1,0 +1,7 @@
+#postListMain {
+    border-width: 3px;
+    border-color: red;
+    border-style: inset;
+    width: 500px;
+    height: 500px;
+}
