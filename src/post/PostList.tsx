@@ -22,8 +22,7 @@ const PostList = () => {
     }, [])
 
     function sortStorePosts() {
-        let unsortedposts: Post[] = useSelector((state: AppState) => state.postsState.posts);
-        let sortedlist = unsortedposts.sort((a, b) => {
+        let sortedlist = postStateLocal.sort((a, b) => {
             return a.post.timestamp.getTime() - b.post.timestamp.getTime()
         });
         setPostStateLocal(sortedlist);
@@ -36,6 +35,3 @@ const PostList = () => {
     )
 }
 export default PostList;
-
-
-
