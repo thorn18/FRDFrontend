@@ -11,7 +11,7 @@ afterEach(cleanup);
 describe("render PostList, which is a list that includes all posts on the page.", () => {
     
     it('PostList creates map of PostComponents', () => {
-        jest.mock('../../src/post/PostComponent', () => () => 'PostComponent');
+        //jest.mock('../../src/components/Post/PostComponent', () => () => 'PostComponent');
         const {container, getAllByTestId} = render(<Provider store = {store}> <PostList/></Provider>)
         const descendant = getAllByTestId('postListMain')[0]
         expect(container).toContainElement(descendant)
