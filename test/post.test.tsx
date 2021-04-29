@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
-import PostComponent from '../src/post/PostComponent';
+import PostComponent from '../src/components/post/PostComponent';
 import Post from '../src/models/post';
 import { post0, noProfilePic } from './testData';
 

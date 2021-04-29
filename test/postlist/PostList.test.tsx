@@ -1,7 +1,7 @@
 import React from 'react'
 import {render, cleanup, fireEvent, getByTestId, getAllByTestId} from '@testing-library/react';
 import Post from '../../src/models/post';
-import PostList from '../../src/post/PostList';
+import PostList from '../../src/components/post/PostList';
 import '@testing-library/jest-dom/extend-expect';
 import {Provider} from 'react-redux';
 import store from '../../src/store/store';

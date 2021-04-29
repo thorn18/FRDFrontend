@@ -1,5 +1,5 @@
 import React from 'react';
-import Postlist from '../../post/PostList'
+import Postlist from '../../components/post/PostList'
 import './LandingPage.css'
 
 const LandingPage = () => {
