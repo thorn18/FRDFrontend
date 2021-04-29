@@ -5,7 +5,7 @@ import Post from '../../models/post'
 import initialPostsState from '../../store/reducer'
 import PostService from '../../services/postService'
 import { AppState } from '../../store/reducer'
-import './PostList.css';
+
 
 
 const PostList = () => {

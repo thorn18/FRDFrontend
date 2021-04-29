@@ -1,7 +1,7 @@
 import React from 'react';
-import Post from '../models/post';
-import User from '../models/user';
-import './postComponent.css';
+import Post from '../../models/post';
+import User from '../../models/user';
+import './PostComponent.css';
 
 interface postProp {
     post: Post
