@@ -6,7 +6,7 @@ class PostService {
     private URI: string;
     constructor() {
         //URL of the API 
-        this.URI = "http://35.223.52.208";
+        this.URI = "http://35.223.52.208/api";
     }
 
     /**
