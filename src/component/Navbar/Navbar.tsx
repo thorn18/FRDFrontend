@@ -23,24 +23,26 @@ const Navbar = () => {
       </div>
 
       <IconContext.Provider value={{ size: "2em" }}>
-        <article
-          data-testid="login-menu"
-          className="login-menu"
-          onClick={() => setMenu(!isMenuOpen)}
-        >
+        <div className="nav-action-items">
           <img className="nav_addIcon" src={addIcon} alt="Nav Logo" />
-          <img className="nav_loginIcon" src={loginIcon} alt="Nav Login Icon" />
-          <BsPerson />
-          <button
-            disabled
-            data-testid="login-link"
-            className={isMenuOpen ? "open" : "closed"}
+          <article
+            data-testid="login-menu"            
+            onClick={() => setMenu(!isMenuOpen)}
           >
-            <a href="Insert login path" onClick={() => setMenu(!isMenuOpen)}>
-              Login
-            </a>
-          </button>
-        </article>
+            <div className="login-menu">
+              {/* <img className="nav_loginIcon" src={loginIcon} alt="Nav Login Icon" /> */}
+              <BsPerson />
+              <button
+                disabled={isMenuOpen ? false : true}
+                data-testid="login-link"
+                className={isMenuOpen ? "open" : "closed"}
+                onClick={() => setMenu(!isMenuOpen)}
+              >
+                Login
+              </button>
+            </div>
+          </article>
+        </div>
       </IconContext.Provider>
     </nav>
   );
