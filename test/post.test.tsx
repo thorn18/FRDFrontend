@@ -21,7 +21,7 @@ const props: Post = {
         username: 'Bob',
         profileImage: 'profilePic'
     },
-    comments: []
+    //comments: []
 }
 
 const noProfilePic: Post = {
@@ -38,7 +38,7 @@ const noProfilePic: Post = {
         username: 'Bob',
         profileImage: null
     },
-    comments: []
+    //replies: []
 }
 
 describe('elements display correctly', () => {

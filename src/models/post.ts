@@ -10,5 +10,5 @@ export default interface Post {
         imageId: string
     },
     user: User,
-    comments: Comment[]
+    //replies: Reply[]
 }

@@ -9,7 +9,7 @@ interface postProp {
 
 /**
  * This component displays the individual post content
- * @param: post - the post consist of the user, post image and description, and comments
+ * @param: post - the post consist of the user, post image and description, and replies
  */
 function PostComponent(props: postProp) {
 
@@ -25,15 +25,15 @@ function PostComponent(props: postProp) {
             <img className="postImage" src={post.post.imageId} />
             <div className="postStats">
                 <p className="postLikes">{post.post.likes} likes</p>
-                {/* <p className="numComments"></p> */}
+                {/* <p className="numRepliess"></p> */}
             </div>
             <div className="descriptionCard">
                 <p className="descriptionUser">{post.post.username} <span className="postDesc">{post.post.description}</span></p>
                 {/* <span className="descriptionUser">{post.post.username}</span>
                 <span className="postDesc">{post.post.description}</span> */}
             </div>
-            {/* TO DO: will have to map comments some way */}
-            {/* <p className="postComments">{post.comments}</p> */}
+            {/* TO DO: will have to map replies some way */}
+            {/* <p className="postResplies">{post.replies}</p> */}
         </div>
     );
 }
