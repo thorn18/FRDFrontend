@@ -5,9 +5,7 @@ import App from './App';
 import Navbar from '../src/component/Navbar/Navbar'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Navbar/>
-  </React.StrictMode>,
+    <App/>,
   document.getElementById('root')
 );
 

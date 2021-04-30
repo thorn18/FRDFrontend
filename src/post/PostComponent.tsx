@@ -14,6 +14,7 @@ interface postProp {
 function PostComponent(props: postProp){
 
     const { post } = props;
+    console.log(props)
 
     return(
         <div className="postCard">
