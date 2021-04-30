@@ -70,7 +70,7 @@ pipeline {
             steps {
                 sh 'docker push enablementprojects/photon-ui'
             }
-            }
+ 	    }
 
         stage("deploy-image") {
             when {
@@ -81,7 +81,7 @@ pipeline {
             steps {
                 sh 'kubectl rollout restart deployment/photon-ui --namespace=photon'
             }
-        }
+         }
     }
 
     post {
