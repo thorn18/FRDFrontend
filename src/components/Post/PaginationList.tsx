@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Post from '../../models/post';
 import FlatList from 'flatlist-react';
 import PostComponent from './PostComponent';
+import fetch from 'node-fetch';
+import './PaginationList.css'
 
 interface listState {
     hasMoreItems: boolean,
@@ -54,8 +56,7 @@ const PaginationList = () => {
         height: 500
     };
     return (
-        <div className='listContainer' style={{ height:500,margin:50,justifyContent:'center',justifyItems:'center' ,justifySelf:'center',overflow:'scroll' }} >
-           
+        <div className='listContainer' id = 'postContainer'>
                 <FlatList
                     list={state.postsData}
                     renderItem={(item: any) => <PostComponent key={item.post.id} data-testid="post-test" post={item} />}
