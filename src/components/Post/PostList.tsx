@@ -5,7 +5,6 @@ import Post from '../../models/post'
 import initialPostsState from '../../store/reducer'
 import PostService from '../../services/postService'
 import { AppState } from '../../store/reducer'
-import PaginationList from './paginationList';
 
 
 const PostList = () => {
@@ -30,7 +29,7 @@ const PostList = () => {
 
     return (
         <div id='postListMain' data-testid='postListMain'   >
-           <PaginationList></PaginationList>
+            {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} data-testid="post-test" post={post} />)}
         </div>
     )
 }
