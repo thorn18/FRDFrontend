@@ -18,7 +18,7 @@ class PostService {
             dispatch(gettingPosts()); //action
             return axios.get(`${this.URI}/posts?offset=${offset}&pageSize=${pageSize}&comPageSize=1`) //need to include comment pagesize
             .then(response => {
-                dispatch(gotPostsSuccess(response.data)); //type any as of now
+                dispatch(gotPostsSuccess(response.data.items)); //type any as of now
             }).catch(err => {
                 dispatch(gotPostsFailed(err)); //action
             });
