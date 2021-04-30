@@ -18,10 +18,10 @@ const Navbar = () => {
   }
 
   return (
-    <nav data-testid="navbar" id="navbar">
+    <nav  data-testid="navbar" id="navbar">
       <img className="nav_logo" src={Logo} alt="Nav Logo" />
 
-      <div className="wrapper">
+      <div  className="wrapper">
         <BsSearch className="searchIcon" />
         <input
           type="search"
