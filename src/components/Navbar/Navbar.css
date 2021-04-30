@@ -21,8 +21,19 @@
 }
 
 #navbar .login-menu {
-    border: 2px solid deeppink;
     width: 2em;
+}
+
+.clearBButton {
+    border: none;
+    padding: 0;
+    background-color: white;
+}
+
+.loginButton {
+    position: absolute;
+    top: 30px;
+    right: 20px;
 }
 
 .wrapper {
@@ -31,6 +42,7 @@
 }
 
 .nav_addIcon {
+    align-self: baseline;
     padding-right: 20px;
 }
 .searchIcon {
@@ -49,4 +61,20 @@
     color: gray;
     background-color: #FAFAFA;
     font-weight: 700;
+}
+
+.login-menu {
+    position: relative;
+}
+
+.clearBButton {
+    border: none;
+    padding: 0;
+    background-color: white;
+}
+
+.loginButton {
+    position: absolute;
+    top: 30px;
+    right: 20px;
 }

@@ -23,7 +23,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.gettingPosts:
             return {posts: state.posts, loading: true};
         case postActionTypes.gotPostsSuccess:
-            return {posts: [...state.posts, ...action.payload.items], loading: false};
+            return {posts: [...state.posts, ...action.payload], loading: false};
         case postActionTypes.gotPostsFailed:
             return {posts: state.posts, loading: false, error: action.payload};
         default:
