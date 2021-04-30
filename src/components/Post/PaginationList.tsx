@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Post from '../../models/post';
 import FlatList from 'flatlist-react';
 import PostComponent from './PostComponent';
-import { textSpanContainsTextSpan } from 'typescript';
 
 interface listState {
     hasMoreItems: boolean,
