@@ -1,24 +1,37 @@
-import axios from 'axios';
-import PostService from '../src/post/postService';
-//import { render, rest, setupServer, fireEvent, waitFor, cleanup, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import axios, { AxiosResponse } from 'axios';
+import PostService from '../src/services/postService';
+import { gettingPosts, gotPostsFailed, gotPostsSuccess, postActionTypes } from '../src/store/actions';
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import * as posts from './fivePosts.json'
 
-/*
--testing to see if the axios.get is actually called
--the rest of the test won't work if the axios doesn't
--make sure the data object is returned from the function
-*/
+jest.mock('axios');
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
-//afterEach(cleanup);
+describe('getPosts()', () => {
 
-test.skip('getAllPosts returns a promise with some data in it', async () => {
-    let dataObj;
-    let obj = {data: []};
+  test('should return all posts', async () => {
+    const expectedActions = [
+      { type: postActionTypes.gettingPosts },
+      { type: postActionTypes.gotPostsSuccess, payload: posts.items }
+    ]
+    const store = mockStore({ posts: [] })
 
-    axios.get = jest.fn().mockResolvedValue(obj);
-    await 
+    axios.get.mockResolvedValue({
+      data: posts,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    });
 
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(dataObj).toBe(obj.data);
-    expect(axios.get).toHaveBeenCalledWith("http://35.223.52.208/posts");
+    return store.dispatch(PostService.getAllPosts()).then(() => {
+      expect(axios.get).toHaveBeenCalled();
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  });
 });
+
+
+
