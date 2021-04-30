@@ -57,7 +57,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker build . -t enablementprojects/pixelgram-ui:latest'
+                sh 'docker build . -t enablementprojects/photon-ui:latest'
             }
         }
 
@@ -68,7 +68,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker push enablementprojects/pixelgram-ui'
+                sh 'docker push enablementprojects/photon-ui'
             }
  	    }
 
@@ -79,7 +79,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'kubectl rollout restart deployment/pixelgram-ui --namespace=Team-Photon'
+                sh 'kubectl rollout restart deployment/photon-ui --namespace=photon'
             }
          }
     }

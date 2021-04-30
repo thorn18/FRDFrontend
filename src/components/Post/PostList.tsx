@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PostComponent from './PostComponent'
-import Post from '../models/post'
-import initialPostsState from '../store/reducer'
-import PostService from './postService'
-import { AppState } from '../store/reducer'
-import './postList.css';
+import Post from '../../models/post'
+import initialPostsState from '../../store/reducer'
+import PostService from '../../services/postService'
+import { AppState } from '../../store/reducer'
 
 
 const PostList = () => {
@@ -35,6 +34,3 @@ const PostList = () => {
     )
 }
 export default PostList;
-
-
-
