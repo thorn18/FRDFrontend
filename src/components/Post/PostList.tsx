@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PostComponent from './PostComponent'
-import Post from '../models/post'
-import initialPostsState from '../store/reducer'
-import PostService from './postService'
-import { AppState } from '../store/reducer'
-import './postlist.css';
+import Post from '../../models/post'
+import initialPostsState from '../../store/reducer'
+import PostService from '../../services/postService'
+import { AppState } from '../../store/reducer'
 
 
 const PostList = () => {
@@ -14,11 +13,19 @@ const PostList = () => {
     let [postStateLocal, setPostStateLocal] = useState(post_state);
 
     const dispatch = useDispatch();
-    const getPosts = () => PostService.getAllPosts();
+    const getPosts = () => dispatch(PostService.getAllPosts());
 
     useEffect(() => {
         getPosts();
+        sortStorePosts();
     }, [])
+
+    function sortStorePosts() {
+        let sortedlist = postStateLocal.sort((a, b) => {
+            return a.post.timestamp.getTime() - b.post.timestamp.getTime()
+        });
+        setPostStateLocal(sortedlist);
+    }
 
     return (
         <div id='postListMain' data-testid='postListMain'   >
@@ -27,6 +34,3 @@ const PostList = () => {
     )
 }
 export default PostList;
-
-
-
