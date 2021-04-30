@@ -40,8 +40,8 @@ const Navbar = () => {
             onClick={() => setMenu(!isMenuOpen)}
           >
             <div className="login-menu">
-              {/* <img className="nav_loginIcon" src={loginIcon} alt="Nav Login Icon" /> */}
               <button
+                data-testid="toggle-btn"
                 onClick={setLoginButton}
                 className="clearBButton"
               >
