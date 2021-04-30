@@ -14,7 +14,7 @@ describe('getPosts()', () => {
   test('should return all posts', async () => {
     const expectedActions = [
       { type: postActionTypes.gettingPosts },
-      { type: postActionTypes.gotPostsSuccess, payload: posts }
+      { type: postActionTypes.gotPostsSuccess, payload: posts.items }
     ]
     const store = mockStore({ posts: [] })
 
