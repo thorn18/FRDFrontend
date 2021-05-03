@@ -9,16 +9,17 @@ class PostService {
     }
 
     /**
-     * 
+     * Returns a dispatch(action) function
+     * To use in a component: have a dispatch=useDispatch() hook, then call dispatch(PostService.getAllPosts())
+     * See PaginationList.tsx for an example
      * @returns posts from API
      */
     getAllPosts(pageSize: number = 5, offset: number = 0 ) {
-        console.log("Attempting to get all posts");
         return (dispatch: (arg0: { type: postActionTypes; payload?: any; }) => void) => {
             dispatch(gettingPosts()); //action
             return axios.get(`${this.URI}/posts?offset=${offset}&pageSize=${pageSize}&comPageSize=1`) //need to include comment pagesize
             .then(response => {
-                dispatch(gotPostsSuccess(response.data.items)); //type any as of now
+                dispatch(gotPostsSuccess(response.data)); //type any as of now
             }).catch(err => {
                 dispatch(gotPostsFailed(err)); //action
             });
