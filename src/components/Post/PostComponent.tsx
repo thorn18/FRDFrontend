@@ -22,7 +22,7 @@ function PostComponent(props: postProp) {
                     : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
                 <span className="headerText">{post.user.username}</span>
             </div>
-            <img className="postImage" src={post.post.imageId} />
+            <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId}/>
             <div className="postStats">
                 <p className="postLikes">{post.post.likes} likes</p>
                 {/* <p className="numRepliess"></p> */}
