@@ -28,7 +28,7 @@ const PostList = () => {
     }
 
     return (
-        <div id='postListMain' data-testid='postListMain'   >
+        <div id='postListMain' data-testid='postListMain'>
             {postStateLocal.map((post: Post) => <PostComponent key={post.post.id} data-testid="post-test" post={post} />)}
         </div>
     )
