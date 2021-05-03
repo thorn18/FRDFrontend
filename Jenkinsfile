@@ -16,8 +16,13 @@ pipeline {
         KUBECONFIG = '/root/.kube/kubeconfig.yaml'
         CI = 'true'
     }
-    
+
     stages  {
+        stage('Set Repository') {
+            steps {
+                sh 'npm config set registry https://registry.npmjs.org/'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'npm build'
