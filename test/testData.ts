@@ -14,7 +14,7 @@ export const post0: Post = {
         username: 'Bob',
         profileImage: 'profilePic'
     },
-    replies: []
+    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
 }
 
 export const post1: Post = {
@@ -27,7 +27,7 @@ export const post1: Post = {
         imageId: 'img1'
     },
     user: { id: 'userId1', username: 'user1', profileImage: 'prof1' },
-    replies: []
+    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
 }
 
 export const post2: Post = {
@@ -40,7 +40,7 @@ export const post2: Post = {
         imageId: 'img2'
     },
     user: { id: 'userId2', username: 'user2', profileImage: 'prof2' },
-    replies: []
+    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
 }
 
 export const post3: Post = {
@@ -53,7 +53,7 @@ export const post3: Post = {
         imageId: 'img3'
     },
     user: { id: 'userId3', username: 'user3', profileImage: 'prof3' },
-    replies: []
+    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
 }
 
 export const post4: Post = {
@@ -66,7 +66,7 @@ export const post4: Post = {
         imageId: 'img4'
     },
     user: { id: 'userId3', username: 'user4', profileImage: 'prof4' },
-    replies: []
+    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
 }
 
 export const noProfilePic: Post = {
@@ -83,5 +83,5 @@ export const noProfilePic: Post = {
         username: 'user5',
         profileImage: null
     },
-    replies: []
+    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
 }
