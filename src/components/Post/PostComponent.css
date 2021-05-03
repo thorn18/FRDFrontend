@@ -64,8 +64,20 @@
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
 }
+.postMeta {
+    color: lightgrey;
+    font-size: 14px;
+    text-align: left;
+}
+.heartIcon{
+    position: relative;
+    color: black;
+    margin-right: 3px;
+    top: 4px;
+}
 .likesIcon{
-    margin: 0 18px;
+    padding-left: 18px;
+    margin-right: 5px;
     align-self: baseline;
 }
 
