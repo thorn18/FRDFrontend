@@ -3,5 +3,5 @@ export default interface Reply{
     username: string,
     content: string,
     timestamp: Date,
-    postId: string,
+    postId: string
 }

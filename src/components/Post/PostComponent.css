@@ -2,25 +2,27 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     border-style:solid;
-    border-color:rgb(202, 202, 202);
+    border-color:#E6E6E6;
+    background-color: white;
     border-width: 1px;
-    width: 500px;
+    width: 614px;
     height: max-content;
+    margin-bottom: 20px;
 }
 .postHeader{
     height: 45px;
     width: 500px;
     display: flex;
-    padding-bottom: 2px;
+    margin: 5px 10px 5px;
 }
 .pfp{
     width:40px;
+    height:40px;
     margin-left: 5px;
     margin-top:2px;
-    border-radius: 50%;
-    border:solid;
+    border-radius: 100%;
+    
 }
 .headerText{
     padding-left: 10px;
@@ -33,21 +35,26 @@
 
 }
 .postImage{
-    width: 500px;
+    width: 614px;
+
+    /*height: 614px; */
 }
 .postStats{
     height:25px;
     width: 500px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
 }
 .postLikes{
     align-self:flex-start;
     text-align: left;
-    padding-left: 10px;
     font-family: Arial, Helvetica, sans-serif;
-    color:rgb(180, 180, 180)
+    color:rgb(180, 180, 180);
+    margin: 0;
 }
 .descriptionUser{
-    padding-left: 18px;
+    padding-left: 19px;
     text-align: left;
     width: 500px;
     font-weight: bold;
@@ -56,4 +63,29 @@
     width: 500px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
+}
+.postMeta {
+    color: lightgrey;
+    font-size: 14px;
+    text-align: left;
+}
+.heartIcon{
+    position: relative;
+    color: black;
+    margin-right: 3px;
+    top: 4px;
+}
+.likesIcon{
+    padding-left: 18px;
+    margin-right: 5px;
+    align-self: baseline;
+}
+
+.imageDiv{
+    height: 614px;
+    width: 614px;
+    background-color: #efefef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

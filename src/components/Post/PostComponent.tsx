@@ -2,6 +2,7 @@ import React from 'react';
 import Post from '../../models/post';
 import User from '../../models/user';
 import './PostComponent.css';
+import likes from '../../images/Likes.png';
 
 interface postProp {
     post: Post
@@ -22,10 +23,14 @@ function PostComponent(props: postProp) {
                     : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
                 <span className="headerText">{post.user.username}</span>
             </div>
-            <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId}/>
+            <div className="imageDiv">
+                <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId} />
+            </div>
             <div className="postStats">
-                <p className="postLikes">{post.post.likes} likes</p>
-                {/* <p className="numRepliess"></p> */}
+                <img src={likes} className="likesIcon" />
+                <div className="postMeta">
+                    {post.post.likes} likes &nbsp; {post.comments.totalCount} replies
+                </div>
             </div>
             <div className="descriptionCard">
                 <p className="descriptionUser">{post.post.username} <span className="postDesc">{post.post.description}</span></p>

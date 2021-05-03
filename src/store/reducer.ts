@@ -4,7 +4,8 @@ import Post from '../models/post';
 //interfaces to give states types
 export interface PostsState {
     posts: Post[],
-    loading: boolean
+    loading: boolean,
+    hasMoreItems: boolean
 }
 
 export interface AppState {
@@ -14,18 +15,19 @@ export interface AppState {
 //initial states
 export const initialPostsState: PostsState = {
     posts: [],
-    loading: false
+    loading: false,
+    hasMoreItems: true
 }
 
 //reducers
 const postsReducer = (state: PostsState = initialPostsState, action: any) => {
     switch(action.type) {
         case postActionTypes.gettingPosts:
-            return {posts: state.posts, loading: true};
+            return {posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems};
         case postActionTypes.gotPostsSuccess:
-            return {posts: [...state.posts, ...action.payload], loading: false};
+            return {posts: [...state.posts, ...action.payload.items], loading: false, hasMoreItems: action.payload.hasNext};
         case postActionTypes.gotPostsFailed:
-            return {posts: state.posts, loading: false, error: action.payload};
+            return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload};
         default:
             return state;
     }
