@@ -16,7 +16,13 @@ export const post0: Post = {
         username: 'Bob',
         profileImage: 'profilePic'
     },
-    comments: replyList0
+    comments: {
+        "pageSize": 5,
+        "items": [],
+        "offset": 0,
+        "hasNext": false,
+        "totalCount": 0
+      }
 }
 
 export const post1: Post = {
@@ -29,7 +35,13 @@ export const post1: Post = {
         imageId: 'img1'
     },
     user: { id: 'userId1', username: 'user1', profileImage: 'prof1' },
-    comments: replyList0
+    comments: {
+        "pageSize": 5,
+        "items": [],
+        "offset": 0,
+        "hasNext": true,
+        "totalCount": 0
+      }
 }
 
 export const post2: Post = {
