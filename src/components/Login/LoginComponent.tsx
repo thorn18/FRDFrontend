@@ -11,18 +11,18 @@ function LoginComponent(props: userProps) {
 
 
     return (
-        <div className = "loginForm">
-            <img src={pixelgramlogo}></img>
-            <form>
-                <text id = "textTag">Username:</text>
-                <input id = "username" type = "text"></input>
-                <text id  = "passText">Password:</text>
-                <input id = "password" type = "password"></input>
-                <div>
-                    <button className="register-button">Register</button>
-                    <button className="login-button">Login</button>
-                </div>
-            </form>
+        <div id="loginForm">
+            <div className = "loginInnerDiv">
+                <img src={pixelgramlogo} id="pixelImage"></img>
+                <form>
+                    <input className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username"></input>
+                    <input className="inputBox" id="password" type="password" aria-label="Password: " placeholder="Password"></input>
+                    <div id="actionButtonContainer">
+                        <button className="register-button">Register</button>
+                        <button className="login-button">Login</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 

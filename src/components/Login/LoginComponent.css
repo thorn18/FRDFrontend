@@ -1,9 +1,25 @@
+#loginForm {
+    background-color: white;
+    height: 100%;
+    width: 616px;
+    border-radius: 2px;
+    border: 1px solid #E6E6E6;
+    margin: auto;
+    margin-top: 148px;
+}
+
+#pixelImage{
+    margin-top: 64px;
+    margin-left: auto;
+    width: 195px;
+    height: 53px;
+}
+
 .register-button {
     background-color: white; 
-    width: 120px;
+    width: 70px;
     border: none;
     color: black;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -11,12 +27,46 @@
 }
 .login-button {
     background-color: #5197E9; 
-    width: 120px;
+    width: 118px;
+    height: 45px;
     border: none;
     color: white;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    border-radius: 2px;
+}
+.inputBox {
+    background-color: #FAFAFA;
+    width: 524px;
+    height: 57px;
+    border: 1px solid #DBDBDB;
+    border-radius: 3px;
+    padding-left: 10px;
+    font-size:18px;
+    opacity: .6;
+}
+
+#username {
+    margin-top: 98px;
+}
+
+#password {
+    margin-top:43px;
+    margin-bottom: 86px;
+}
+
+#actionButtonContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+#loginForm .loginInnerDiv {
+    width: fit-content;
+    margin-left: 44px;
+    margin-right: 48px;
+    margin-bottom: 97px;
+}
+.register-button {
+    margin-right: 45px;
 }
