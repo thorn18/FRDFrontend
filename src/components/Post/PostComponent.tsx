@@ -28,8 +28,9 @@ function PostComponent(props: postProp) {
             </div>
             <div className="postStats">
                 <img src={likes} className="likesIcon" />
-                <p className="postLikes">{post.post.likes} likes</p>
-                {/* <p className="numRepliess"></p> */}
+                <div className="postMeta">
+                    {post.post.likes} likes &nbsp; {post.comments.totalCount} replies
+                </div>
             </div>
             <div className="descriptionCard">
                 <p className="descriptionUser">{post.post.username} <span className="postDesc">{post.post.description}</span></p>
