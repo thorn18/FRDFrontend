@@ -3,22 +3,22 @@ import { any } from 'prop-types';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { userActionTypes } from '../src/store/actions';
-//import UserService from '../services/UserService';
+import UserService from '../src/services/UserService';
 
 jest.mock('axios');
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
-describe('If user authentication passes()', () => {
+describe('User authentification', () => {
 
-    test('should return a token', async () => {
+    test('If user authentication passes, it should return a token', async () => {
       const expectedActions = [
-        { type: userActionTypes.login}
+        { type: userActionTypes.loginSuccess}
       ]
       const store = mockStore({ token: ''})
   
-      axios.get.mockResolvedValue({
-        data: any,
+      axios.post.mockResolvedValue({
+        data: 'aToken',
         status: 200,
         statusText: 'OK',
         headers: {},
@@ -26,8 +26,29 @@ describe('If user authentication passes()', () => {
       });
   
       return store.dispatch(UserService.login()).then(() => {
-        expect(axios.get).toHaveBeenCalled();
+        expect(axios.post).toHaveBeenCalled();
         expect(store.getActions()).toEqual(expectedActions)
       })
     });
+
+    test('If user authentication fails, it should return an error message', async () => {
+      const expectedActions = [
+        { type: userActionTypes.loginError}
+      ]
+      const store = mockStore({ token: ''})
+  
+      axios.post.mockResolvedValue({
+        data: 'message',
+        status: 401,
+        statusText: 'Unauthorizedd',
+        headers: {},
+        config: {},
+      });
+  
+      return store.dispatch(UserService.login()).then(() => {
+        expect(axios.post).toHaveBeenCalled();
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    });
+
   });

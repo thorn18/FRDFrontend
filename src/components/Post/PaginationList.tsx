@@ -36,8 +36,9 @@ const PaginationList = () => {
         height: 500
     };
     return (
-        <div className='listContainer' id='postContainer'>
+        <div className='listContainer' id='postContainer' data-testid='scrollContainer'>
             <FlatList
+                
                 list={posts}
                 renderItem={(item: Post) => <PostComponent key={item.post.id} data-testid="post-test" post={item} />}
                 renderWhenEmpty={showBlank}
