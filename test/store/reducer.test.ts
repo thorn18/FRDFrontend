@@ -85,4 +85,11 @@ describe('tests of posts reducer', () => {
         expect(postsReducer(testInitialState, { type: postActionTypes.gotRepliesSuccess, payload: newReplies }))
             .toEqual({ posts: newPosts, loading: false, hasMoreItems: true });
     });
+
+    test('That gotRepliesFailed action does not add replies, adds an error, sets loading: false to the state', () => {
+        const testInitialState: PostsState = { posts: [post1, post2], loading: true, hasMoreItems: true };
+        const error = 'error';
+        expect(postsReducer(testInitialState, { type: postActionTypes.gotRepliesFailed, payload: error }))
+            .toEqual({ posts: [post1, post2], loading: false, hasMoreItems: true, error: error });
+    });
 })
