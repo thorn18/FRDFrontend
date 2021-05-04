@@ -1,8 +1,10 @@
 #postContainer {
-    margin-top: 5px;
+    padding-top: 20px;
     margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    /*height is important, do not change or you will break infinite scrolling!*/
+    height: 90vh;
 }

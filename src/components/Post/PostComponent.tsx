@@ -2,6 +2,9 @@ import React from 'react';
 import Post from '../../models/post';
 import User from '../../models/user';
 import './PostComponent.css';
+import likes from '../../images/Likes.png';
+import ReplyComponent from '../Reply/Reply';
+import Reply from '../../models/reply';
 
 interface postProp {
     post: Post
@@ -15,6 +18,20 @@ function PostComponent(props: postProp) {
 
     const { post } = props;
 
+    //DELETE THIS when content with how comments display
+    const dummyComments: Reply[] = [
+        { id: 'id0', username: 'Luke', content: 'cool stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id1', username: 'Leia', content: 'very cool stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id2', username: 'ObiWan', content: 'zen stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id3', username: 'Anakin', content: 'evil stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id4', username: 'R2D2', content: 'beep boop', timestamp: new Date(), postId: post.post.id },
+    ]
+    if (post.comments.items.length < 5) {
+        dummyComments.forEach((item: Reply) => {
+            post.comments.items.push(item);
+        });
+    }
+
     return (
         <div className="postCard">
             <div className="postHeader">
@@ -22,18 +39,25 @@ function PostComponent(props: postProp) {
                     : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
                 <span className="headerText">{post.user.username}</span>
             </div>
-            <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId}/>
+            <div className="imageDiv">
+                <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId} />
+            </div>
             <div className="postStats">
-                <p className="postLikes">{post.post.likes} likes</p>
-                {/* <p className="numRepliess"></p> */}
+                <img src={likes} className="likesIcon" />
+                <div className="postMeta">
+                    {post.post.likes} likes &nbsp; {post.comments.totalCount} replies
+                </div>
             </div>
             <div className="descriptionCard">
                 <p className="descriptionUser">{post.post.username} <span className="postDesc">{post.post.description}</span></p>
                 {/* <span className="descriptionUser">{post.post.username}</span>
                 <span className="postDesc">{post.post.description}</span> */}
             </div>
-            {/* TO DO: will have to map replies some way */}
-            {/* <p className="postResplies">{post.replies}</p> */}
+            <div>
+                {(post.comments.items).map((reply) => {
+                    return <ReplyComponent reply={reply} key={reply.id}/>
+                })}
+            </div>
         </div>
     );
 }
