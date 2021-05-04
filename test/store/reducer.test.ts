@@ -2,6 +2,7 @@ import { postActionTypes } from '../../src/store/actions';
 import postsReducer, { PostsState } from '../../src/store/reducer';
 import Post from '../../src/models/post';
 import { post1, post2, post3, post4 } from '../testData';
+import { reply0, reply1, reply2, reply3, reply4, reply5, reply6, reply7, replyList0, replyList1 } from '../testReplyData';
 
 describe('tests of posts reducer', () => {
 
@@ -22,7 +23,7 @@ describe('tests of posts reducer', () => {
         const initialPosts: Post[] = [];
         const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true };
         const newPosts: Post[] = [post1, post2];
-        expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: {items: newPosts, hasNext: true} }))
+        expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: { items: newPosts, hasNext: true } }))
             .toEqual({ posts: newPosts, loading: false, hasMoreItems: true });
     });
 
@@ -30,7 +31,7 @@ describe('tests of posts reducer', () => {
         const oldPosts: Post[] = [post1, post2];
         const testInitialState: PostsState = { posts: oldPosts, loading: true, hasMoreItems: true };
         const newPosts: Post[] = [post3, post4];
-        expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: {items: newPosts, hasNext: true} }))
+        expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: { items: newPosts, hasNext: true } }))
             .toEqual({ posts: [...oldPosts, ...newPosts], loading: false, hasMoreItems: true });
     });
 
@@ -38,7 +39,7 @@ describe('tests of posts reducer', () => {
         const oldPosts: Post[] = [post1, post2];
         const testInitialState: PostsState = { posts: oldPosts, loading: true, hasMoreItems: true };
         const newPosts: Post[] = [post3, post4];
-        expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: {items: newPosts, hasNext: false} }))
+        expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsSuccess, payload: { items: newPosts, hasNext: false } }))
             .toEqual({ posts: [...oldPosts, ...newPosts], loading: false, hasMoreItems: false });
     });
 
@@ -47,5 +48,41 @@ describe('tests of posts reducer', () => {
         const error = 'error';
         expect(postsReducer(testInitialState, { type: postActionTypes.gotPostsFailed, payload: error }))
             .toEqual({ posts: [], loading: false, hasMoreItems: true, error: error });
+    });
+
+    test('That gettingReplies action adds loading: true to the state', () => {
+        const initialPosts: Post[] = [post1, post2];
+        const testInitialState: PostsState = { posts: initialPosts, loading: false, hasMoreItems: true };
+        expect(postsReducer(testInitialState, { type: postActionTypes.gettingReplies }))
+            .toEqual({ posts: [post1, post2], loading: true, hasMoreItems: true });
+    });
+
+    test('That gotRepliesSuccess action adds comments to A post and sets loading: false to the state', () => {
+        post1.comments = replyList0;
+        const initialPosts: Post[] = [post1, post2];
+        const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true };
+        
+        const newReplies = replyList1;
+        let updatedPost1 = post1;
+        updatedPost1.comments = {
+            pageSize: 5,
+            items: [
+                reply0,
+                reply1,
+                reply7,
+                reply6,
+                reply5,
+                reply4,
+                reply3,
+                reply2
+            ],
+            offset: 5,
+            hasNext: false,
+            totalCount: 8
+        }
+        const newPosts = [updatedPost1, post2];
+
+        expect(postsReducer(testInitialState, { type: postActionTypes.gotRepliesSuccess, payload: newReplies }))
+            .toEqual({ posts: newPosts, loading: false, hasMoreItems: true });
     });
 })

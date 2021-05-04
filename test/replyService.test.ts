@@ -1,13 +1,15 @@
 import axios from 'axios';
+import thunk from 'redux-thunk';
 import ReplyService from '../src/services/replyService';
-// import { postActionTypes } from '../src/store/actions';
-// import configureMockStore from 'redux-mock-store'
-// import thunk from 'redux-thunk'
+import { postActionTypes } from '../src/store/actions';
+import configureMockStore from 'redux-mock-store'
 // import * as posts from './fivePosts.json'
 import * as replies0 from './fiveReplies.json'
 import * as replies1 from './fiveRepliesNext.json'
 
 jest.mock('axios');
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
 afterEach(() => {
     jest.clearAllMocks();

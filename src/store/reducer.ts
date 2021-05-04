@@ -31,13 +31,13 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.gettingReplies:
             return {posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems};
         case postActionTypes.gotRepliesSuccess:
-            //adds comments to a specific post. must use index because of pass by reference.
+            //adds comments to a specific post. must use index because of pass by reference. 
             let postWithNewCommentsIndex = state.posts.findIndex((post) => post.post.id === action.payload.items[0].postId);
             if(state.posts[postWithNewCommentsIndex]) {
                 let allComments = [...state.posts[postWithNewCommentsIndex].comments.items, ...action.payload.items];
                 state.posts[postWithNewCommentsIndex].comments = {...action.payload, comments: allComments};
             }
-            return {posts: [...state.posts], loading: false, hasMoreItems: action.payload.hasNext};
+            return {posts: [...state.posts], loading: false, hasMoreItems: state.hasMoreItems};
         case postActionTypes.gotRepliesFailed:
             return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload};
         default:
