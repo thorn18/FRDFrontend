@@ -17,7 +17,7 @@ class PostService {
     getAllPosts(pageSize: number = 5, offset: number = 0 ) {
         return (dispatch: (arg0: { type: postActionTypes; payload?: any; }) => void) => {
             dispatch(gettingPosts()); //action
-            return axios.get(`${this.URI}/posts?offset=${offset}&pageSize=${pageSize}&comPageSize=1`) //need to include comment pagesize
+            return axios.get(`${this.URI}/posts?offset=${offset}&pageSize=${pageSize}&comPageSize=5`) //need to include comment pagesize
             .then(response => {
                 dispatch(gotPostsSuccess(response.data)); //type any as of now
             }).catch(err => {

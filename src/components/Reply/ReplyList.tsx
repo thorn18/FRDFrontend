@@ -11,11 +11,12 @@ interface replyListProp {
     post: Post
 }
 
+
 function ReplyList(props: replyListProp){
 
     return(
         <div>
-            <button data-testid={'more-com-btn'} disabled={!props.post.comments.hasNext} >View More Comments</button>
+            <button data-testid={'more-com-btn'} disabled={!props.post.comments.hasNext} >View All Comments</button>
         </div>
     )
 }
