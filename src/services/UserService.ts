@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { userActionTypes, loginSuccess, loginError } from '../store/actions';
+import decode from 'jwt-decode';
 
 class UserService {
     private URI: string;
@@ -13,7 +14,9 @@ class UserService {
             return axios.post(`${this.URI}`, { username: usernameTry, password: passwordTry })
                 .then(response => {
                     if (response.status == 200) {
-                        dispatch(loginSuccess(response.data.token)); //retrieve token
+                        let decoded: any = decode(response.data.token);
+                        localStorage.setItem("token", response.data.token);
+                        dispatch(loginSuccess(decoded)); //retrieve token
                     } else {
                         dispatch(loginError(response.data.message));
                     }
