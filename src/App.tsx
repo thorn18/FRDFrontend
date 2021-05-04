@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import LandingPage from './views/LandingPage/LandingPage'
+import LoginComponent from './components/Login/LoginComponent';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <div className="App">
           <Navbar />
           <Switch>
+            <Route exact path="/login" component={LoginComponent} />
             <Route exact path="/" component={LandingPage} />
           </Switch>
         </div>
