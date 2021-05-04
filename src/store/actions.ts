@@ -8,6 +8,7 @@ export enum postActionTypes {
 
 export enum userActionTypes {
     login = "LOGIN_USER",
+    loginSuccess = "LOGIN_SUCCESS",
     logout = "LOGOUT_USER",
     loginError = "LOGIN_ERROR"
 }
@@ -32,9 +33,9 @@ export const gotPostsFailed = (error: String) => {
     }
 }
 
-export const loginUser = (token: string) => {
+export const loginSuccess = (token: string) => {
     return {
-        type: userActionTypes.login,
+        type: userActionTypes.loginSuccess,
         payload: token
     }
 }
