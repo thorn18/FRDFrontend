@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { gettingPosts, gotPostsFailed, gotPostsSuccess, postActionTypes } from '../store/actions';
+import { gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction, postActionTypes } from '../store/actions';
 
 class PostService {
     private URI: string;
@@ -15,7 +15,7 @@ class PostService {
      * @returns posts from API
      */
     getAllPosts(pageSize: number = 5, offset: number = 0 ) {
-        return (dispatch: (arg0: { type: postActionTypes; payload?: any; }) => void) => {
+        return (dispatch: (action: PostAction) => void) => {
             dispatch(gettingPosts()); //action
             return axios.get(`${this.URI}/posts?offset=${offset}&pageSize=${pageSize}&comPageSize=5`) //need to include comment pagesize
             .then(response => {

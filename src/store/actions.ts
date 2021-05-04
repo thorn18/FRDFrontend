@@ -1,6 +1,11 @@
 import Post from '../models/post';
 import Replies from '../models/replies';
 
+export interface PostAction {
+    type: postActionTypes,
+    payload?: String | Post[] | Replies
+}
+
 export enum postActionTypes {
     gettingPosts = "GETTING_POSTS",
     gotPostsSuccess = "GOT_POSTS_SUCCESS",

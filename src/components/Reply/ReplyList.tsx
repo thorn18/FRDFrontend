@@ -5,6 +5,7 @@ import './ReplyList.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/reducer';
 import Post from '../../models/post';
+import replyService from '../../services/replyService';
 //import ReplyService from '../../services/replyService';
 
 interface replyListProp {
@@ -15,11 +16,13 @@ interface replyListProp {
 function ReplyList(props: replyListProp){
 
     const dispatch = useDispatch();
-    
+    const loadMoreReplies = () => {
+        dispatch(replyService.getMoreReplies(props.post.post.id, props.post.comments.items.length));
+    }
 
     return(
         <div>
-            <button data-testid={'more-com-btn'} disabled={!props.post.comments.hasNext} >
+            <button onClick={loadMoreReplies} data-testid={'more-com-btn'} disabled={!props.post.comments.hasNext} >
                 View All Comments
             </button>
         </div>

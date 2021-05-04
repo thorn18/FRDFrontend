@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postActionTypes, gettingReplies, gotRepliesFailed, gotRepliesSuccess } from '../store/actions';
+import { postActionTypes, gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction } from '../store/actions';
 
 class ReplyService {
     private URI: string;
@@ -18,7 +18,7 @@ class ReplyService {
     // }
 
     getMoreReplies(postid: string, offset: number = 0) {
-        return (dispatch: (arg0: { type: postActionTypes; payload?: any; }) => void) => {
+        return (dispatch: (action: PostAction) => void) => {
             dispatch(gettingReplies()); //action
             return axios.get(`${this.URI}${postid}?offset=${offset}&pageSize=5`)
             .then(response => {
