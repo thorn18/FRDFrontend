@@ -36,7 +36,7 @@ function PostComponent(props: postProp) {
     // }
 
     return (
-        <div className="postCard">
+        <div className="postCard" data-testid='post-card'>
             <div className="postHeader">
                 {post.user.profileImage ? <img className="pfp" src={post.user.profileImage} />
                     : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
@@ -48,7 +48,7 @@ function PostComponent(props: postProp) {
             <div className="postStats">
                 <img src={likes} className="likesIcon" />
                 <div className="postMeta">
-                    {post.post.likes} likes &nbsp; {post.comments.totalCount} replies
+                    {post.post.likes} likes &nbsp; {post.comments.totalCount} comments
                 </div>
             </div>
             <div className="descriptionCard">
