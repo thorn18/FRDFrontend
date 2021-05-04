@@ -13,16 +13,18 @@ interface replyListProp {
 }
 
 
-function ReplyList(props: replyListProp){
+function ReplyList(props: replyListProp) {
 
     const dispatch = useDispatch();
     const loadMoreReplies = () => {
         dispatch(replyService.getMoreReplies(props.post.post.id, props.post.comments.items.length));
     }
 
-    return(
+    return (
         <div>
-            <button onClick={loadMoreReplies} data-testid={'more-com-btn'} disabled={!props.post.comments.hasNext} >
+            <button onClick={loadMoreReplies}
+                data-testid={'more-com-btn'}
+                disabled={!props.post.comments.hasNext} >
                 View All Comments
             </button>
         </div>

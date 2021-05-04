@@ -35,7 +35,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
             let postWithNewCommentsIndex = state.posts.findIndex((post) => post.post.id === action.payload.items[0].postId);
             if(state.posts[postWithNewCommentsIndex]) {
                 let allComments = [...state.posts[postWithNewCommentsIndex].comments.items, ...action.payload.items];
-                state.posts[postWithNewCommentsIndex].comments = {...action.payload, comments: allComments};
+                state.posts[postWithNewCommentsIndex].comments = {...action.payload, items: allComments};
             }
             return {posts: [...state.posts], loading: false, hasMoreItems: state.hasMoreItems};
         case postActionTypes.gotRepliesFailed:

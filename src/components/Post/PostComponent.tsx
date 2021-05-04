@@ -19,8 +19,6 @@ function PostComponent(props: postProp) {
 
     const { post } = props;
 
-    // console.log(JSON.stringify(post.comments));
-
     // DELETE THIS when content with how comments display
     // const dummyComments: Reply[] = [
     //     { id: 'id0', username: 'Luke', content: 'cool stuff', timestamp: new Date(), postId: post.post.id },
