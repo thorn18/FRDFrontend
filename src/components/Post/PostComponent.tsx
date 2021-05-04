@@ -3,6 +3,8 @@ import Post from '../../models/post';
 import User from '../../models/user';
 import './PostComponent.css';
 import likes from '../../images/Likes.png';
+import ReplyComponent from '../Reply/Reply';
+import Reply from '../../models/reply';
 
 interface postProp {
     post: Post
@@ -15,6 +17,20 @@ interface postProp {
 function PostComponent(props: postProp) {
 
     const { post } = props;
+
+    //DELETE THIS when content with how comments display
+    const dummyComments: Reply[] = [
+        { id: 'id0', username: 'Luke', content: 'cool stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id1', username: 'Leia', content: 'very cool stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id2', username: 'ObiWan', content: 'zen stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id3', username: 'Anakin', content: 'evil stuff', timestamp: new Date(), postId: post.post.id },
+        { id: 'id4', username: 'R2D2', content: 'beep boop', timestamp: new Date(), postId: post.post.id },
+    ]
+    if (post.comments.items.length < 5) {
+        dummyComments.forEach((item: Reply) => {
+            post.comments.items.push(item);
+        });
+    }
 
     return (
         <div className="postCard">
@@ -37,8 +53,11 @@ function PostComponent(props: postProp) {
                 {/* <span className="descriptionUser">{post.post.username}</span>
                 <span className="postDesc">{post.post.description}</span> */}
             </div>
-            {/* TO DO: will have to map replies some way */}
-            {/* <p className="postResplies">{post.replies}</p> */}
+            <div>
+                {(post.comments.items).map((reply) => {
+                    return <ReplyComponent reply={reply} key={reply.id}/>
+                })}
+            </div>
         </div>
     );
 }
