@@ -1,4 +1,6 @@
 import Post from "../src/models/post";
+import Reply from "../src/models/reply";
+import {replyList0, replyList1} from './testReplyData';
 
 export const post0: Post = {
     post: {
@@ -14,7 +16,13 @@ export const post0: Post = {
         username: 'Bob',
         profileImage: 'profilePic'
     },
-    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
+    comments: {
+        "pageSize": 5,
+        "items": [],
+        "offset": 0,
+        "hasNext": false,
+        "totalCount": 0
+      }
 }
 
 export const post1: Post = {
@@ -27,7 +35,13 @@ export const post1: Post = {
         imageId: 'img1'
     },
     user: { id: 'userId1', username: 'user1', profileImage: 'prof1' },
-    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
+    comments: {
+        "pageSize": 5,
+        "items": [],
+        "offset": 0,
+        "hasNext": true,
+        "totalCount": 0
+      }
 }
 
 export const post2: Post = {
@@ -40,7 +54,7 @@ export const post2: Post = {
         imageId: 'img2'
     },
     user: { id: 'userId2', username: 'user2', profileImage: 'prof2' },
-    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
+    comments: replyList0
 }
 
 export const post3: Post = {
@@ -53,7 +67,7 @@ export const post3: Post = {
         imageId: 'img3'
     },
     user: { id: 'userId3', username: 'user3', profileImage: 'prof3' },
-    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
+    comments: replyList0
 }
 
 export const post4: Post = {
@@ -66,7 +80,7 @@ export const post4: Post = {
         imageId: 'img4'
     },
     user: { id: 'userId3', username: 'user4', profileImage: 'prof4' },
-    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
+    comments: replyList0
 }
 
 export const noProfilePic: Post = {
@@ -83,5 +97,5 @@ export const noProfilePic: Post = {
         username: 'user5',
         profileImage: null
     },
-    comments: {items: [], pageSize: 1, offset: 0, hasNext: false, totalCount: 0}
+    comments: replyList0
 }
