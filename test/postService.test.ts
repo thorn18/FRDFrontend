@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import PostService from '../src/services/postService';
-import { gettingPosts, gotPostsFailed, gotPostsSuccess, postActionTypes } from '../src/store/actions';
+import { postActionTypes } from '../src/store/actions';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as posts from './fivePosts.json'
@@ -14,7 +14,7 @@ describe('getPosts()', () => {
   test('should return all posts', async () => {
     const expectedActions = [
       { type: postActionTypes.gettingPosts },
-      { type: postActionTypes.gotPostsSuccess, payload: posts.items }
+      { type: postActionTypes.gotPostsSuccess, payload: posts }
     ]
     const store = mockStore({ posts: [] })
 
@@ -32,6 +32,3 @@ describe('getPosts()', () => {
     })
   });
 });
-
-
-

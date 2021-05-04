@@ -1,5 +1,5 @@
 import User from './user';
-import Reply from './reply';
+import Replies from './replies';
 
 export default interface Post {
     post: {
@@ -11,5 +11,5 @@ export default interface Post {
         imageId: string
     },
     user: User,
-    replies: Reply[]
+    comments: Replies
 }
