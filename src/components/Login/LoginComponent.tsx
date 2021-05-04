@@ -3,6 +3,8 @@ import User from '../../models/user';
 import pixelgramlogo from '../../pixelgram-logo.png'
 import './LoginComponent.css';
 import { useForm, SubmitHandler } from "react-hook-form";
+import UserService from '../../services/UserService'
+import { useDispatch } from 'react-redux';
 
 type FormValues = {
     username: string;
@@ -12,7 +14,11 @@ type FormValues = {
 function LoginComponent() {
 
     const { register, handleSubmit } = useForm<FormValues>();
+    const dispatch = useDispatch();
+
     const onSubmit: SubmitHandler<FormValues> = formData => {
+        //Axios call goes here.
+        dispatch(UserService.login(formData.username,formData.password));
         // Get value from form input
         console.log(formData);
     }
