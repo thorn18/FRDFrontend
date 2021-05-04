@@ -1,11 +1,11 @@
 import * as actions from '../../src/store/actions';
 import Post from '../../src/models/post';
+import Replies from '../../src/models/replies';
+import { replyList0 } from '../testReplyData';
 
-describe('Tests for Redux actions', () => {
+describe('Tests for Redux actions to do with getting posts', () => {
 
     //actions: getting posts, got posts success, got posts failed
-    //might be it for the current user stories?
-    //in the future, will need add post, add comment, login, etc
 
     test('should create an action with no payload', () => {
         const testAction = {
@@ -24,12 +24,43 @@ describe('Tests for Redux actions', () => {
     });
 
     test('should create an action with the error that it got via axios', () => {
-        const testError = '';
+        const testError = 'oh no!';
         const testAction = {
             type: actions.postActionTypes.gotPostsFailed,
             payload: testError
         }
         expect(actions.gotPostsFailed(testError)).toEqual(testAction);
+    });
+
+});
+
+describe('Tests for Redux actions to do with getting comments', () => {
+
+    //actions: getting replies, got replies success, got replies failed
+
+    test('should create an action with no payload', () => {
+        const testAction = {
+            type: actions.postActionTypes.gettingReplies
+        }
+        expect(actions.gettingReplies()).toEqual(testAction);
+    });
+
+    test('should create an action with the Replies object that it got via axios', () => {
+        const testReplies: Replies = replyList0;
+        const testAction = {
+            type: actions.postActionTypes.gotRepliesSuccess,
+            payload: testReplies
+        }
+        expect(actions.gotRepliesSuccess(testReplies)).toEqual(testAction);
+    });
+
+    test('should create an action with the error that it got via axios', () => {
+        const testError = 'oh no!';
+        const testAction = {
+            type: actions.postActionTypes.gotRepliesFailed,
+            payload: testError
+        }
+        expect(actions.gotRepliesFailed(testError)).toEqual(testAction);
     });
 
 });
