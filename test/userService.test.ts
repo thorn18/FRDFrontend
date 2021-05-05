@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import decode from 'jwt-decode';
 
 import { userActionTypes } from '../src/store/actions';
-import UserService from '../src/services/UserService';
+import UserService from '../src/services/userService';
 
 jest.mock('axios');
 jest.mock('jwt-decode');
