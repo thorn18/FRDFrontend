@@ -1,15 +1,12 @@
 import React from 'react';
-import { render, cleanup, getByTestId, fireEvent, getAllByTestId } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import ReplyList from '../src/components/Reply/ReplyList';
-import Reply from '../src/models/reply';
 import replyService from '../src/services/replyService';
 import { post0, post1 } from './testData'
-import { reply0, reply1, reply2, reply3, reply4, reply5, reply6, reply7, replyList0, replyList1, replyListA, replyListB } from './testReplyData';
-import Replies from '../src/models/replies';
+import {replyListA, replyListB } from './testReplyData';
 import Post from '../src/models/post';
 import PostComponent from '../src/components/Post/PostComponent';
-import ReplyComponent from '../src/components/Reply/Reply';
 import { Provider, useDispatch } from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';

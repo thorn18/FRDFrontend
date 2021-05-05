@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import FlatList from 'flatlist-react';
+import React from 'react';
 import './ReplyList.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/postReducer';
+import { useDispatch } from 'react-redux';
 import Post from '../../models/post';
 import replyService from '../../services/replyService';
 
@@ -10,6 +8,12 @@ interface replyListProp {
     post: Post
 }
 
+/**
+ * This component adds functionality for the view more/all comment buttons which displays the hidden comments.
+ * If there are between 6 and 10 comments remaining, button will display 'View more comments'.
+ * If there are 5 or less comments remaining, button will display 'View all comments'.
+ * @param props - the specific post for which the comments are displayed.
+ */
 
 function ReplyList(props: replyListProp) {
 
