@@ -1,18 +1,12 @@
 import {userActionTypes} from './actions';
 
 export interface UserState {
-    username: string,
     token: string,
     loggedIn: boolean
 }
 
-export interface AppState {
-    userState: UserState
-}
-
 //initial states
 export const initialUserState: UserState = {
-    username: '',
     token: '',
     loggedIn: false
 }
@@ -20,12 +14,10 @@ export const initialUserState: UserState = {
 //reducers
 const userReducer = (state: UserState = initialUserState, action: any) => {
     switch(action.type) {
-        case userActionTypes.login:
-            return {token: state.token}
         case userActionTypes.loginSuccess:
-            return {loggedIn: state.loggedIn} 
+            return {token: action.payload.token, loggedIn: true}
         case userActionTypes.loginError:
-            return {error: action.payload}
+            return {error: action.payload, loggedIn: false}
         default:
             return state;
     }
