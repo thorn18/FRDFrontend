@@ -6,7 +6,7 @@ import { Provider, useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import store from '../src/store/store'
 import decode from 'jwt-decode';
-import UserService from "../src/services/UserService";
+import UserService from "../src/services/userService";
 
 jest.mock('react-hook-form', () => ({
     ...jest.requireActual('react-hook-form'),
