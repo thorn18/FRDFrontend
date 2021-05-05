@@ -1,3 +1,4 @@
+import React from 'react'
 import pixelgramlogo from '../../pixelgram-logo.png'
 import './LoginComponent.css';
 import { useForm, SubmitHandler } from "react-hook-form";
