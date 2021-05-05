@@ -34,35 +34,35 @@ beforeEach(() => {
 
 describe('', () => {
 
-    it('the button appears with View More Comments', () => {
-        const { container, getByTestId } = render(<Provider store={store}><ReplyList post={props} /></Provider>);
-        expect(getByTestId('more-com-btn')).toHaveTextContent('View more comments');
-    })
-
     it('the button is disabled if hasNext is false', () => {
         const { container, getByTestId } = render(<Provider store={store}><ReplyList post={props} /></Provider>);
-        expect(getByTestId('more-com-btn')).toBeDisabled();
+        expect(getByTestId('more-com-btn')).not.toBeVisible();
     })
 
     it('the button is enabled if hasNext is true', () => {
         const { container, getByTestId } = render(<Provider store={store}><ReplyList post={props1} /></Provider>);
-        expect(getByTestId('more-com-btn')).not.toBeDisabled();
+        expect(getByTestId('more-com-btn')).toBeEnabled();
     })
 
-    it('when the view more comments button is clicked, the ReplyService is called', () => {
+    it('when the "View all comments" button is clicked, the ReplyService is called', () => {
         
         (useDispatch as jest.Mock).mockImplementation(() => {
             const dispatch = (x): void => {};
             return dispatch;
         });
             
-        // the post component will render in the first five comments
+        // the post component will render the first five comments
         const { container, getByTestId, getAllByTestId } = render(<Provider store={store}><PostComponent post={props1} /></Provider>);
         replyService.getMoreReplies = jest.fn().mockResolvedValue(replyList1);
+
+        // the correct message will display before the button is pressed
+        expect(getByTestId('more-com-btn')).toHaveTextContent('View all comments')
+
+        // after jest clicks the button, then the mocked service runs
         fireEvent.click(getByTestId('more-com-btn'));
-        //after jest clicks the button, then the mocked service runs
         expect(replyService.getMoreReplies).toHaveBeenCalledTimes(1);
-        }
-    )
+        
+        
+    })
 })
 

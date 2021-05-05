@@ -60,9 +60,6 @@ export const gotRepliesFailed = (error: String) => {
         type: postActionTypes.gotRepliesFailed,
         payload: error
     }
-<<<<<<< HEAD
-}
-=======
 }
 export const loginSuccess = (token: string) => {
     return {
@@ -79,4 +76,3 @@ export const loginError = (error: String) => {
 }
 
 
->>>>>>> c342a0ebb435e39c96e91dad2dea890db85dca0d
