@@ -36,8 +36,8 @@
 }
 .postImage{
     width: 614px;
-
-    /*height: 614px; */
+    object-fit: cover;
+    height: 614px;
 }
 .postStats{
     height:25px;
@@ -58,6 +58,7 @@
     text-align: left;
     width: 500px;
     font-weight: bold;
+    margin: 5px;
 }
 .postDesc{
     width: 500px;

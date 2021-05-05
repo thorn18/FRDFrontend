@@ -4,7 +4,7 @@ import FlatList from 'flatlist-react';
 import PostComponent from './PostComponent';
 import './PaginationList.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/reducer';
+import { AppState } from '../../store/postReducer';
 import PostService from '../../services/postService';
 
 const PaginationList = () => {

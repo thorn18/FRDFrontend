@@ -1,4 +1,4 @@
-import { AppState, initialPostsState } from './reducer';
+import { AppState, initialPostsState } from './postReducer';
 
 const initialState: AppState = {
     postsState: initialPostsState

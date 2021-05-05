@@ -1,5 +1,5 @@
 import { postActionTypes } from '../../src/store/actions';
-import postsReducer, { PostsState } from '../../src/store/reducer';
+import postsReducer, { PostsState } from '../../src/store/postReducer';
 import Post from '../../src/models/post';
 import { post1, post2, post3, post4 } from '../testData';
 import { reply0, reply1, reply2, reply3, reply4, reply5, reply6, reply7, replyList0, replyList1 } from '../testReplyData';

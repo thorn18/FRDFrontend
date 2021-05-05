@@ -3,7 +3,7 @@ import User from '../../models/user';
 import pixelgramlogo from '../../pixelgram-logo.png'
 import './LoginComponent.css';
 import { useForm, SubmitHandler } from "react-hook-form";
-import UserService from '../../services/UserService'
+import UserService from '../../services/userService'
 import { useDispatch } from 'react-redux';
 
 type FormValues = {
