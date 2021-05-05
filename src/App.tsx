@@ -14,11 +14,12 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <div className="App">
-          <Navbar />
+        <Navbar />
           <Switch>
             <Route exact path="/login" component={LoginComponent} />
             <Route exact path="/" component={LandingPage} />
           </Switch>
+
         </div>
       </BrowserRouter>
     </Provider>
