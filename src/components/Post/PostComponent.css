@@ -36,8 +36,8 @@
 }
 .postImage{
     width: 614px;
-
-    /*height: 614px; */
+    object-fit: cover;
+    height: 614px;
 }
 .postStats{
     height:25px;
