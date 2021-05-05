@@ -27,7 +27,7 @@ export const post0: Post = {
 
 export const post1: Post = {
     post: {
-        id: '1',
+        id: '4935a60c-85e0-476b-9999-9cb0fe08764e',
         username: 'user1',
         description: 'post 1',
         timestamp: new Date('Wed Apr 21 2021 00:00:00 GMT-0500 (Central Daylight Time'),

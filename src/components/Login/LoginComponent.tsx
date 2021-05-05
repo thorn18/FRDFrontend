@@ -1,14 +1,21 @@
 import React, { SyntheticEvent, useState } from 'react';
 import User from '../../models/user';
 import pixelgramlogo from '../../pixelgram-logo.png'
-import './LoginComponent.css'
+import './LoginComponent.css';
+import { useForm, SubmitHandler } from "react-hook-form";
+import UserService from '../../services/userService'
+import { useDispatch } from 'react-redux';
 
 export interface Input {
     username: any;
     password: any;
 }
+type FormValues = {
+    username: string;
+    password: string;
+};
 
-function LoginComponent() {
+function LoginComponent(): JSX.Element {
     const [input, setInput] = useState<Input>({ username: '', password: '' })
     const [hasUsername, setUsername] = useState<boolean>(false);
     const [hasPassword, setPassword] = useState<boolean>(false);
@@ -37,6 +44,15 @@ function LoginComponent() {
             setPassword(false);
         }
     }
+    const { register, handleSubmit } = useForm<FormValues>();
+    const dispatch = useDispatch();
+
+    const onSubmit: SubmitHandler<FormValues> = formData => {
+        //Axios call goes here.
+        dispatch(UserService.login(formData.username,formData.password));
+        // Get value from form input
+        console.log(formData);
+    }
 
     const handleBlur = (e: SyntheticEvent) => {
         
@@ -45,11 +61,12 @@ function LoginComponent() {
         <div id="loginForm" data-testid="loginForm">
             <div className="loginInnerDiv">
                 <img src={pixelgramlogo} id="pixelImage"></img>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                         className="inputBox"
                         id="username"
                         data-testid="username"
+                        {...register("username")}
                         onBlur={handleBlur}
                         name="username"
                         type="text"
@@ -62,6 +79,7 @@ function LoginComponent() {
                         className="inputBox"
                         id="password"
                         data-testid="password"
+                        {...register("password")}
                         onBlur={handleBlur}
                         name="password"
                         type="password"
@@ -82,6 +100,5 @@ function LoginComponent() {
             </div>
         </div>
     )
-
 }
 export default LoginComponent;
