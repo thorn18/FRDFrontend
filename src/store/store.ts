@@ -7,7 +7,7 @@ import userReducer from './userReducer';
 //creates the universal store by combining reducers
 const store = createStore(combineReducers({
     postsState: postsReducer,
-    userrState: userReducer
+    userState: userReducer
 }), applyMiddleware(thunk, logger));
 //Logger automatically logs prev state, action, next state
 
