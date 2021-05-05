@@ -26,7 +26,7 @@ function LoginComponent() {
 
     return (
         <div id="loginForm" data-testid = "loginForm">
-            <div className = "loginInnerDiv">
+            {/* <div className = "loginInnerDiv"> */}
                 <img src={pixelgramlogo} id="pixelImage"></img>
                 <form onSubmit={handleSubmit(onSubmit)}> 
                     <input  {...register("username")} className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username"/>
@@ -36,7 +36,7 @@ function LoginComponent() {
                         <input type="submit" className="login-button" data-testid = "loginbutton" value="Login"/>
                     </div>
                 </form>
-            </div>
+            {/* </div> */}
         </div>
     )
 
