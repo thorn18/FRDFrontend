@@ -37,6 +37,10 @@ function LoginComponent() {
             setPassword(false);
         }
     }
+
+    const handleBlur = (e: SyntheticEvent) => {
+        
+    }
     return (
         <div id="loginForm" data-testid="loginForm">
             <div className="loginInnerDiv">
@@ -46,22 +50,26 @@ function LoginComponent() {
                         className="inputBox"
                         id="username"
                         data-testid="username"
+                        onBlur={handleBlur}
                         name="username"
                         type="text"
                         aria-label="Username: "
                         placeholder="Username"
                         value={input.username}
                         onChange={handleInput} />
+                    {hasUsername === false && <p style={{color:'red'}} data-testid="usernameWarning">* Username is required</p>}
                     <input
                         className="inputBox"
                         id="password"
                         data-testid="password"
+                        onBlur={handleBlur}
                         name="password"
                         type="password"
                         aria-label="Password: "
                         placeholder="Password"
                         value={input.password}
                         onChange={handleInput} />
+                        {hasPassword === false && <p style={{color:'red'}} data-testid="passwordWarning">* Password is required</p>}
                     <div id="actionButtonContainer">
                         <button className="register-button" data-testid="registerbutton">Register</button>
                         <button
