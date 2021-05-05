@@ -36,9 +36,6 @@ function LoginComponent() {
         if(newInput.password === ''){
             setPassword(false);
         }
-
-        console.log(hasUsername)
-        console.log({hasPassword})
     }
     return (
         <div id="loginForm" data-testid="loginForm">

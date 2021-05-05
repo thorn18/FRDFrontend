@@ -4,9 +4,12 @@ import LoginComponent, {Input} from  '../src/components/Login/LoginComponent'
 import "@testing-library/jest-dom/extend-expect";
 
 let setInput: (input: Input) => void;
+let setUsername: (hasUsername: boolean) => void;
+let setPassword: (hasPassword: boolean) => void;
 
 
 let input: Input = {username: '', password: ''};
+
 
 jest.mock('react', ()=> ({
     ...jest.requireActual('react'),
@@ -54,8 +57,39 @@ describe('Tests for the Login Component', () => {
     })
 
     it('Login button should be disabled if no input', () => {
+        let hasUsername: boolean = false;
+        let hasPassword: boolean = false;
+        (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         const {getByTestId} = render(<LoginComponent/>);
         expect(getByTestId('loginbutton')).toBeDisabled();
+    })
+
+    it('Login button should be disabled if only username is input', () => {
+        let hasUsername: boolean = true;
+        let hasPassword: boolean = false;
+        (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+        const {getByTestId} = render(<LoginComponent/>);
+        expect(getByTestId('loginbutton')).toBeDisabled();
+    })
+
+    it('Login button should be disabled if only password is input', () => {
+        let hasUsername: boolean = false;
+        let hasPassword: boolean = true;
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+        (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
+        const {getByTestId} = render(<LoginComponent/>);
+        expect(getByTestId('loginbutton')).toBeDisabled();
+    })
+
+    it('Login button should be enabled if username and password both exist', () => {
+        let hasUsername: boolean = true;
+        let hasPassword: boolean = true;
+        (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+        const {getByTestId} = render(<LoginComponent/>);
+        expect(getByTestId('loginbutton')).not.toBeDisabled();
     })
 
 })
