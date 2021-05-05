@@ -1,6 +1,6 @@
 import React from 'react';
 import Reply from '../../models/reply';
-import './Reply.css';
+import '../Post/PostComponent.css';
 
 interface replyProp {
     reply: Reply
@@ -8,9 +8,10 @@ interface replyProp {
 
 export default function ReplyComponent(props: replyProp) {
     return (
-        <div className="reply">
-            <p className="replier" data-testid="commenter">{props.reply.username}</p>
-            <p className="commentcontent" data-testid="comment-content">{props.reply.content}</p>
+        <div className="descriptionCard">
+            <p className="descriptionUser" data-testid="commenter">{`${props.reply.username} `}
+                <span className="postDesc" data-testid="comment-content">{props.reply.content}</span>
+            </p>
         </div>
     )
 }

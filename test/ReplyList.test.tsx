@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, getByTestId, fireEvent, getAllByTestId, act } from '@testing-library/react';
+import { render, cleanup, getByTestId, fireEvent, getAllByTestId } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import ReplyList from '../src/components/Reply/ReplyList';
 import Reply from '../src/models/reply';
@@ -36,7 +36,7 @@ describe('', () => {
 
     it('the button appears with View More Comments', () => {
         const { container, getByTestId } = render(<Provider store={store}><ReplyList post={props} /></Provider>);
-        expect(getByTestId('more-com-btn')).toHaveTextContent('View All Comments');
+        expect(getByTestId('more-com-btn')).toHaveTextContent('View more comments');
     })
 
     it('the button is disabled if hasNext is false', () => {
@@ -64,29 +64,5 @@ describe('', () => {
         expect(replyService.getMoreReplies).toHaveBeenCalledTimes(1);
         }
     )
-    it.skip('the new comments are displayed', () => {
-
-        // act(() => {
-        //     render(<Provider store={store}><PostComponent post={props1}></PostComponent></Provider>)
-        // })
-        // const descendant = getAllByTestId('commenter')
-        // the test has 8 replies
-        // expect(descendant).toHaveLength(8)
-
-        //create fake replies
-        const fakeRepliesList = [
-            reply0,
-            reply1,
-            reply7,
-            reply6,
-            reply5,
-            reply4,
-            reply3,
-            reply2
-        ]
-        const fakeReplyComponents = fakeRepliesList.map((reply) => (<Provider store={store}><ReplyComponent reply={reply} key={reply.id} /></Provider>))
-        //the test will see if it has the same fake replies
-        //expect(descendant).toEqual(fakeRepliesList);
-    })
 })
 

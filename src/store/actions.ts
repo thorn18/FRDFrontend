@@ -15,6 +15,13 @@ export enum postActionTypes {
     gotRepliesFailed = "GOT_REPLIES_FAILED"
 }
 
+export enum userActionTypes {
+    login = "LOGIN_USER",
+    loginSuccess = "LOGIN_SUCCESS",
+    logout = "LOGOUT_USER",
+    loginError = "LOGIN_ERROR"
+}
+
 export const gettingPosts = () => {
     return {
         type: postActionTypes.gettingPosts
@@ -53,4 +60,23 @@ export const gotRepliesFailed = (error: String) => {
         type: postActionTypes.gotRepliesFailed,
         payload: error
     }
+<<<<<<< HEAD
 }
+=======
+}
+export const loginSuccess = (token: string) => {
+    return {
+        type: userActionTypes.loginSuccess,
+        payload: token
+    }
+}
+
+export const loginError = (error: String) => {
+    return {
+        type: userActionTypes.loginError,
+        payload: error
+    }
+}
+
+
+>>>>>>> c342a0ebb435e39c96e91dad2dea890db85dca0d

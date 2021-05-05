@@ -19,20 +19,6 @@ function PostComponent(props: postProp) {
 
     const { post } = props;
 
-    // DELETE THIS when content with how comments display
-    // const dummyComments: Reply[] = [
-    //     { id: 'id0', username: 'Luke', content: 'cool stuff', timestamp: new Date(), postId: post.post.id },
-    //     { id: 'id1', username: 'Leia', content: 'very cool stuff', timestamp: new Date(), postId: post.post.id },
-    //     { id: 'id2', username: 'ObiWan', content: 'zen stuff', timestamp: new Date(), postId: post.post.id },
-    //     { id: 'id3', username: 'Anakin', content: 'evil stuff', timestamp: new Date(), postId: post.post.id },
-    //     { id: 'id4', username: 'R2D2', content: 'beep boop', timestamp: new Date(), postId: post.post.id },
-    // ]
-    // if (post.comments.items.length < 5) {
-    //     dummyComments.forEach((item: Reply) => {
-    //         post.comments.items.push(item);
-    //     });
-    // }
-
     return (
         <div className="postCard" data-testid='post-card'>
             <div className="postHeader">
