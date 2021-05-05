@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FlatList from 'flatlist-react';
 import './ReplyList.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/reducer';
+import { AppState } from '../../store/postReducer';
 import Post from '../../models/post';
 import replyService from '../../services/replyService';
 
