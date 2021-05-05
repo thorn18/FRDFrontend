@@ -1,16 +1,20 @@
 #loginForm {
-    background-color: white;
+    background-color: #fff;
     height: 70%;
     width: 616px;
     border-radius: 2px;
-    border: 1px solid #E6E6E6;
-    margin: auto;
-    margin-top: 5%;
+    border: 1px solid #e6e6e6;
+    margin: 5% auto auto;
+    padding: 10px 10px 20px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 #pixelImage{
-    margin-top: 64px;
-    margin-left: auto;
+    text-align: center;
     width: 195px;
     height: 53px;
 }
@@ -49,25 +53,19 @@
 }
 
 #username {
-    margin-top: 98px;
+    margin: 20px 0;
 }
 
 #password {
-    margin-top:43px;
-    margin-bottom: 86px;
+    margin: 20px 0;
 }
 
 #actionButtonContainer{
     display: flex;
     justify-content: flex-end;
+    margin: 40px 40px 0 0;
 }
-#loginForm .loginInnerDiv {
-    width: fit-content;
-    margin-left: 44px;
-    margin-right: 48px;
-    margin-bottom: 97px;
-    text-align: center;
-}
+
 .register-button {
     margin-right: 45px;
 }
