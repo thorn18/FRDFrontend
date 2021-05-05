@@ -19,8 +19,8 @@ function LoginComponent(): JSX.Element {
     const [input, setInput] = useState<Input>({ username: '', password: '' })
     const [hasUsername, setUsername] = useState<boolean>(false);
     const [hasPassword, setPassword] = useState<boolean>(false);
-    const [userInteracted, setUI] = useState(false);
-    const [passInteracted, setPI] = useState(false);
+    const [userInteracted, setUI] = useState(true);
+    const [passInteracted, setPI] = useState(true);
 
     const handleInput = (e: SyntheticEvent) => {
         let newInput = { ...input };

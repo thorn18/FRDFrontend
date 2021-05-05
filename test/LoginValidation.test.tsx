@@ -48,6 +48,10 @@ beforeEach(() => {
     input = { username: '', password: '' };
 
     setInput = jest.fn();
+    setUsername = jest.fn();
+    setPassword = jest.fn();
+    setUI = jest.fn();
+    setPI = jest.fn();
 
     (useState as jest.Mock).mockImplementation(() => [input, setInput]);
 
@@ -196,18 +200,20 @@ describe('Tests for Login Component validation error message', () => {
     })
 
     it('Error messages if no input and interraction', () => {
-        let hasUsername: boolean = false;
+        /* let hasUsername: boolean = false;
         let hasPassword: boolean = false;
         let userInteracted: boolean = true;
         let passInteracted: boolean = true;
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
-        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
-        //const { getByTestId} = render(<LoginComponent/>);
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]); */
         const {container, getByTestId} = render(<LoginComponent/>);
-        expect(getByTestId('usernameWarning')).toBeVisible();
-        expect(getByTestId('passwordWarning')).toBeVisible();
+        let username = getByTestId('username');
+        const value = 'test';
+        fireEvent.change(username, {target: {value: value}});
+        expect(setUsername).toHaveBeenCalled()
+        expect(setUI).toHaveBeenCalled();
     })
 
     it('Username error message if username has been interracted with and is empty and password has not been interracted', () => {
