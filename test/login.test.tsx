@@ -51,13 +51,13 @@ describe('Tests for the Login Component', () => {
         expect(getByTestId('loginbutton')).toBeVisible();
     });
 
-    it('Test that onSubmit calls a dispatch', () => {
-        (useDispatch as jest.Mock).mockImplementation(() => {
-            const dispatch = (x): void => {};
-            return dispatch;
-        });
+    it('Test that clicking on loginbutton, the form submits', () => {
+        // (useDispatch as jest.Mock).mockImplementation(() => {
+        //     const dispatch = (x): void => {};
+        //     return dispatch;
+        // });
 
-        UserService.login = jest.fn().mockResolvedValue(200);
+        // UserService.login = jest.fn().mockResolvedValue(200);
         const { getByTestId } = render(< LoginComponent/>);
 
         expect(getByTestId('loginbutton')).toBeVisible();
@@ -65,5 +65,30 @@ describe('Tests for the Login Component', () => {
         expect(handleSubmit).toHaveBeenCalledTimes(1);
         // getByTestId('loginbutton').find('click');
         //expect(UserService.login).toHaveBeenCalledTimes(1);
+    });
+
+    it('Test that onSubmit dispatches to UserService', () => {
+        (useDispatch as jest.Mock).mockImplementation(() => {
+            const dispatch = (x): void => {};
+            return dispatch;
+        });
+        UserService.login = jest.fn().mockResolvedValue(200);
+
+        let testFormData = {
+            username: 'testUser',
+            password: 'testPassword'
+        }
+
+        handleSubmit.mockImplementationOnce((x) => {x(testFormData);});
+
+        const { getByTestId } = render(< LoginComponent/>);
+
+        expect(getByTestId('loginbutton')).toBeVisible();
+
+        fireEvent.click(getByTestId('loginbutton'));
+        expect(handleSubmit).toHaveBeenCalledTimes(1);
+        // getByTestId('loginbutton').find('click');
+        expect(UserService.login).toHaveBeenCalledTimes(1);
+        expect(UserService.login).toHaveBeenCalledWith(testFormData.username, testFormData.password);
     });
 })
