@@ -45,12 +45,12 @@ describe('', () => {
     })
 
     it('when the "View more comments" button is clicked, the ReplyService is called', () => {
-        
+
         (useDispatch as jest.Mock).mockImplementation(() => {
-            const dispatch = (x): void => {};
+            const dispatch = (x): void => { };
             return dispatch;
         });
-            
+
         // the post component will render the first five comments
         const { container, getByTestId, getAllByTestId, rerender } = render(<Provider store={store}><PostComponent post={props1} /></Provider>);
         replyService.getMoreReplies = jest.fn().mockResolvedValueOnce(replyListB);
@@ -63,11 +63,10 @@ describe('', () => {
         expect(replyService.getMoreReplies).toHaveBeenCalledTimes(1);
 
         // the correct message will display before the button is pressed, 5 comments left.
-        props1.comments.items=[...replyListA.items, ...replyListB.items]
+        props1.comments.items = [...replyListA.items, ...replyListB.items]
         rerender(<ReplyList post={props1}></ReplyList>)
         expect(getByTestId('more-com-btn')).toHaveTextContent('View all comments')
-        
-        
+
     })
 })
 
