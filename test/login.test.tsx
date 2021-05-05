@@ -38,38 +38,30 @@ describe('Tests for the Login Component', () => {
     beforeEach(() => {
         handleSubmit = jest.fn();
         register = jest.fn();
-        (useForm as jest.Mock).mockImplementation(() => {return {register, handleSubmit}});
+        (useForm as jest.Mock).mockImplementation(() => { return { register, handleSubmit } });
     });
 
 
     it('Test to make sure that Login Form is visible', () => {
-        const { getByTestId } = render(< LoginComponent/>);
+        const { getByTestId } = render(< LoginComponent />);
         expect(getByTestId('loginForm')).toBeVisible();
     });
     it('Test to make sure that Login Button is visible', () => {
-        const { getByTestId } = render(< LoginComponent/>);
+        const { getByTestId } = render(< LoginComponent />);
         expect(getByTestId('loginbutton')).toBeVisible();
     });
 
     it('Test that clicking on loginbutton, the form submits', () => {
-        // (useDispatch as jest.Mock).mockImplementation(() => {
-        //     const dispatch = (x): void => {};
-        //     return dispatch;
-        // });
-
-        // UserService.login = jest.fn().mockResolvedValue(200);
-        const { getByTestId } = render(< LoginComponent/>);
+        const { getByTestId } = render(< LoginComponent />);
 
         expect(getByTestId('loginbutton')).toBeVisible();
         fireEvent.click(getByTestId('loginbutton'));
         expect(handleSubmit).toHaveBeenCalledTimes(1);
-        // getByTestId('loginbutton').find('click');
-        //expect(UserService.login).toHaveBeenCalledTimes(1);
     });
 
     it('Test that onSubmit dispatches to UserService', () => {
         (useDispatch as jest.Mock).mockImplementation(() => {
-            const dispatch = (x): void => {};
+            const dispatch = (x): void => { };
             return dispatch;
         });
         UserService.login = jest.fn().mockResolvedValue(200);
@@ -79,15 +71,14 @@ describe('Tests for the Login Component', () => {
             password: 'testPassword'
         }
 
-        handleSubmit.mockImplementationOnce((x) => {x(testFormData);});
+        handleSubmit.mockImplementationOnce((x) => { x(testFormData); });
 
-        const { getByTestId } = render(< LoginComponent/>);
+        const { getByTestId } = render(< LoginComponent />);
 
         expect(getByTestId('loginbutton')).toBeVisible();
 
         fireEvent.click(getByTestId('loginbutton'));
         expect(handleSubmit).toHaveBeenCalledTimes(1);
-        // getByTestId('loginbutton').find('click');
         expect(UserService.login).toHaveBeenCalledTimes(1);
         expect(UserService.login).toHaveBeenCalledWith(testFormData.username, testFormData.password);
     });
