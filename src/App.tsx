@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom'
+import { Route, Switch, HashRouter, Redirect } from 'react-router-dom'
 import store from './store/store';
 import { Provider } from 'react-redux';
 import './App.css';
@@ -13,9 +13,9 @@ function App() {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <div className="App">
-        <Navbar />
+          <Navbar />
           <Switch>
             <Route exact path="/">
               <Redirect to="/home" />
@@ -24,9 +24,8 @@ function App() {
             <Route exact path="/login" component={LoginComponent} />
             <Route exact path="/home" component={LandingPage} />
           </Switch>
-
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   )
 }
