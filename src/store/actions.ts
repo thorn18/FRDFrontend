@@ -1,4 +1,5 @@
 import Post from '../models/post';
+import User from '../models/user';
 import Replies from '../models/replies';
 
 export interface PostAction {
@@ -75,4 +76,8 @@ export const loginError = (error: String) => {
     }
 }
 
-
+export const logoutUser = () => {
+    return {
+        type: userActionTypes.logout
+    }
+}
