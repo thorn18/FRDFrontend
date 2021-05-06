@@ -7,8 +7,7 @@ import { useForm } from 'react-hook-form';
 import store from '../src/store/store'
 import decode from 'jwt-decode';
 import UserService from "../src/services/userService";
-//import { Router, useHistory } from "react-router-dom";
-import * as reactRouterDom from "react-router-dom";
+import { Router } from "react-router-dom";
 import { createMemoryHistory } from 'history';
 
 jest.mock('react-hook-form', () => ({
@@ -84,9 +83,9 @@ describe('Tests for the Login Component', () => {
         const history = createMemoryHistory();
         const { getByTestId, rerender } = render(
             <Provider store={store}>
-                <reactRouterDom.Router history={history}>
+                <Router history={history}>
                     <LoginComponent />
-                </reactRouterDom.Router>
+                </Router>
             </Provider>
         );
         expect(getByTestId('loginbutton')).toBeVisible();
