@@ -1,10 +1,5 @@
-import { statement } from '@babel/template';
 import {userActionTypes} from '../../src/store/actions';
 import userReducer, {UserState} from '../../src/store/userReducer';
-
-jest.mock('jwt-decode', () => jest.fn());
-
-jest.mock('jwt-decode', () => () => ({exp: 500}));
 
 describe('Tests of user reducer', () => {
     test('Should return initial state', () => {
