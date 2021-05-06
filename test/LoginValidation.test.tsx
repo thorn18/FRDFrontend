@@ -4,16 +4,6 @@ import LoginComponent, {Input} from  '../src/components/Login/LoginComponent'
 import "@testing-library/jest-dom/extend-expect";
 import { useForm } from 'react-hook-form';
 
-let setInput: (input: Input) => void;
-let setUsername: (hasUsername: boolean) => void;
-let setPassword: (hasPassword: boolean) => void;
-let setUI: (userInteracted: boolean) => void;
-let setPI: (passInteracted: boolean) => void;
-
-
-let input: Input = {username: '', password: ''};
-
-
 jest.mock('react', ()=> ({
     ...jest.requireActual('react'),
     useState: jest.fn()
@@ -39,13 +29,30 @@ jest.mock('react-router', () => ({
 
 jest.mock('jwt-decode', () => jest.fn());
 
+let setInput: (input: Input) => void;
+let setUsername: (hasUsername: boolean) => void;
+let setPassword: (hasPassword: boolean) => void;
+let setUI: (userInteracted: boolean) => void;
+let setPI: (passInteracted: boolean) => void;
+
+
+let input: Input = {username: '', password: ''};
+let hasUsername: boolean = false;
+let hasPassword: boolean = false;
+let userInteracted: boolean = false;
+let passInteracted: boolean = false;
+
 afterEach(cleanup);
 
 let handleSubmit = jest.fn();
 let register = jest.fn();
 
 beforeEach(() => {
-    input = { username: '', password: '' };
+    let mockInput = { username: '', password: '' };
+    let mockHasUsername = false;
+    let mockHasPassword = false;
+    let mockUserInteracted = false;
+    let mockPassInteracted = false;
 
     setInput = jest.fn();
     setUsername = jest.fn();
@@ -53,7 +60,25 @@ beforeEach(() => {
     setUI = jest.fn();
     setPI = jest.fn();
 
-    (useState as jest.Mock).mockImplementation(() => [input, setInput]);
+    (useState as jest.Mock).mockImplementation(() => ({
+        input: mockInput,
+        setInput,
+        hasUsername: mockHasUsername,
+        setUsername,
+        hasPassword: mockHasPassword,
+        setPassword,
+        userInteracted: mockUserInteracted,
+        setUI,
+        passInteracted: mockPassInteracted,
+        setPI,
+    }));
+    
+
+    // (useState as jest.Mock).mockImplementation(() => [input, setInput]);
+    // (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
+    // (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+    // (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
+    // (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
 
     handleSubmit = jest.fn();
     register = jest.fn();
@@ -64,15 +89,18 @@ afterEach(cleanup);
 
 describe('Tests for the Login Validation', () => {
     it('Test to make sure that Login Button is visible', () => {
+        (useState as jest.Mock).mockImplementation(() => [input, setInput]);
         const { getByTestId } = render(< LoginComponent/>);
         expect(getByTestId('loginForm')).toBeVisible();
     })
     it('Should call useState with default value', () => {
+        (useState as jest.Mock).mockImplementation(() => [input, setInput]);
         render(<LoginComponent/>);
         expect(useState).toHaveBeenCalledWith(input);
     })
 
     it('Username should change if event fires', () => {
+        (useState as jest.Mock).mockImplementation(() => [input, setInput]);
         const {getByTestId} = render(<LoginComponent/>);
         let username = getByTestId('username');
         const value = 'test'
@@ -82,6 +110,7 @@ describe('Tests for the Login Validation', () => {
     })
 
     it('Password should change if event fires', () => {
+        (useState as jest.Mock).mockImplementation(() => [input, setInput]);
         const {getByTestId} = render(<LoginComponent/>);
         let password = getByTestId('password');
         const value = 'test'
@@ -91,10 +120,6 @@ describe('Tests for the Login Validation', () => {
     })
 
     it('Login button should be disabled if no input', () => {
-        let hasUsername: boolean = false;
-        let hasPassword: boolean = false;
-        let userInteracted: boolean = false;
-        let passInteracted: boolean = false;
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
@@ -105,9 +130,7 @@ describe('Tests for the Login Validation', () => {
 
     it('Login button should be disabled if only username is input', () => {
         let hasUsername: boolean = true;
-        let hasPassword: boolean = false;
         let userInteracted: boolean = true;
-        let passInteracted: boolean = false;
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
@@ -117,11 +140,10 @@ describe('Tests for the Login Validation', () => {
     })
 
     it('Login button should be disabled if only password is input', () => {
-        let hasUsername: boolean = false;
         let hasPassword: boolean = true;
-        let userInteracted: boolean = false;
         let passInteracted: boolean = true;
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+        (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         const {getByTestId} = render(<LoginComponent/>);
