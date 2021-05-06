@@ -15,7 +15,7 @@ export const initialUserState: UserState = {
 const userReducer = (state: UserState = initialUserState, action: any) => {
     switch(action.type) {
         case userActionTypes.loginSuccess:
-            return {token: action.payload.token, loggedIn: true}
+            return {token: state.token, loggedIn: true}
         case userActionTypes.loginError:
             return {error: action.payload, loggedIn: false}
         case userActionTypes.logout:
