@@ -37,7 +37,7 @@ function LoginComponent() {
     return (
         <div id="loginForm" data-testid="loginForm">
             <img src={pixelgramlogo} id="pixelImage"></img>
-            <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => handleKeyDown(e)}>
+            <form onSubmit={handleSubmit(onSubmit)} data-testid="loginFormForm" onKeyDown={(e) => handleKeyDown(e)}>
                 <input  {...register("username")} className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username" />
                 <input {...register("password")} className="inputBox" id="password" type="password" aria-label="Password: " placeholder="Password" />
                 <div id="actionButtonContainer">

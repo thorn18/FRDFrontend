@@ -106,8 +106,8 @@ describe('Tests for the Login Component', () => {
                 </Provider>
             );
             expect(getByTestId('loginbutton')).toBeVisible();
-            const input = getByTestId('loginForm');
-            fireEvent.keyPress(input, { key: "Enter", code: 13, charCode: 13 });
+            const input = getByTestId('loginFormForm');
+            fireEvent.keyDown(input, { key: "Enter", code: 13, charCode: 13 });
             await expect(handleSubmit).toHaveBeenCalledTimes(1);
             expect(UserService.login).toHaveBeenCalledTimes(1);
             expect(UserService.login).toHaveBeenCalledWith(testFormData.username, testFormData.password);
