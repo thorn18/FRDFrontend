@@ -17,7 +17,7 @@ const userReducer = (state: UserState = initialUserState, action: any) => {
         case userActionTypes.loginSuccess:
             return {token: action.payload.token, loggedIn: true}
         case userActionTypes.loginError:
-            return {error: action.payload, loggedIn: false}
+            return {token: state.token, error: action.payload, loggedIn: false}
         case userActionTypes.logout:
             return {token: '', loggedIn: false};
         default:
