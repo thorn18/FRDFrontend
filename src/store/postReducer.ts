@@ -1,5 +1,6 @@
 import { postActionTypes } from './actions';
 import Post from '../models/post';
+import { UserState } from './userReducer';
 
 //interfaces to give states types
 export interface PostsState {
@@ -9,7 +10,8 @@ export interface PostsState {
 }
 
 export interface AppState {
-    postsState: PostsState
+    postsState: PostsState,
+    userState: UserState
 }
 
 //initial states
