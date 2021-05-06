@@ -20,6 +20,7 @@ function App() {
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
+            {/** This component will be used when we create a new post.*/}
             {/* <AuthRoute exact path="..." component={Post} /> */}
             <Route exact path="/login" component={LoginComponent} />
             <Route exact path="/home" component={LandingPage} />
