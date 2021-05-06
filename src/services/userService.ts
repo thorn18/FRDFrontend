@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { userActionTypes, loginSuccess, loginError } from '../store/actions';
 import decode from 'jwt-decode';
+import { useHistory } from 'react-router-dom';
 
 class UserService {
     private URI: string;
@@ -16,7 +17,7 @@ class UserService {
                     if (response.status == 200) {
                         let decoded: any = decode(response.data.token);
                         localStorage.setItem("id_token", response.data.token);  
-                        dispatch(loginSuccess(decoded)); //retrieve token
+                        dispatch(loginSuccess(response.data)); //retrieve token
                     } else {
                         dispatch(loginError(response.data.message));
                     }
