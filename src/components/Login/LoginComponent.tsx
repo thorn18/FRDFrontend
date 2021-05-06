@@ -19,24 +19,22 @@ function LoginComponent() {
 
     const onSubmit: SubmitHandler<FormValues> = formData => {
         //Axios call goes here.
-        dispatch(UserService.login(formData.username,formData.password));
+        dispatch(UserService.login(formData.username, formData.password));
         // Get value from form input
         console.log(formData);
     }
 
     return (
-        <div id="loginForm" data-testid = "loginForm">
-            {/* <div className = "loginInnerDiv"> */}
-                <img src={pixelgramlogo} id="pixelImage"></img>
-                <form onSubmit={handleSubmit(onSubmit)}> 
-                    <input  {...register("username")} className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username"/>
-                    <input {...register("password")} className="inputBox" id="password" type="password" aria-label="Password: " placeholder="Password"/>
-                    <div id="actionButtonContainer">
-                        <button className="register-button" data-testid = "registerbutton">Register</button>
-                        <input type="submit" className="login-button" data-testid = "loginbutton" value="Login"/>
-                    </div>
-                </form>
-            {/* </div> */}
+        <div id="loginForm" data-testid="loginForm">
+            <img src={pixelgramlogo} id="pixelImage"></img>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input  {...register("username")} className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username" />
+                <input {...register("password")} className="inputBox" id="password" type="password" aria-label="Password: " placeholder="Password" />
+                <div id="actionButtonContainer">
+                    <button className="register-button" data-testid="registerbutton">Register</button>
+                    <input type="submit" className="login-button" data-testid="loginbutton" value="Login" />
+                </div>
+            </form>
         </div>
     )
 

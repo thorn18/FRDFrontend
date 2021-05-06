@@ -65,13 +65,7 @@
     justify-content: flex-end;
     margin: 40px 40px 0 0;
 }
-#loginForm .loginInnerDiv {
-    width: fit-content;
-    margin-left: 44px;
-    margin-right: 48px;
-    margin-bottom: 97px;
-    text-align: center;
-}
+
 .register-button {
     margin-right: 45px;
 }
