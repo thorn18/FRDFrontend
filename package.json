@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.13.13",
+    "@testing-library/user-event": "^13.1.8",
     "axios": "^0.21.1",
     "babel": "^6.23.0",
     "cra-template-typescript": "1.1.2",
