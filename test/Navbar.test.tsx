@@ -37,6 +37,16 @@ describe('unathenticated user tests', () => {
     expect(getByTestId('search-bar')).toBeVisible();
   });
 
+  it('recognizes input in search bar', () => {
+    const { getByTestId } = render(<Provider store={store}><Navbar/></Provider>);
+
+    const targetValue = 'A';
+
+    fireEvent.change(getByTestId('search-bar'), { target: { value: 'A' } });
+
+    expect(getByTestId('search-bar').getAttribute("value")).toEqual(targetValue);
+  });
+
   it('renders with menu closed and no post button', () => {
     const { getAllByRole } = render(<Provider store={store}><Navbar /></Provider>);
 
