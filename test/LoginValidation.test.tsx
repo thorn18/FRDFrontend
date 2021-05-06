@@ -1,10 +1,11 @@
-import React, {useState} from "react";
-import { render, fireEvent, cleanup } from "@testing-library/react";
-import LoginComponent, {Input} from  '../src/components/Login/LoginComponent'
+import React, { useState } from "react";
+import { screen, render, fireEvent, cleanup } from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
+import LoginComponent, { Input } from '../src/components/Login/LoginComponent'
 import "@testing-library/jest-dom/extend-expect";
 import { useForm } from 'react-hook-form';
 
-jest.mock('react', ()=> ({
+jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn()
 }))
@@ -36,7 +37,7 @@ let setUI: (userInteracted: boolean) => void;
 let setPI: (passInteracted: boolean) => void;
 
 
-let input: Input = {username: '', password: ''};
+let input: Input = { username: '', password: '' };
 let hasUsername: boolean = false;
 let hasPassword: boolean = false;
 let userInteracted: boolean = false;
@@ -72,13 +73,6 @@ beforeEach(() => {
         passInteracted: mockPassInteracted,
         setPI,
     }));
-    
-
-    // (useState as jest.Mock).mockImplementation(() => [input, setInput]);
-    // (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
-    // (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
-    // (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
-    // (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
 
     handleSubmit = jest.fn();
     register = jest.fn();
@@ -90,33 +84,41 @@ afterEach(cleanup);
 describe('Tests for the Login Validation', () => {
     it('Test to make sure that Login Button is visible', () => {
         (useState as jest.Mock).mockImplementation(() => [input, setInput]);
-        const { getByTestId } = render(< LoginComponent/>);
+        const { getByTestId } = render(< LoginComponent />);
         expect(getByTestId('loginForm')).toBeVisible();
     })
     it('Should call useState with default value', () => {
         (useState as jest.Mock).mockImplementation(() => [input, setInput]);
-        render(<LoginComponent/>);
+        render(<LoginComponent />);
         expect(useState).toHaveBeenCalledWith(input);
     })
 
     it('Username should change if event fires', () => {
         (useState as jest.Mock).mockImplementation(() => [input, setInput]);
-        const {getByTestId} = render(<LoginComponent/>);
+        (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
+        (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
+        (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+        const { getByTestId } = render(<LoginComponent />);
         let username = getByTestId('username');
         const value = 'test'
-        const testInput: Input = {username: value, password: ''}
-        fireEvent.change(username, {target: {value: value}});
-        expect(setInput).toHaveBeenCalledWith(testInput)
+        fireEvent.change(username, { target: { value: value } });
+        expect((username as HTMLInputElement).value).toBe(value);
+        expect(useState).toHaveBeenCalled();
     })
 
     it('Password should change if event fires', () => {
         (useState as jest.Mock).mockImplementation(() => [input, setInput]);
-        const {getByTestId} = render(<LoginComponent/>);
+        (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
+        (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
+        (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+        const { getByTestId } = render(<LoginComponent />);
         let password = getByTestId('password');
         const value = 'test'
-        const testInput: Input = {username: '', password: value}
-        fireEvent.change(password, {target: {value: value}});
-        expect(setInput).toHaveBeenCalledWith(testInput)
+        fireEvent.change(password, { target: { value: value } });
+        expect((password as HTMLInputElement).value).toBe(value)
+        expect(useState).toHaveBeenCalled();
     })
 
     it('Login button should be disabled if no input', () => {
@@ -124,7 +126,7 @@ describe('Tests for the Login Validation', () => {
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
-        const {getByTestId} = render(<LoginComponent/>);
+        const { getByTestId } = render(<LoginComponent />);
         expect(getByTestId('loginbutton')).toBeDisabled();
     })
 
@@ -135,7 +137,7 @@ describe('Tests for the Login Validation', () => {
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
-        const {getByTestId} = render(<LoginComponent/>);
+        const { getByTestId } = render(<LoginComponent />);
         expect(getByTestId('loginbutton')).toBeDisabled();
     })
 
@@ -146,7 +148,7 @@ describe('Tests for the Login Validation', () => {
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
-        const {getByTestId} = render(<LoginComponent/>);
+        const { getByTestId } = render(<LoginComponent />);
         expect(getByTestId('loginbutton')).toBeDisabled();
     })
 
@@ -159,7 +161,7 @@ describe('Tests for the Login Validation', () => {
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
-        const {getByTestId} = render(<LoginComponent/>);
+        const { getByTestId } = render(<LoginComponent />);
         expect(getByTestId('loginbutton')).not.toBeDisabled();
     })
 })
@@ -174,7 +176,7 @@ describe('Tests for Login Component validation error message', () => {
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
-        const {container} = render(<LoginComponent/>);
+        const { container } = render(<LoginComponent />);
         expect(container).not.toHaveTextContent('Username is required');
         expect(container).not.toHaveTextContent('Password is required');
     })
@@ -188,7 +190,7 @@ describe('Tests for Login Component validation error message', () => {
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
-        const {container} = render(<LoginComponent/>);
+        const { container } = render(<LoginComponent />);
         expect(container).not.toHaveTextContent('Username is required');
         expect(container).not.toHaveTextContent('Password is required');
     })
@@ -202,7 +204,7 @@ describe('Tests for Login Component validation error message', () => {
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
-        const {container} = render(<LoginComponent/>);
+        const { container } = render(<LoginComponent />);
         expect(container).not.toHaveTextContent('Username is required');
         expect(container).not.toHaveTextContent('Password is required');
     })
@@ -216,26 +218,44 @@ describe('Tests for Login Component validation error message', () => {
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
-        const {container} = render(<LoginComponent/>);
+        const { container } = render(<LoginComponent />);
         expect(container).not.toHaveTextContent('Username is required');
         expect(container).not.toHaveTextContent('Password is required');
     })
 
     it('Error messages if no input and interraction', () => {
-        /* let hasUsername: boolean = false;
-        let hasPassword: boolean = false;
+        // let hasUsername: boolean = false;
+        // let hasPassword: boolean = false;
         let userInteracted: boolean = true;
         let passInteracted: boolean = true;
+
+        (useState as jest.Mock).mockImplementation(() => [input, setInput]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
-        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]); */
-        const {container, getByTestId} = render(<LoginComponent/>);
-        let username = getByTestId('username');
+        (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
+
+        render(<LoginComponent />);
+        // let username = screen.getByRole('textbox', {name: /username/i});
+        // let password = screen.getByRole('textbox', {name: /password/i});
+
+        // let password = getByTestId('password');
+        // let userWarn = getByTestId('usernameWarning')
+
         const value = 'test';
-        fireEvent.change(username, {target: {value: value}});
-        expect(setUsername).toHaveBeenCalled()
-        expect(setUI).toHaveBeenCalled();
+
+        userEvent.click(screen.getByPlaceholderText('Username'));
+        expect(screen.getByPlaceholderText('Username')).toHaveFocus();
+
+        // userEvent.clear(screen.getByRole('textbox', { name: /Username:/i }));
+        // // userEvent.type(password, value);
+        // // userEvent.clear(password);
+        // expect(screen.getByRole('textbox', { name: /Username:/i })).toHaveValue('');
+        // expect(useState).toHaveBeenCalled();
+        // // expect(userWarn).toBeVisible();
+        // // expect(getByText(/required/)).toBeInTheDocument();
+        // expect(setUsername).toHaveBeenCalled()
+
     })
 
     it('Username error message if username has been interracted with and is empty and password has not been interracted', () => {
@@ -247,7 +267,7 @@ describe('Tests for Login Component validation error message', () => {
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [passInteracted, setPI]);
-        const {container} = render(<LoginComponent/>);
+        const { container } = render(<LoginComponent />);
         expect(container).toHaveTextContent('* Username is required');
         expect(container).not.toHaveTextContent('* Password is required');
     })
@@ -261,7 +281,7 @@ describe('Tests for Login Component validation error message', () => {
         (useState as jest.Mock).mockImplementation(() => [hasPassword, setPassword]);
         (useState as jest.Mock).mockImplementation(() => [hasUsername, setUsername]);
         (useState as jest.Mock).mockImplementation(() => [userInteracted, setUI]);
-        const {container} = render(<LoginComponent/>);
+        const { container } = render(<LoginComponent />);
         expect(container).not.toHaveTextContent('Username is required');
         expect(container).toHaveTextContent('* Password is required');
     })

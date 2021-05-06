@@ -20,8 +20,8 @@ function LoginComponent(): JSX.Element {
     const [input, setInput] = useState<Input>({ username: '', password: '' })
     const [hasUsername, setUsername] = useState<boolean>(false);
     const [hasPassword, setPassword] = useState<boolean>(false);
-    const [userInteracted, setUI] = useState(true);
-    const [passInteracted, setPI] = useState(true);
+    const [userInteracted, setUI] = useState(false);
+    const [passInteracted, setPI] = useState(false);
 
     const handleInput = (e: SyntheticEvent) => {
         let newInput = { ...input };
@@ -47,13 +47,7 @@ function LoginComponent(): JSX.Element {
                 setPI(true);
             }
         }
-
-        if (newInput.username === '' && newInput.password === '') {
-            setUI(true);
-            setPI(true);
-            setUsername(false);
-            setPassword(false);
-        }
+        console.log({newInput})
     }
     const { register, handleSubmit } = useForm<FormValues>();
     const dispatch = useDispatch();
@@ -68,7 +62,7 @@ function LoginComponent(): JSX.Element {
 
     return (
         <div id="loginForm" data-testid="loginForm">
-            <img src={pixelgramlogo} id="pixelImage"></img>
+            <img src={pixelgramlogo} id="pixelImage" alt="pixelgram logo"></img>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     className="inputBox"
