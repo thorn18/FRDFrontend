@@ -6,6 +6,7 @@ import './PaginationList.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/postReducer';
 import PostService from '../../services/postService';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const PaginationList = () => {
 
@@ -15,7 +16,7 @@ const PaginationList = () => {
 
     const dispatch = useDispatch();
     const getPosts = () => {
-        if(!loading) {
+        if (!loading) {
             dispatch(PostService.getAllPosts(5, posts.length));
         }
     }
@@ -24,27 +25,23 @@ const PaginationList = () => {
         getPosts();
     }, []);
 
-    function showBlank() {
-        if (posts.length === 0 && loading) {
-            return <div>Loading list...</div>
-        }
-
-        return <div>No items for this list</div>
-    }
-
-    const divStyle = {
-        height: 500
-    };
     return (
         <div className='listContainer' id='postContainer' data-testid='scrollContainer'>
-            <FlatList
+            <InfiniteScroll
+                dataLength={posts.length}
+                next={getPosts}
+                hasMore={hasMoreItems}
+                loader={<h4>Loading...</h4>}
+                scrollThreshold='100%'
                 
-                list={posts}
-                renderItem={(item: Post) => <PostComponent key={item.post.id} data-testid="post-test" post={item} />}
-                renderWhenEmpty={showBlank}
-                hasMoreItems={hasMoreItems}
-                loadMoreItems={getPosts}
-            />
+            >
+                <div>
+                {posts.map((item) => (
+                    <PostComponent key={item.post.id} data-testid="post-test" post={item} />
+                ))}
+                </div>
+            </InfiniteScroll>
+           
         </div>
     )
 }
