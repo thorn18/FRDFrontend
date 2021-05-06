@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Post from '../../models/post';
-import FlatList from 'flatlist-react';
 import PostComponent from './PostComponent';
 import './PaginationList.css'
 import { useDispatch, useSelector } from 'react-redux';

@@ -16,7 +16,7 @@ class UserService {
                     if (response.status == 200) {
                         let decoded: any = decode(response.data.token);
                         localStorage.setItem("id_token", response.data.token);  
-                        dispatch(loginSuccess(decoded)); //retrieve token
+                        dispatch(loginSuccess(response.data)); //retrieve token
                     } else {
                         dispatch(loginError(response.data.message));
                     }
