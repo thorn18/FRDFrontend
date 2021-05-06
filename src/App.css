@@ -1,5 +1,4 @@
 .App {
   background-color: #FAFAFA;
-  overflow: hidden;
-  height: 100vh;
+  overflow: auto;
 }
