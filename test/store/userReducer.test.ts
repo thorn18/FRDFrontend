@@ -26,6 +26,7 @@ describe('Tests of user reducer', () => {
         const error = 'error';
         expect(userReducer(testInitialUserState, {type: userActionTypes.loginError, payload: error})).toEqual({
             loggedIn: false,
+            token: '',
             error: error
         })
     });
