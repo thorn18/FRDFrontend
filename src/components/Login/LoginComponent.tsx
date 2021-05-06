@@ -15,7 +15,7 @@ type FormValues = {
 
 function LoginComponent() {
 
-    const { register, handleSubmit } = useForm<FormValues>();
+    const { register, handleSubmit, getValues } = useForm<FormValues>();
     const dispatch = useDispatch();
     let history = useHistory();
     let token: string = useSelector((state: AppState) => state.userState.token);
@@ -28,21 +28,26 @@ function LoginComponent() {
             history.push('/home');
         }
     }
-    function handleKeyDown(e: SyntheticEvent) {
-        if (e.type === 'Enter') {
-            history.push('/home')
+    async function handleKeyDown(e: any, formData: FormValues) {
+        console.log(e);
+        console.log(formData);
+        if (e.key == 'Enter' ) {
+            await dispatch(UserService.login(formData.username, formData.password));
+            if (token) {
+                history.push('/home');
+            }
         }
     }
 
     return (
         <div id="loginForm" data-testid="loginForm">
             <img src={pixelgramlogo} id="pixelImage"></img>
-            <form onSubmit={handleSubmit(onSubmit)} data-testid="loginFormForm" onKeyDown={(e) => handleKeyDown(e)}>
+            <form data-testid="loginFormForm" onKeyDown={(e) => handleKeyDown(e, getValues())}>
                 <input  {...register("username")} className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username" />
                 <input {...register("password")} className="inputBox" id="password" type="password" aria-label="Password: " placeholder="Password" />
                 <div id="actionButtonContainer">
                     <button className="register-button" data-testid="registerbutton">Register</button>
-                    <input type="submit" className="login-button" data-testid="loginbutton" value="Login" />
+                    <input type="submit" className="login-button" data-testid="loginbutton" value="Login" onSubmit={handleSubmit(onSubmit)}/>
                 </div>
             </form>
         </div>
