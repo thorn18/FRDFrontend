@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import FlatList from 'flatlist-react';
 import './ReplyList.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/postReducer';
