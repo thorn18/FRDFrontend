@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Post from '../../models/post';
-import FlatList from 'flatlist-react';
 import PostComponent from './PostComponent';
 import './PaginationList.css'
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +23,7 @@ const PaginationList = () => {
     useEffect(() => {
         getPosts();
     }, []);
-
+    
     return (
         <div className='listContainer' id='postContainer' data-testid='scrollContainer'>
             <InfiniteScroll
@@ -33,7 +32,6 @@ const PaginationList = () => {
                 hasMore={hasMoreItems}
                 loader={<h4>Loading...</h4>}
                 scrollThreshold='100%'
-                
             >
                 <div>
                 {posts.map((item) => (
@@ -41,7 +39,6 @@ const PaginationList = () => {
                 ))}
                 </div>
             </InfiniteScroll>
-           
         </div>
     )
 }
