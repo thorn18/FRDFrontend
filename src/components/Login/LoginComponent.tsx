@@ -22,10 +22,8 @@ function LoginComponent() {
 
     const onSubmit: SubmitHandler<FormValues> = async(formData) => {
         //Axios call goes here.
-        console.log(token)
         await dispatch(UserService.login(formData.username, formData.password));
         //If login was successful, redirect to home
-        console.log(`after dispatch token=${token}`);
         if (token) {
             history.push('/home');
         }
