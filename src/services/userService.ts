@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { userActionTypes, loginSuccess, loginError } from '../store/actions';
 import decode from 'jwt-decode';
-import { useHistory } from 'react-router-dom';
 
 class UserService {
     private URI: string;
