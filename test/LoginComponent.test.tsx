@@ -7,7 +7,8 @@ import { useForm } from 'react-hook-form';
 import store from '../src/store/store'
 import decode from 'jwt-decode';
 import UserService from "../src/services/userService";
-import { Router, useHistory } from "react-router-dom";
+//import { Router, useHistory } from "react-router-dom";
+import * as reactRouterDom from "react-router-dom";
 import { createMemoryHistory } from 'history';
 
 jest.mock('react-hook-form', () => ({
@@ -20,6 +21,13 @@ jest.mock('react-redux', () => ({
     useSelector: jest.fn()
 }));
 jest.mock('jwt-decode', () => jest.fn());
+const mockPush = jest.fn();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useHistory: () => ({
+        push: mockPush,
+    }),
+}));
 
 afterEach(cleanup);
 
@@ -53,13 +61,18 @@ describe('Tests for the Login Component', () => {
     });
 
     it('Test that onSubmit dispatches to UserService', async () => {
+
         const dispatch = jest.fn();
-        dispatch.mockImplementation((x): void => { });
+        let token = '';
+        dispatch.mockImplementation((x): void => {
+            token = 'testToken';
+            return;
+        });
         (useDispatch as jest.Mock).mockImplementation(() => {
             return dispatch;
         });
         (useSelector as jest.Mock).mockImplementation((x) => {
-            return 'testToken';
+            return token;
         });
         UserService.login = jest.fn().mockResolvedValue(200);
         let testFormData = {
@@ -69,12 +82,12 @@ describe('Tests for the Login Component', () => {
         // x is onSubmit
         handleSubmit.mockImplementation((x) => { x(testFormData); });
         const history = createMemoryHistory();
-        const { getByTestId } = render(
-          <Provider store={store}>
-            <Router history={history}>
-              <LoginComponent/>
-            </Router>
-          </Provider>
+        const { getByTestId, rerender } = render(
+            <Provider store={store}>
+                <reactRouterDom.Router history={history}>
+                    <LoginComponent />
+                </reactRouterDom.Router>
+            </Provider>
         );
         expect(getByTestId('loginbutton')).toBeVisible();
         fireEvent.click(getByTestId('loginbutton'));
@@ -82,6 +95,7 @@ describe('Tests for the Login Component', () => {
         expect(UserService.login).toHaveBeenCalledTimes(1);
         expect(UserService.login).toHaveBeenCalledWith(testFormData.username, testFormData.password);
         expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(history.location.pathname).toBe('/home');
+        rerender(<LoginComponent />);
+        expect(mockPush).toHaveBeenCalledWith('/home');
     });
 })

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import pixelgramlogo from '../../pixelgram-logo.png'
 import './LoginComponent.css';
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -20,45 +20,32 @@ function LoginComponent() {
     let history = useHistory();
     let token: string = useSelector((state: AppState) => state.userState.token);
 
-    const onSubmit: SubmitHandler<FormValues> = async (formData) => {
+    const onSubmit: SubmitHandler<FormValues> = (formData) => {
         //Axios call goes here.
-        //await dispatch(UserService.login(formData.username, formData.password));
-        await callService(formData, redirectToHome);
-        //If login was successful, redirect to home
-        // console.log(token);
-        // if (token) {
-        //     history.push('/home');
-        // }
+        dispatch(UserService.login(formData.username, formData.password));
     }
 
-    const callService = async (formData: FormValues, callback: Function) => {
-        await dispatch(UserService.login(formData.username, formData.password));
-        callback();
-    }
-
-    const redirectToHome = () => {
-        console.log(token);
+    useEffect(() => {
+        //if token exists, we have already logged in
+        //redirect to home
         if (token) {
+            // console.log(`token: ${token}`);
             history.push('/home');
-        }
-    }
+        } 
+    });
 
     return (
-        <>
-            { token ? history.push('/home') :
-                (<div id="loginForm" data-testid="loginForm">
-                    <img src={pixelgramlogo} id="pixelImage"></img>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <input  {...register("username")} className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username" />
-                        <input {...register("password")} className="inputBox" id="password" type="password" aria-label="Password: " placeholder="Password" />
-                        <div id="actionButtonContainer">
-                            <button className="register-button" data-testid="registerbutton">Register</button>
-                            <input type="submit" className="login-button" data-testid="loginbutton" value="Login" />
-                        </div>
-                    </form>
-                </div>)
-            }
-        </>
+        <div id="loginForm" data-testid="loginForm">
+            <img src={pixelgramlogo} id="pixelImage"></img>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input  {...register("username")} className="inputBox" id="username" type="text" aria-label="Username: " placeholder="Username" />
+                <input {...register("password")} className="inputBox" id="password" type="password" aria-label="Password: " placeholder="Password" />
+                <div id="actionButtonContainer">
+                    <button className="register-button" data-testid="registerbutton">Register</button>
+                    <input type="submit" className="login-button" data-testid="loginbutton" value="Login" />
+                </div>
+            </form>
+        </div>
     )
 
 }
