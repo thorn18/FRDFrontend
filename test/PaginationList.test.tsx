@@ -1,48 +1,64 @@
 import React, { useState } from 'react'
 import { render, cleanup, fireEvent, getByTestId } from '@testing-library/react';
-
 import '@testing-library/jest-dom/extend-expect';
 import App from "../src/App";
 import PaginationList from '../src/components/Post/PaginationList';
-import {Provider} from 'react-redux';
-import store from '../src/store/store';
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
+import userService from '../src/services/userService';
+import { Provider, useDispatch } from 'react-redux';
+import postService from '../src/services/postService';
+import PostComponent from '../src/components/Post/PostComponent';
+import * as posts from './fivePosts.json'
 
-jest.mock('react', ()=>({...jest.requireActual('react'), useState:jest.fn()}));
-jest.mock('../src/services/postService', () => ({getAllPosts: jest.fn()}));
-jest.mock('../src/components/Post/PostComponent', () => () => 'PostComponent');
+jest.mock('../src/components/Post/PostComponent', () => 'PostComponent');
 
 
 afterEach(cleanup);
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares)
+let store;
 
+//mock useDispatch
+jest.mock('react-redux', () => ({
+    ...jest.requireActual('react-redux'),
+    useDispatch: jest.fn()
+}));
+
+beforeEach(() => {
+    store = mockStore({
+        postsState: {
+            posts: [],
+            loading: false,
+            hasMoreItems: true
+        }
+    });
+});
 
 describe("Tests list of posts", () => {
-    it ('expects useState to be called', ()=>{
-        /* (useState as jest.Mock).mockImplementation(()=>Promise.resolve([]));
-        render(<PaginationList/>);
-        expect(useState).toBeCalledTimes(1); */
+    it('expects dispatch to be called on render', () => {
+        (useDispatch as jest.Mock).mockImplementation(() => {
+            const dispatch = (x): void => { };
+            return dispatch;
+        });
+        postService.getAllPosts = jest.fn();
+        
+        render(<Provider store={store}><PaginationList /></Provider>);
+        expect(postService.getAllPosts).toBeCalledTimes(1);
     })
 
-    it('Callback is called when bottom of page is reached', ()=>{
-
-        /* const postService = require('../src/services/postService');
-       
-        
-
-        const {container} = render(<Provider store = {store}> <PaginationList/></Provider>)
-        const scrollContainer = getByTestId(container, "scrollContainer");
-        fireEvent.scroll(scrollContainer, {target:{scrollY:100}});
-        expect(postService.getAllPosts).toHaveBeenCalledTimes(2);
- */
-        
-        /* const mockCallback = jest.fn();
-        const { container } = render(<App />);
-        const scrollBox = getByTestId(container, "scrollBox");
-        useInfiniteScroll(mockCallback);
-        fireEvent.scroll(scrollBox, {target:{scrollY:100}})
-        expect(mockCallback).toHaveBeenCalledTimes(1); */
-
+    it('Callback is called when bottom of page is reached', () => {
+        (useDispatch as jest.Mock).mockImplementation(() => {
+            const dispatch = (x): void => { };
+            return dispatch;
+        });
+        postService.getAllPosts = jest.fn();
+        const getByTestId = render(<Provider store={store}><PaginationList /></Provider>);
+        fireEvent.scroll(window, { target: { scrollY: 100 } });
+        expect(postService.getAllPosts).toBeCalledTimes(2);
     });
 
 
 
 });
+
