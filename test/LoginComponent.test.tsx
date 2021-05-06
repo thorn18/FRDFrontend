@@ -52,36 +52,68 @@ describe('Tests for the Login Component', () => {
         expect(handleSubmit).toHaveBeenCalledTimes(1);
     });
 
-    it('Test that onSubmit dispatches to UserService', async () => {
+    describe('tests for submitting form', () => {
         const dispatch = jest.fn();
-        dispatch.mockImplementation((x): void => { });
-        (useDispatch as jest.Mock).mockImplementation(() => {
-            return dispatch;
-        });
-        (useSelector as jest.Mock).mockImplementation((x) => {
-            return 'testToken';
-        });
-        UserService.login = jest.fn().mockResolvedValue(200);
+
         let testFormData = {
             username: 'testUser',
             password: 'testPassword'
         }
-        // x is onSubmit
-        handleSubmit.mockImplementation((x) => { x(testFormData); });
+
         const history = createMemoryHistory();
-        const { getByTestId } = render(
-          <Provider store={store}>
-            <Router history={history}>
-              <LoginComponent/>
-            </Router>
-          </Provider>
-        );
-        expect(getByTestId('loginbutton')).toBeVisible();
-        fireEvent.click(getByTestId('loginbutton'));
-        await expect(handleSubmit).toHaveBeenCalledTimes(1);
-        expect(UserService.login).toHaveBeenCalledTimes(1);
-        expect(UserService.login).toHaveBeenCalledWith(testFormData.username, testFormData.password);
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(history.location.pathname).toBe('/home');
+
+        beforeEach(() => {
+            dispatch.mockImplementation((x): void => { });
+            (useDispatch as jest.Mock).mockImplementation(() => {
+                return dispatch;
+            });
+            (useSelector as jest.Mock).mockImplementation((x) => {
+                return 'testToken';
+            });
+            UserService.login = jest.fn().mockResolvedValue(200);
+            handleSubmit.mockImplementation((x) => { x(testFormData); });
+        });
+
+        afterEach(() => {
+            jest.clearAllMocks()
+        })
+
+        it('Test that clicking the submit dispatches to UserService', async () => {
+
+            const { getByTestId } = render(
+                <Provider store={store}>
+                    <Router history={history}>
+                        <LoginComponent />
+                    </Router>
+                </Provider>
+            );
+            expect(getByTestId('loginbutton')).toBeVisible();
+            fireEvent.click(getByTestId('loginbutton'));
+            await expect(handleSubmit).toHaveBeenCalledTimes(1);
+            expect(UserService.login).toHaveBeenCalledTimes(1);
+            expect(UserService.login).toHaveBeenCalledWith(testFormData.username, testFormData.password);
+            expect(dispatch).toHaveBeenCalledTimes(1);
+            expect(history.location.pathname).toBe('/home');
+        });
+
+        it('Test that pressing enter dispatches to UserService', async () => {
+
+            const { getByTestId } = render(
+                <Provider store={store}>
+                    <Router history={history}>
+                        <LoginComponent />
+                    </Router>
+                </Provider>
+            );
+            expect(getByTestId('loginbutton')).toBeVisible();
+            const input = getByTestId('loginForm');
+            fireEvent.keyPress(input, { key: "Enter", code: 13, charCode: 13 });
+            await expect(handleSubmit).toHaveBeenCalledTimes(1);
+            expect(UserService.login).toHaveBeenCalledTimes(1);
+            expect(UserService.login).toHaveBeenCalledWith(testFormData.username, testFormData.password);
+            expect(dispatch).toHaveBeenCalledTimes(1);
+            expect(history.location.pathname).toBe('/home');
+        });
     });
-})
+});
+
