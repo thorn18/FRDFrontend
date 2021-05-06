@@ -90,3 +90,46 @@ export const replyList1 = {
     "hasNext": false,
     "totalCount": 8
 }
+
+export const replyListA = {
+    "pageSize": 5,
+    "items": [
+        reply0,
+        reply1,
+        reply7,
+        reply6,
+        reply5,
+    ],
+    "offset": 0,
+    "hasNext": true,
+    "totalCount": 15
+}
+
+export const replyListB = {
+    "pageSize": 5,
+    "items": [
+        reply0,
+        reply1,
+        reply7,
+        reply6,
+        reply5,
+    ],
+    "offset": 5,
+    "hasNext": true,
+    "totalCount": 15
+}
+
+export const replyListC = {
+    "pageSize": 5,
+    "items": [
+        reply0,
+        reply1,
+        reply7,
+        reply6,
+        reply5,
+    ],
+    "offset": 10,
+    "hasNext": true,
+    "totalCount": 15
+}
+
