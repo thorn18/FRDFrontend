@@ -10,6 +10,7 @@ export interface Input {
     username: any;
     password: any;
 }
+
 type FormValues = {
     username: string;
     password: string;
@@ -57,6 +58,7 @@ function LoginComponent(): JSX.Element {
     const { register, handleSubmit } = useForm<FormValues>();
     const dispatch = useDispatch();
 
+
     const onSubmit: SubmitHandler<FormValues> = formData => {
         //Axios call goes here.
         dispatch(UserService.login(formData.username, formData.password));
@@ -66,43 +68,41 @@ function LoginComponent(): JSX.Element {
 
     return (
         <div id="loginForm" data-testid="loginForm">
-            <div className="loginInnerDiv">
-                <img src={pixelgramlogo} id="pixelImage"></img>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        className="inputBox"
-                        id="username"
-                        data-testid="username"
-                        {...register("username")}
-                        name="username"
-                        type="text"
-                        aria-label="Username: "
-                        placeholder="Username"
-                        value={input.username}
-                        onChange={handleInput} />
-                    {hasUsername === false && userInteracted && <p style={{ color: 'red' }} data-testid="usernameWarning">* Username is required</p>}
-                    <input
-                        className="inputBox"
-                        id="password"
-                        data-testid="password"
-                        {...register("password")}
-                        name="password"
-                        type="password"
-                        aria-label="Password: "
-                        placeholder="Password"
-                        value={input.password}
-                        onChange={handleInput} />
-                    {hasPassword === false && passInteracted && <p style={{ color: 'red' }} data-testid="passwordWarning">* Password is required</p>}
-                    <div id="actionButtonContainer">
-                        <button className="register-button" data-testid="registerbutton">Register</button>
-                        <button
-                            className="login-button"
-                            disabled={hasUsername && hasPassword && userInteracted && passInteracted ? false : true}
-                            type="submit"
-                            data-testid="loginbutton">Login</button>
-                    </div>
-                </form>
-            </div>
+            <img src={pixelgramlogo} id="pixelImage"></img>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                    className="inputBox"
+                    id="username"
+                    data-testid="username"
+                    {...register("username")}
+                    name="username"
+                    type="text"
+                    aria-label="Username: "
+                    placeholder="Username"
+                    value={input.username}
+                    onChange={handleInput} />
+                {hasUsername === false && userInteracted && <p style={{ color: 'red' }} data-testid="usernameWarning">* Username is required</p>}
+                <input
+                    className="inputBox"
+                    id="password"
+                    data-testid="password"
+                    {...register("password")}
+                    name="password"
+                    type="password"
+                    aria-label="Password: "
+                    placeholder="Password"
+                    value={input.password}
+                    onChange={handleInput} />
+                {hasPassword === false && passInteracted && <p style={{ color: 'red' }} data-testid="passwordWarning">* Password is required</p>}
+                <div id="actionButtonContainer">
+                    <button className="register-button" data-testid="registerbutton">Register</button>
+                    <button
+                        className="login-button"
+                        disabled={hasUsername && hasPassword && userInteracted && passInteracted ? false : true}
+                        type="submit"
+                        data-testid="loginbutton">Login</button>
+                </div>
+            </form>
         </div>
     )
 }
