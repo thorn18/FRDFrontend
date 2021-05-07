@@ -1,10 +1,11 @@
-import React, { SyntheticEvent, useState } from 'react';
-import User from '../../models/user';
+import React, { SyntheticEvent, useState, useEffect } from 'react';
 import pixelgramlogo from '../../pixelgram-logo.png'
 import './LoginComponent.css';
 import { useForm, SubmitHandler } from "react-hook-form";
-import UserService from '../../services/userService'
-import { useDispatch } from 'react-redux';
+import UserService from '../../services/userService';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { AppState } from '../../store/postReducer';
 
 export interface Input {
     username: any;
@@ -47,18 +48,25 @@ function LoginComponent(): JSX.Element {
                 setPI(true);
             }
         }
-        console.log({newInput})
     }
     const { register, handleSubmit } = useForm<FormValues>();
     const dispatch = useDispatch();
+    let history = useHistory();
+    let token: string = useSelector((state: AppState) => state.userState.token);
 
-
-    const onSubmit: SubmitHandler<FormValues> = formData => {
+    const onSubmit: SubmitHandler<FormValues> = (formData) => {
         //Axios call goes here.
         dispatch(UserService.login(formData.username, formData.password));
-        // Get value from form input
-        console.log(formData);
     }
+
+    useEffect(() => {
+        //if token exists, we have already logged in
+        //redirect to home
+        if (token) {
+            // console.log(`token: ${token}`);
+            history.push('/home');
+        }
+    });
 
     return (
         <div id="loginForm" data-testid="loginForm">

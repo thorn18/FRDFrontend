@@ -17,7 +17,6 @@ export enum postActionTypes {
 }
 
 export enum userActionTypes {
-    login = "LOGIN_USER",
     loginSuccess = "LOGIN_SUCCESS",
     logout = "LOGOUT_USER",
     loginError = "LOGIN_ERROR"

@@ -18,7 +18,6 @@ interface postProp {
 function PostComponent(props: postProp) {
 
     const { post } = props;
-
     return (
         <div className="postCard" data-testid='post-card'>
             <div className="postHeader">
