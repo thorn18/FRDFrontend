@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import FlatList from 'flatlist-react';
 import './ReplyList.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/reducer';
+import { AppState } from '../../store/postReducer';
 import Post from '../../models/post';
 import replyService from '../../services/replyService';
 
@@ -21,9 +20,9 @@ function ReplyList(props: replyListProp) {
     return (
         <button onClick={loadMoreReplies}
             data-testid={'more-com-btn'}
-            disabled={!props.post.comments.hasNext}
+            hidden={!props.post.comments.hasNext}
             className="viewMoreCommentsBtn" >
-            View more comments
+            {props.post.comments.totalCount - props.post.comments.items.length <= 5 ? 'View all comments' : 'View more comments'}
         </button>
     )
 }

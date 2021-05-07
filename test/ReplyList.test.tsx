@@ -5,7 +5,7 @@ import ReplyList from '../src/components/Reply/ReplyList';
 import Reply from '../src/models/reply';
 import replyService from '../src/services/replyService';
 import { post0, post1 } from './testData'
-import { reply0, reply1, reply2, reply3, reply4, reply5, reply6, reply7, replyList0, replyList1 } from './testReplyData';
+import { reply0, reply1, reply2, reply3, reply4, reply5, reply6, reply7, replyList0, replyList1, replyListA, replyListB } from './testReplyData';
 import Replies from '../src/models/replies';
 import Post from '../src/models/post';
 import PostComponent from '../src/components/Post/PostComponent';
@@ -34,35 +34,39 @@ beforeEach(() => {
 
 describe('', () => {
 
-    it('the button appears with View More Comments', () => {
-        const { container, getByTestId } = render(<Provider store={store}><ReplyList post={props} /></Provider>);
-        expect(getByTestId('more-com-btn')).toHaveTextContent('View more comments');
-    })
-
     it('the button is disabled if hasNext is false', () => {
         const { container, getByTestId } = render(<Provider store={store}><ReplyList post={props} /></Provider>);
-        expect(getByTestId('more-com-btn')).toBeDisabled();
+        expect(getByTestId('more-com-btn')).not.toBeVisible();
     })
 
     it('the button is enabled if hasNext is true', () => {
         const { container, getByTestId } = render(<Provider store={store}><ReplyList post={props1} /></Provider>);
-        expect(getByTestId('more-com-btn')).not.toBeDisabled();
+        expect(getByTestId('more-com-btn')).toBeEnabled();
     })
 
-    it('when the view more comments button is clicked, the ReplyService is called', () => {
-        
+    it('when the "View more comments" button is clicked, the ReplyService is called', () => {
+
         (useDispatch as jest.Mock).mockImplementation(() => {
-            const dispatch = (x): void => {};
+            const dispatch = (x): void => { };
             return dispatch;
         });
-            
-        // the post component will render in the first five comments
-        const { container, getByTestId, getAllByTestId } = render(<Provider store={store}><PostComponent post={props1} /></Provider>);
-        replyService.getMoreReplies = jest.fn().mockResolvedValue(replyList1);
+
+        // the post component will render the first five comments
+        const { container, getByTestId, getAllByTestId, rerender } = render(<Provider store={store}><PostComponent post={props1} /></Provider>);
+        replyService.getMoreReplies = jest.fn().mockResolvedValueOnce(replyListB);
+
+        // the correct message will display before the button is pressed, 10 comments left.
+        expect(getByTestId('more-com-btn')).toHaveTextContent('View more comments')
+
+        // after jest clicks the button, then the mocked service runs
         fireEvent.click(getByTestId('more-com-btn'));
-        //after jest clicks the button, then the mocked service runs
         expect(replyService.getMoreReplies).toHaveBeenCalledTimes(1);
-        }
-    )
+
+        // the correct message will display before the button is pressed, 5 comments left.
+        props1.comments.items = [...replyListA.items, ...replyListB.items]
+        rerender(<ReplyList post={props1}></ReplyList>)
+        expect(getByTestId('more-com-btn')).toHaveTextContent('View all comments')
+
+    })
 })
 

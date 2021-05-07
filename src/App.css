@@ -1,5 +1,4 @@
 .App {
   background-color: #FAFAFA;
-  /* text-align: center; */
-  padding-bottom: 148px;
+  overflow: auto;
 }

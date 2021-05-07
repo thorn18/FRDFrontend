@@ -40,7 +40,7 @@ export const post1: Post = {
         "items": [],
         "offset": 0,
         "hasNext": true,
-        "totalCount": 0
+        "totalCount": 15
       }
 }
 

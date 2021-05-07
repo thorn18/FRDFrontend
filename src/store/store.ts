@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import postsReducer from './reducer';
+import postsReducer from './postReducer';
 import userReducer from './userReducer';
 
 //creates the universal store by combining reducers

@@ -1,4 +1,5 @@
 import Post from '../models/post';
+import User from '../models/user';
 import Replies from '../models/replies';
 
 export interface PostAction {
@@ -16,7 +17,6 @@ export enum postActionTypes {
 }
 
 export enum userActionTypes {
-    login = "LOGIN_USER",
     loginSuccess = "LOGIN_SUCCESS",
     logout = "LOGOUT_USER",
     loginError = "LOGIN_ERROR"
@@ -75,4 +75,8 @@ export const loginError = (error: String) => {
     }
 }
 
-
+export const logoutUser = () => {
+    return {
+        type: userActionTypes.logout
+    }
+}

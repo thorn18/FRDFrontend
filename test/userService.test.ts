@@ -4,24 +4,24 @@ import thunk from 'redux-thunk';
 import decode from 'jwt-decode';
 
 import { userActionTypes } from '../src/store/actions';
-import UserService from '../src/services/UserService';
+import UserService from '../src/services/userService';
 
 jest.mock('axios');
 jest.mock('jwt-decode');
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
-describe('User authentification', () => {
+describe('User authentication', () => {
 
     test('If user authentication passes, it should return a token', async () => {
       const expectedActions = [
-        { payload:'',
+        { payload: {token: 'aToken'},
           type: userActionTypes.loginSuccess}
       ]
       const store = mockStore({ token: ''})
       decode.mockReturnValue('');
       axios.post.mockResolvedValue({
-        data: 'aToken',
+        data: {token: 'aToken'},
         status: 200,
         statusText: 'OK',
         headers: {},
