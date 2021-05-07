@@ -49,8 +49,6 @@ function LoginComponent(): JSX.Element {
                 setPI(true);
             }
         }
-        console.log({newInput});
-        console.log(JSON.stringify(input));
     }
     const { register, handleSubmit } = useForm<FormValues>();
     const dispatch = useDispatch();
@@ -69,13 +67,6 @@ function LoginComponent(): JSX.Element {
             // console.log(`token: ${token}`);
             history.push('/home');
         }
-
-        //temp please remove
-        console.log(`state: ${JSON.stringify(input)}
-        ${hasUsername}
-        ${hasPassword}
-        ${userInteracted}
-        ${passInteracted}`);
     });
 
     return (

@@ -269,7 +269,7 @@ describe('Tests for Login Component validation error message', () => {
 });
 
 describe('Tests for Login Component validation error message using userEvent', () => {
-    it('No error messages if no input and no interaction', () => {
+    it('No error messages if no input and no interaction, error if interaction but no input', () => {
 
         setupWithFunctionality();
         const { getByTestId, container, rerender } = render(<Provider store={store}><LoginComponent /></Provider>);
@@ -288,16 +288,38 @@ describe('Tests for Login Component validation error message using userEvent', (
         userEvent.type(screen.getByTestId('username'), '{backspace}');
         setupWithFunctionality();
         rerender(<Provider store={store}><LoginComponent /></Provider>);
-        // userEvent.type(password, value);
-        // // userEvent.clear(password);
+
         expect(screen.getByTestId('username')).toHaveValue('');
         expect(useState).toHaveBeenCalled();
 
-        //user clicks on password
-        userEvent.click(screen.getByPlaceholderText('Username'));
-        expect(screen.getByPlaceholderText('Username')).toHaveFocus();
+        expect(container).toHaveTextContent('Username is required');
+    });
+
+    it('No error messages if no input and no interaction, error if interaction but no input', () => {
+
+        setupWithFunctionality();
+        const { getByTestId, container, rerender } = render(<Provider store={store}><LoginComponent /></Provider>);
+
+        //user types 't' as a username
+        userEvent.type(screen.getByTestId('password'), 't');
+
         setupWithFunctionality();
         rerender(<Provider store={store}><LoginComponent /></Provider>);
-        expect(container).toHaveTextContent('Username is required');
+
+        expect(((getByTestId('password')) as HTMLInputElement).value).toBe('t');
+        expect(container).not.toHaveTextContent('Username is required');
+        expect(container).not.toHaveTextContent('Password is required');
+
+        //user deletes 't'
+        userEvent.type(screen.getByTestId('password'), '{backspace}');
+        setupWithFunctionality();
+        rerender(<Provider store={store}><LoginComponent /></Provider>);
+
+        expect(screen.getByTestId('password')).toHaveValue('');
+        expect(useState).toHaveBeenCalled();
+
+        setupWithFunctionality();
+        rerender(<Provider store={store}><LoginComponent /></Provider>);
+        expect(container).toHaveTextContent('Password is required');
     });
 });
