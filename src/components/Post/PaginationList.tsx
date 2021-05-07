@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import Post from '../../models/post';
-import FlatList from 'flatlist-react';
 import PostComponent from './PostComponent';
 import './PaginationList.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/postReducer';
+import postsReducer, { AppState } from '../../store/postReducer';
 import PostService from '../../services/postService';
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -22,7 +21,10 @@ const PaginationList = () => {
     }
 
     useEffect(() => {
-        getPosts();
+        if (posts.length == 0) {
+            getPosts();
+        }
+
     }, []);
 
     return (
@@ -33,15 +35,13 @@ const PaginationList = () => {
                 hasMore={hasMoreItems}
                 loader={<h4>Loading...</h4>}
                 scrollThreshold='100%'
-                
             >
                 <div>
-                {posts.map((item) => (
-                    <PostComponent key={item.post.id} data-testid="post-test" post={item} />
-                ))}
+                    {posts.map((item) => (
+                        <PostComponent key={item.post.id} data-testid="post-test" post={item} />
+                    ))}
                 </div>
             </InfiniteScroll>
-           
         </div>
     )
 }

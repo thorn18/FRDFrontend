@@ -8,12 +8,13 @@ import addIcon from "../../images/addIcon.svg";
 import "./Navbar.css";
 import { UserState } from '../../store/userReducer';
 import { logoutUser } from '../../store/actions';
+import { AppState } from "../../store/postReducer";
 
 const Navbar = () => {
   const [isMenuOpen, setMenu] = useState(false);
   const [toggleButton, setToggleButton] = useState(false);
   const [input, setInput] = useState('');
-  const token: string = useSelector((state: any) => state.userState.token);
+  const token: string = useSelector((state: AppState) => state.userState.token);
   const history = useHistory();
   const dispatch = useDispatch();
 
