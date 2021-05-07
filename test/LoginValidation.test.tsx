@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn()
-}))
+}));
 
 jest.mock('react-hook-form', () => ({
     ...jest.requireActual('react-hook-form'),
@@ -269,7 +269,7 @@ describe('Tests for Login Component validation error message', () => {
 });
 
 describe('Tests for Login Component validation error message using userEvent', () => {
-    it('No error messages if no input and no interaction, error if interaction but no input', () => {
+    it('Error messages if username has no input and interaction', () => {
 
         setupWithSetState();
         const { getByTestId, container, rerender } = render(<Provider store={store}><LoginComponent /></Provider>);
@@ -295,7 +295,7 @@ describe('Tests for Login Component validation error message using userEvent', (
         expect(container).toHaveTextContent('Username is required');
     });
 
-    it('No error messages if no input and no interaction, error if interaction but no input', () => {
+    it('Error messages if password has no input and interaction', () => {
 
         setupWithSetState();
         const { getByTestId, container, rerender } = render(<Provider store={store}><LoginComponent /></Provider>);
