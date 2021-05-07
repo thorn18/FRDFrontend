@@ -23,6 +23,11 @@ function LoginComponent(): JSX.Element {
     const [hasPassword, setPassword] = useState<boolean>(false);
     const [userInteracted, setUI] = useState(false);
     const [passInteracted, setPI] = useState(false);
+    const { register, handleSubmit } = useForm<FormValues>();
+    const dispatch = useDispatch();
+    let history = useHistory();
+    let token: string = useSelector((state: AppState) => state.userState.token);
+    let error: string = useSelector((state: AppState) => state.userState.error);
 
     const handleInput = (e: SyntheticEvent) => {
         let newInput = { ...input };
@@ -49,14 +54,9 @@ function LoginComponent(): JSX.Element {
             }
         }
     }
-    const { register, handleSubmit } = useForm<FormValues>();
-    const dispatch = useDispatch();
-    let history = useHistory();
-    let token: string = useSelector((state: AppState) => state.userState.token);
 
-    const onSubmit: SubmitHandler<FormValues> = (formData) => {
-        //Axios call goes here.
-        dispatch(UserService.login(formData.username, formData.password));
+    const onSubmit = () => {
+        dispatch(UserService.login(input.username, input.password));
     }
 
     useEffect(() => {
@@ -72,6 +72,7 @@ function LoginComponent(): JSX.Element {
         <div id="loginForm" data-testid="loginForm">
             <img src={pixelgramlogo} id="pixelImage" alt="pixelgram logo"></img>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="formInput">
                 <input
                     className="inputBox"
                     id="username"
@@ -83,7 +84,7 @@ function LoginComponent(): JSX.Element {
                     placeholder="Username"
                     value={input.username}
                     onChange={handleInput} />
-                {hasUsername === false && userInteracted && <p style={{ color: 'red' }} data-testid="usernameWarning">* Username is required</p>}
+                {hasUsername === false && userInteracted && <p style={{ color: 'red', textAlign: 'left'}} data-testid="usernameWarning">* Username is required</p>}
                 <input
                     className="inputBox"
                     id="password"
@@ -95,7 +96,9 @@ function LoginComponent(): JSX.Element {
                     placeholder="Password"
                     value={input.password}
                     onChange={handleInput} />
-                {hasPassword === false && passInteracted && <p style={{ color: 'red' }} data-testid="passwordWarning">* Password is required</p>}
+                {hasPassword === false && passInteracted && <p style={{ color: 'red', textAlign: 'left'}} data-testid="passwordWarning">* Password is required</p>}
+                {error && <p style={{ color: 'red', textAlign: 'left' }} data-testid="incorrect">* Username or password incorrect</p>}
+                </div>
                 <div id="actionButtonContainer">
                     <button className="register-button" data-testid="registerbutton">Register</button>
                     <button
