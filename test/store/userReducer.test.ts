@@ -1,10 +1,5 @@
-import { statement } from '@babel/template';
 import {userActionTypes} from '../../src/store/actions';
 import userReducer, {UserState} from '../../src/store/userReducer';
-
-jest.mock('jwt-decode', () => jest.fn());
-
-jest.mock('jwt-decode', () => () => ({exp: 500}));
 
 describe('Tests of user reducer', () => {
     test('Should return initial state', () => {
@@ -27,12 +22,21 @@ describe('Tests of user reducer', () => {
     });
    
     test('That the user failed to login', () => {
-        const testInitialState: UserState = {token: '', loggedIn: false};
+        const testInitialUserState: UserState = {token: '', loggedIn: false};
         const error = 'error';
-        expect(userReducer(testInitialState, {type: userActionTypes.loginError, payload: error})).toEqual({
+        expect(userReducer(testInitialUserState, {type: userActionTypes.loginError, payload: error})).toEqual({
             loggedIn: false,
             token: '',
             error: error
         })
     });
+
+    test('That the user successfully logs out', () => {
+        const token = 'aToken';
+        const testInitialUserState: UserState = {token: token, loggedIn: true};
+        expect(userReducer(testInitialUserState, {type: userActionTypes.logout, payload: {token: '', loggedIn: false}})).toEqual({
+            token: '',
+            loggedIn: false
+        })
+    })
 })
