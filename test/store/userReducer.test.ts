@@ -12,31 +12,32 @@ describe('Tests of user reducer', () => {
     });
 
     test('That loginSuccess action sets logged in to true and return a token', () => {
-        const testInitialUserState: UserState = {token: '', loggedIn: false};
+        const testInitialUserState: UserState = {token: '', loggedIn: false, error: undefined};
         const token = 'aToken';
         expect(userReducer(testInitialUserState, {
             type: userActionTypes.loginSuccess,
             payload: {token: token, loggedIn: true}
-
-        })).toEqual({token: token, loggedIn: true})
+            
+        })).toEqual({token: token, loggedIn: true, error: undefined});
     });
    
     test('That the user failed to login', () => {
-        const testInitialUserState: UserState = {token: '', loggedIn: false};
+        const testInitialUserState: UserState = {token: '', loggedIn: false, error: undefined};
         const error = 'error';
         expect(userReducer(testInitialUserState, {type: userActionTypes.loginError, payload: error})).toEqual({
             loggedIn: false,
             token: '',
             error: error
-        })
+        });
     });
 
     test('That the user successfully logs out', () => {
         const token = 'aToken';
-        const testInitialUserState: UserState = {token: token, loggedIn: true};
+        const testInitialUserState: UserState = {token: token, loggedIn: true, error: undefined};
         expect(userReducer(testInitialUserState, {type: userActionTypes.logout, payload: {token: '', loggedIn: false}})).toEqual({
             token: '',
-            loggedIn: false
-        })
-    })
-})
+            loggedIn: false,
+            error: undefined
+        });
+    });
+});
