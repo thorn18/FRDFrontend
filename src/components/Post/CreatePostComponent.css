@@ -1,0 +1,43 @@
+#createPostForm{
+    background-color: #fff;
+    height: 70%;
+    width: 616px;
+    border-radius: 2px;
+    border: 1px solid #e6e6e6;
+    margin: 5% auto auto;
+    padding: 10px 10px 20px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 223px;
+}
+
+#createPostHeader{
+    flex-direction: row;
+    align-items: center;
+}
+
+#verticalLine{
+    width:1;
+    size:500;
+}
+
+.inputBox {
+    background-color: #FAFAFA;
+    width: 524px;
+    height: 57px;
+    border: 1px solid #DBDBDB;
+    border-radius: 3px;
+    padding-left: 10px;
+    font-size:18px;
+    opacity: .6;
+}
+
+#createPostHeader{
+    font-family: Billabong;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 45px;
+}
