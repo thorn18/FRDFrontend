@@ -59,8 +59,7 @@ const Navbar = () => {
 
       <IconContext.Provider value={{ size: "2em" }}>
         <div className="nav-action-items">
-          {(token !== '') ?
-            <>
+          {(token !== '')? <>
               <button
                 onClick={() => history.push('/newpost')}
                 data-tip
@@ -68,8 +67,7 @@ const Navbar = () => {
                 data-testid="post-btn"
                 className="nav_addIcon"><img className="nav_addImg" src={addIcon} /></button>
                 <ReactTooltip id='addPostTip' place='top' effect='solid'>Add a new post</ReactTooltip>
-            </>
-            : null}
+            </> : <button data-testid="placeholder-btn" className="nav_placeholder"></button> }
           <article
             data-testid="login-menu"
             onClick={() => setMenu(!isMenuOpen)}
