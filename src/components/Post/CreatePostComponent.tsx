@@ -1,27 +1,23 @@
 import React, { SyntheticEvent, useState, useEffect } from 'react';
-import pixelgramlogo from '../../pixelgram-logo.png'
+import CreatePostIcon from '../../images/CreatePostIcon.png';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useHistory } from 'react-router-dom';
+import './CreatePostComponent.css'
 
 function CreatePostComponent(): JSX.Element{
     
     return (
         <div className='createPostForm' data-testid='createPostForm'>
-            <div className='createPostHeader'>
-                <img src={pixelgramlogo} id="pixelImage" alt="pixelgram logo"></img>
-                <hr className='verticalLine'></hr>
-                Create Post
-            </div>
-            
-            <form>
+            <img src={CreatePostIcon} id="pixelImage" alt="pixelgram logo"></img>
+            <form >
                 {/* this will inherit from the formInput class in login component */}
                 <div className='formInput'>
-                    file name
-                    post name
+                    <input data-testid='chooseImageButton' type='file' placeholder='Choose Image' className='lightBlueButton'></input>
+                    <input data-testid='postDescriptionInput' type='text' placeholder='Description...'></input>
                 </div>
                 <div className='actionButtonContainer'>
-                    <button className='darkBlueButton'>Cancel</button>
-                    <button></button>
+                    <button className='darkBlueButton' data-testid='cancelButton'>Cancel</button>
+                    <button className='lightBluebutton' data-testid='createPostButton'>Create Post</button>
                 </div>
             </form>
         </div>

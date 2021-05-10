@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar'
 import LandingPage from './views/LandingPage/LandingPage'
 import LoginComponent from './components/Login/LoginComponent';
 import AuthRoute from '../src/components/AuthRoute'
+import CreatePostComponent from './components/Post/CreatePostComponent';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
               <Redirect to="/home" />
             </Route>
             {/** This component will be used when we create a new post.*/}
-            {/* <AuthRoute exact path="/newpost" component={CreatePost} /> */}
+            <Route exact path="/newpost" component={CreatePostComponent} />
             <Route exact path="/login" component={LoginComponent} />
             <Route exact path="/home" component={LandingPage} />
           </Switch>

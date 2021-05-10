@@ -14,14 +14,16 @@
     margin-top: 223px;
 }
 
-.createPostHeader{
-    flex-direction: row;
-    align-items: center;
+#pixelImage{
+    text-align: center;
+    width: 195px;
+    height: 53px;
 }
 
-.verticalLine{
-    width:1;
-    size:500;
+#actionButtonContainer{
+    display: flex;
+    justify-content: flex-end;
+    margin: 40px 40px 0 0;
 }
 
 .inputBox {
