@@ -2,6 +2,7 @@ import * as actions from '../../src/store/actions';
 import Post from '../../src/models/post';
 import Replies from '../../src/models/replies';
 import { replyList0 } from '../testReplyData';
+import { post0 } from '../testData';
 
 describe('Tests for Redux actions to do with getting posts', () => {
 
@@ -92,4 +93,33 @@ describe('Tests for Redux actions to do with logging in and out a user', () => {
         }
         expect(actions.loginError(testError)).toEqual(testAction);
     });
+})
+
+describe('Test for Redux actions for creating a new post', () => {
+
+    test('should create an action of creatingPost there should be no payload', () => {
+        const testAction = {
+            type: actions.postActionTypes.creatingPost,
+        }
+        expect(actions.creatingPost()).toEqual(testAction);
+    });
+
+    test('should create an action of createPostSuccess with post as a payload', () => {
+        const testPost: Post = post0
+        const testAction = {
+            type: actions.postActionTypes.createPostSuccess,
+            payload: post0
+        }
+        expect(actions.createPostSuccess(testPost)).toEqual(testAction);
+    });
+
+    test('should create action for createPostFailed with error as a payload', () => {
+        const testError = 'there is an error!';
+        const testAction = {
+            type: actions.postActionTypes.createPostFailed,
+            payload: testError
+        }
+        expect(actions.createPostFailed(testError)).toEqual(testAction);
+    });
+
 })
