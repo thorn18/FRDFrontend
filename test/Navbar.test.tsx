@@ -166,4 +166,19 @@ describe('authenticated user tests', () => {
 
     expect(mockedDispatch).toHaveBeenCalled();
   });
+
+  it('Navigates to the add post when clicking on add post', () => {
+    const history = createMemoryHistory();
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar/>
+        </Router>
+      </Provider>
+    );
+
+    fireEvent.click(getByTestId('post-btn'));
+
+    expect(history.location.pathname).toBe('/newpost');
+  });
 });
