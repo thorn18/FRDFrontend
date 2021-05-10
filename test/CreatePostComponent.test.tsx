@@ -14,6 +14,11 @@ describe('Tests for Create Post Component', () => {
         expect(getByTestId('createPostForm')).toBeVisible();
     });
 
+    it('Test to make sure that Cancel Button is visible', () => {
+        const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
+        expect(getByTestId('cancelButton')).toBeVisible();
+    });
+
     it('Test to make sure that Create Post Button is visible', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
         expect(getByTestId('createPostButton')).toBeVisible();
@@ -23,13 +28,8 @@ describe('Tests for Create Post Component', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
         expect(getByTestId('postDescriptionInput')).toBeVisible();
     });
-
-    it('Test to make sure that Cancel Button is visible', () => {
-        const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
-        expect(getByTestId('cancelButton')).toBeVisible();
-    });
     
-    it('Test to make sure that Add Image Button is visible', () => {
+    it('Test to make sure that Choose Image Button is visible', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
         expect(getByTestId('chooseImageButton')).toBeVisible();
     });

@@ -16,8 +16,8 @@ function CreatePostComponent(): JSX.Element{
                     <input data-testid='postDescriptionInput' type='text' placeholder='Description...'></input>
                 </div>
                 <div className='actionButtonContainer'>
-                    <button className='darkBlueButton' data-testid='cancelButton'>Cancel</button>
-                    <button className='lightBluebutton' data-testid='createPostButton'>Create Post</button>
+                    <button data-testid='cancelButton' className='darkBlueButton' >Cancel</button>
+                    <button data-testid='createPostButton' className='lightBluebutton' >Create Post</button>
                 </div>
             </form>
         </div>
