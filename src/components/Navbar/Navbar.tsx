@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <nav data-testid="navbar" id="navbar">
-      <img className="nav_logo" data-testid="nav-logo" src={Logo} alt="Nav Logo"/>
+      <img className="nav_logo" data-testid="nav-logo" src={Logo} alt="Nav Logo" />
 
       <div className="wrapper">
         <BsSearch className="searchIcon" />
@@ -57,7 +57,7 @@ const Navbar = () => {
 
       <IconContext.Provider value={{ size: "2em" }}>
         <div className="nav-action-items">
-          {(token !== '')? <button data-testid="post-btn" className="nav_addIcon"><img className="nav_addImg" src={addIcon}/></button> : null}
+          {(token !== '') ? <button data-testid="post-btn" className="nav_addIcon"><img className="nav_addImg" src={addIcon} /></button> : null}
           <article
             data-testid="login-menu"
             onClick={() => setMenu(!isMenuOpen)}
@@ -76,7 +76,7 @@ const Navbar = () => {
                   disabled={isMenuOpen ? false : true}
                   data-testid="login-link"
                   className="logButton"
-                  onClick={() => {loginButton()}}
+                  onClick={() => { loginButton() }}
                 >
                   Login
                   </button>
@@ -87,7 +87,7 @@ const Navbar = () => {
                   disabled={isMenuOpen ? false : true}
                   data-testid="logout-link"
                   className="logButton"
-                  onClick={() => {logoutButton()}}
+                  onClick={() => { logoutButton() }}
                 >
                   Logout
                   </button>

@@ -6,6 +6,8 @@ import likes from '../../images/Likes.png';
 import ReplyComponent from '../Reply/Reply';
 import Reply from '../../models/reply';
 import ReplyList from '../Reply/ReplyList';
+import { IconContext } from 'react-icons';
+import deleteIcon from '../../images/deletePostIcon.png'
 
 interface postProp {
     post: Post
@@ -18,12 +20,38 @@ interface postProp {
 function PostComponent(props: postProp) {
 
     const { post } = props;
+    function deletePost() {
+
+    }
+
     return (
         <div className="postCard" data-testid='post-card'>
             <div className="postHeader">
                 {post.user.profileImage ? <img className="pfp" src={post.user.profileImage} />
                     : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
                 <span className="headerText">{post.user.username}</span>
+                <IconContext.Provider value={{ size: "2em" }}>
+                    <div className="nav-action-items">
+                        {/*Needs changes to conditional render only if post user is the same. */}
+                        {(post.user.username !== '') ? <button data-testid="post-btn" className="nav_addIcon"><img className="nav_addImg" src={deleteIcon} /></button> : null}
+
+                        <div className="delete-menu">
+                            <button
+                                data-testid="toggle-btn"
+                                onClick={deletePost}
+                                className="deleteButton"
+                            >
+                                <button
+                                    data-testid="login-link"
+                                    className="logButton"
+                                    onClick={() => { deletePost() }}
+                                >
+                                    Delete Post
+                                </button>
+                            </button>
+                        </div>
+                    </div>
+                </IconContext.Provider>
             </div>
             <div className="imageDiv">
                 <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId} />
@@ -40,9 +68,9 @@ function PostComponent(props: postProp) {
                 <span className="postDesc">{post.post.description}</span> */}
             </div>
             <div>
-                <ReplyList post={props.post}/>
+                <ReplyList post={props.post} />
                 {(post.comments.items).map((reply) => {
-                    return <ReplyComponent reply={reply} key={reply.id}/>
+                    return <ReplyComponent reply={reply} key={reply.id} />
                 })}
             </div>
         </div>
