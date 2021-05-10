@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactTooltip from "react-tooltip";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { IconContext } from "react-icons";
@@ -14,6 +15,7 @@ const Navbar = () => {
   const [isMenuOpen, setMenu] = useState(false);
   const [toggleButton, setToggleButton] = useState(false);
   const [input, setInput] = useState('');
+
   const token: string = useSelector((state: AppState) => state.userState.token);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -41,7 +43,7 @@ const Navbar = () => {
 
   return (
     <nav data-testid="navbar" id="navbar">
-      <img className="nav_logo" data-testid="nav-logo" src={Logo} alt="Nav Logo"/>
+      <img className="nav_logo" data-testid="nav-logo" src={Logo} alt="Nav Logo" />
 
       <div className="wrapper">
         <BsSearch className="searchIcon" />
@@ -57,7 +59,15 @@ const Navbar = () => {
 
       <IconContext.Provider value={{ size: "2em" }}>
         <div className="nav-action-items">
-          {(token !== '')? <button data-testid="post-btn" className="nav_addIcon"><img className="nav_addImg" src={addIcon}/></button> : null}
+          {(token !== '')? <>
+              <button
+                onClick={() => history.push('/newpost')}
+                data-tip
+                data-for='addPostTip'
+                data-testid="post-btn"
+                className="nav_addIcon"><img className="nav_addImg" src={addIcon} /></button>
+                <ReactTooltip id='addPostTip' place='top' effect='solid'>Add a new post</ReactTooltip>
+            </> : <button data-testid="placeholder-btn" className="nav_placeholder"></button> }
           <article
             data-testid="login-menu"
             onClick={() => setMenu(!isMenuOpen)}
@@ -76,7 +86,7 @@ const Navbar = () => {
                   disabled={isMenuOpen ? false : true}
                   data-testid="login-link"
                   className="logButton"
-                  onClick={() => {loginButton()}}
+                  onClick={() => { loginButton() }}
                 >
                   Login
                   </button>
@@ -87,7 +97,7 @@ const Navbar = () => {
                   disabled={isMenuOpen ? false : true}
                   data-testid="logout-link"
                   className="logButton"
-                  onClick={() => {logoutButton()}}
+                  onClick={() => { logoutButton() }}
                 >
                   Logout
                   </button>

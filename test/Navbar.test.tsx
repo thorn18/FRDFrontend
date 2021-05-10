@@ -48,9 +48,9 @@ describe('unathenticated user tests', () => {
   });
 
   it('renders with menu closed and no post button', () => {
-    const { getAllByRole } = render(<Provider store={store}><Navbar /></Provider>);
+    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
 
-    expect(getAllByRole('button')).toHaveLength(1);
+    expect(getByTestId('placeholder-btn')).toBeVisible();
   });
 
   it('displays login button', () => {
@@ -102,9 +102,9 @@ describe('authenticated user tests', () => {
   });
 
   it("renders with menu closed and post button", () => {
-    const { getAllByRole } = render(<Provider store={store}><Navbar /></Provider>);
-  
-    expect(getAllByRole('button')).toHaveLength(2);
+    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
+
+    expect(getByTestId('post-btn')).toBeVisible();
   });
   
   it("displays logout button", () => {  
@@ -165,5 +165,20 @@ describe('authenticated user tests', () => {
     fireEvent.click(getByTestId('logout-link'));
 
     expect(mockedDispatch).toHaveBeenCalled();
+  });
+
+  it('Navigates to the add post when clicking on add post', () => {
+    const history = createMemoryHistory();
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar/>
+        </Router>
+      </Provider>
+    );
+
+    fireEvent.click(getByTestId('post-btn'));
+
+    expect(history.location.pathname).toBe('/newpost');
   });
 });
