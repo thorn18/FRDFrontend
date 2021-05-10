@@ -93,3 +93,28 @@ describe('tests of posts reducer', () => {
             .toEqual({ posts: [post1, post2], loading: false, hasMoreItems: true, error: error });
     });
 })
+
+describe('testing the reducer for the createPost service', () => {
+
+    test('The creatingPost action', () => {
+        const initialPosts: Post[] = [];
+        const testInitialState: PostsState = { posts: initialPosts, loading: false, hasMoreItems: true };
+        expect(postsReducer(testInitialState, { type: postActionTypes.creatingPost }))
+            .toEqual({ posts: [], loading: true, hasMoreItems: true });
+    });
+
+    test('The createPostSuccess', () => {
+        const initialPosts: Post[] = [post1, post2];
+        const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true };
+        const newPost: Post[] = [post3];
+        expect(postsReducer(testInitialState, { type: postActionTypes.createPostSuccess, payload: { items: newPost, hasNext: true } }))
+            .toEqual({ posts: [...newPost, ...initialPosts], loading: false, hasMoreItems: true });
+    });
+
+    test('The createPostFailed', () => {
+        const testInitialState: PostsState = { posts: [], loading: true, hasMoreItems: true };
+        const error = 'error';
+        expect(postsReducer(testInitialState, { type: postActionTypes.createPostFailed, payload: error }))
+            .toEqual({ posts: [], loading: false, hasMoreItems: true, error: error });
+    });
+});

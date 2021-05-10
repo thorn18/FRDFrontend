@@ -4,7 +4,7 @@ import Replies from '../models/replies';
 
 export interface PostAction {
     type: postActionTypes,
-    payload?: String | Post[] | Replies
+    payload?: String | Post[] | Post | Replies
 }
 
 export enum postActionTypes {
@@ -13,7 +13,10 @@ export enum postActionTypes {
     gotPostsFailed = "GOT_POSTS_FAILED",
     gettingReplies = "GETTING_REPLIES",
     gotRepliesSuccess = "GOT_REPLIES_SUCCESS",
-    gotRepliesFailed = "GOT_REPLIES_FAILED"
+    gotRepliesFailed = "GOT_REPLIES_FAILED",
+    creatingPost = "CREATING_POST",
+    createPostSuccess = "CREATE_POST_SUCCESS",
+    createPostFailed = "CREATE_POST_FAILED"
 }
 
 export enum userActionTypes {
@@ -61,6 +64,27 @@ export const gotRepliesFailed = (error: String) => {
         payload: error
     }
 }
+
+export const creatingPost = () => {
+    return {
+        type: postActionTypes.creatingPost
+    }
+}
+
+export const createPostSuccess = (post: Post) => {
+    return {
+        type: postActionTypes.createPostSuccess,
+        payload: post
+    }
+}
+
+export const createPostFailed = (error: String) => {
+    return {
+        type: postActionTypes.createPostFailed,
+        payload: error
+    }
+}
+
 export const loginSuccess = (token: string) => {
     return {
         type: userActionTypes.loginSuccess,
