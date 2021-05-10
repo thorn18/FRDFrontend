@@ -1,4 +1,4 @@
-#createPostForm{
+.createPostForm{
     background-color: #fff;
     height: 70%;
     width: 616px;
@@ -14,12 +14,12 @@
     margin-top: 223px;
 }
 
-#createPostHeader{
+.createPostHeader{
     flex-direction: row;
     align-items: center;
 }
 
-#verticalLine{
+.verticalLine{
     width:1;
     size:500;
 }
@@ -35,9 +35,35 @@
     opacity: .6;
 }
 
-#createPostHeader{
+.createPostHeader{
     font-family: Billabong;
     font-style: normal;
     font-weight: normal;
     font-size: 45px;
 }
+
+.lightBlueButton{
+    background-color: #5197E9;
+    color:white;
+    width: 118px;
+    height: 45px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 2px;
+}
+
+.darkBlueButton{
+    background-color: #5751E9;
+    color:white;
+    width: 118px;
+    height: 45px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+  

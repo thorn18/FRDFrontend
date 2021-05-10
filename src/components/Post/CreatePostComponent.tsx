@@ -20,7 +20,7 @@ function CreatePostComponent(): JSX.Element{
                     post name
                 </div>
                 <div className='actionButtonContainer'>
-                    <button>Cancel</button>
+                    <button className='darkBlueButton'>Cancel</button>
                     <button></button>
                 </div>
             </form>
