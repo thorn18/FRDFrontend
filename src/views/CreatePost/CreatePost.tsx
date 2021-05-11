@@ -4,25 +4,23 @@ import './CreatePost.css';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../store/postReducer';
+import { useHistory } from 'react-router-dom';
 
 function CreatePost(): JSX.Element {
-
+    let history = useHistory();
     const handleInput = (e: SyntheticEvent) => {
 
+    }
+
+    const handleCancel = () =>{
+        history.push('/home');
     }
 
     return (
         <div id="createPost" data-testid="createPostForm">
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
-            <form>
-                {/* <div className="container">
-                    <div className="button-wrap"> */}
-                        {/* <label htmlFor="file-upload">
-                            Choose Image
-                        </label> */}
-                        <input type="file" className="chooseImage-button" data-testid="chooseImageButton" />
-                    {/* </div>
-                </div> */}
+            <form>                
+                <input type="file" className="chooseImage-button" data-testid="chooseImageButton" />
                 <textarea data-testid='postDescriptionInput' rows={10} cols={80} placeholder="Description..."/>
             
                 <div className='actionButtonContainer'>
