@@ -60,6 +60,7 @@ describe('getPosts()', () => {
 describe('createPost()', () => {
 
   test('should add a newly created post', () => {
+    const token = 'testToken';
     const expectedActions = [
       { type: postActionTypes.creatingPost },
       { type: postActionTypes.createPostSuccess, payload: 201}
@@ -75,7 +76,7 @@ describe('createPost()', () => {
       config: {},
     });
 
-    return store.dispatch(PostService.createPost(newPost)).then(() => {
+    return store.dispatch(PostService.createPost(newPost, token)).then(() => {
       expect(axios.post).toHaveBeenCalled();
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -83,6 +84,7 @@ describe('createPost()', () => {
   });
 
   test('that an error will be caught when thrown', () => {
+    const token = 'testToken'
     const error = {
       "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1", "title": "One or more validation errors occurred.",
       "status": 400,
@@ -104,7 +106,7 @@ describe('createPost()', () => {
 
     axios.post.mockRejectedValue(error);
     
-    return store.dispatch(PostService.createPost(newPost)).then(() => {
+    return store.dispatch(PostService.createPost(newPost, token)).then(() => {
       expect(axios.post).toHaveBeenCalled();
       expect(store.getActions()).toEqual(expectedActions);
     });
