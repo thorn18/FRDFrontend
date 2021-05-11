@@ -15,16 +15,20 @@ function CreatePost(): JSX.Element {
         <div id="createPost" data-testid="createPostForm">
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
             <form>
-                    <label htmlFor="file-upload" className="chooseImage-button">
-                        Choose Image
-                    </label>
-                    <input type="file" data-testid="chooseImageButton" />
-                    <textarea data-testid='postDescriptionInput' rows={10} cols={80} placeholder="Description..."/>
-                
-                    <div className='actionButtonContainer'>
-                        <button className="buttonCancel" data-testid='cancelButton' >Cancel</button>
-                        <button className="buttonCreatePost" data-testid='createPostButton' >Create Post</button>
-                    </div>
+                {/* <div className="container">
+                    <div className="button-wrap"> */}
+                        {/* <label htmlFor="file-upload">
+                            Choose Image
+                        </label> */}
+                        <input type="file" className="chooseImage-button" data-testid="chooseImageButton" />
+                    {/* </div>
+                </div> */}
+                <textarea data-testid='postDescriptionInput' rows={10} cols={80} placeholder="Description..."/>
+            
+                <div className='actionButtonContainer'>
+                    <button className="buttonCancel" data-testid='cancelButton' >Cancel</button>
+                    <button className="buttonCreatePost" data-testid='createPostButton' >Create Post</button>
+                </div>
             </form>
         </div>
     )
