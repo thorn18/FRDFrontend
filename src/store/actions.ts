@@ -61,10 +61,10 @@ export const gotRepliesFailed = (error: String) => {
         payload: error
     }
 }
-export const loginSuccess = (token: string) => {
+export const loginSuccess = (username: string, token: string) => {
     return {
         type: userActionTypes.loginSuccess,
-        payload: token
+        payload: token, username
     }
 }
 
