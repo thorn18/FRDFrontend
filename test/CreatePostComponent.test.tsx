@@ -66,24 +66,33 @@ describe('Tests for Create Post Component', () => {
         expect(getByTestId('createPostForm')).toBeVisible();
     });
 
-    it('Test to make sure that Cancel Button is visible', () => {
+    it('shows that the Choose Image Button is visible', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
-        expect(getByTestId('cancelButton')).toBeVisible();
+        expect(getByTestId('chooseImageButton')).toBeVisible();
     });
 
-    it('Test to make sure that Create Post Button is visible', () => {
-        const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
-        expect(getByTestId('createPostButton')).toBeVisible();
-    });
-
-    it('Test to make sure that Post Description is visible', () => {
+    it('shows that the Post Description is visible', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
         expect(getByTestId('postDescriptionInput')).toBeVisible();
     });
 
-    it('Test to make sure that Choose Image Button is visible', () => {
+    describe('The Cancel Button tests will make sure that the Cancel Button', () => {
+
+        it('is visible', () => {
+            const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
+            expect(getByTestId('cancelButton')).toBeVisible();
+        })
+
+        it('and when it is clicked, the user will go to /home.', () => {
+            const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
+            fireEvent.click(getByTestId('cancelButton'));
+            expect(mockPush).toHaveBeenCalledWith('/home');
+        })
+    });
+
+    it('shows that the Create Post Button is visible', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
-        expect(getByTestId('chooseImageButton')).toBeVisible();
+        expect(getByTestId('createPostButton')).toBeVisible();
     });
 
     it('Test that clicking create post button, the form submits', () => {

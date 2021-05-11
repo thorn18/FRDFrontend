@@ -4,6 +4,7 @@ import { postActionTypes } from '../src/store/actions';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as posts from './fivePosts.json'
+import { post0, newPost } from './testData'
 
 jest.mock('axios');
 const middlewares = [thunk]
@@ -31,4 +32,31 @@ describe('getPosts()', () => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   });
+});
+
+describe('createPost()', () => {
+
+  test('should add a newly created post', () => {
+    const expectedActions = [
+      { type: postActionTypes.creatingPost },
+      { type: postActionTypes.createPostSuccess, payload: 201}
+    ]
+
+    const store = mockStore({ posts: [] })
+
+    axios.post.mockResolvedValue({
+      data: null,
+      status: 201,
+      statusText: 'OK',
+      header: {},
+      config: {},
+    });
+
+    return store.dispatch(PostService.createPost(newPost)).then(() => {
+      expect(axios.post).toHaveBeenCalled();
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+  });
+
 });

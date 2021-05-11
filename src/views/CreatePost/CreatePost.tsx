@@ -44,6 +44,10 @@ function CreatePost(): JSX.Element {
         const formData = new FormData();
     }
 
+    const handleCancel = () =>{
+        history.push('/home');
+    }
+
     return (
         <div id="createPost" data-testid="createPostForm">
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
@@ -55,7 +59,7 @@ function CreatePost(): JSX.Element {
                     <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input.description} onChange={handleInput} placeholder="Description..."/>
                 
                     <div className='actionButtonContainer'>
-                        <button className="buttonCancel" data-testid='cancelButton' >Cancel</button>
+                        <button className="buttonCancel" data-testid='cancelButton' onClick={handleCancel}>Cancel</button>
                         <button className="buttonCreatePost" data-testid='createPostButton' >Create Post</button>
                     </div>
             </form>
