@@ -45,7 +45,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.creatingPost:
             return {posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems};
         case postActionTypes.createPostSuccess:
-            return {posts: [...action.payload.items, ...state.posts], loading: false, hasMoreItems: action.payload.hasNext};
+            return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems};
         case postActionTypes.createPostFailed:
             return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload}
         default:

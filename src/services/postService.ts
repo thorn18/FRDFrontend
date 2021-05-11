@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Post from '../models/post';
+import Post, { NewPost } from '../models/post';
 import { createPostFailed, createPostSuccess, creatingPost, gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction, postActionTypes } from '../store/actions';
 
 class PostService {
@@ -27,14 +27,15 @@ class PostService {
         };
     }
 
-    createPost(post: Post){
+    createPost(newPost: NewPost){
         return (dispatch: (action: PostAction) => void) => {
             dispatch(creatingPost());
-            return axios.post(`${this.URI}/posts`, post)
+            return axios.post(`${this.URI}/posts`, newPost)
             .then(response => {
-                dispatch(createPostSuccess(response.data))
+                console.log(response);
+                dispatch(createPostSuccess(response.status));
             }).catch(err => {
-                dispatch(createPostFailed(err))
+                dispatch(createPostFailed(err));
             });
         }
     }

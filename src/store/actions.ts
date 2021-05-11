@@ -1,10 +1,10 @@
-import Post from '../models/post';
+import Post, { NewPost } from '../models/post';
 import User from '../models/user';
 import Replies from '../models/replies';
 
 export interface PostAction {
     type: postActionTypes,
-    payload?: String | Post[] | Post | Replies
+    payload?: String | Post[] | Post | Replies | number
 }
 
 export enum postActionTypes {
@@ -71,10 +71,10 @@ export const creatingPost = () => {
     }
 }
 
-export const createPostSuccess = (post: Post) => {
+export const createPostSuccess = (status: number) => {
     return {
         type: postActionTypes.createPostSuccess,
-        payload: post
+        payload: status
     }
 }
 

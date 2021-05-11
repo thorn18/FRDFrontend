@@ -106,9 +106,8 @@ describe('testing the reducer for the createPost service', () => {
     test('The createPostSuccess', () => {
         const initialPosts: Post[] = [post1, post2];
         const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true };
-        const newPost: Post[] = [post3];
-        expect(postsReducer(testInitialState, { type: postActionTypes.createPostSuccess, payload: { items: newPost, hasNext: true } }))
-            .toEqual({ posts: [...newPost, ...initialPosts], loading: false, hasMoreItems: true });
+        expect(postsReducer(testInitialState, { type: postActionTypes.createPostSuccess, payload: { status: 201 } }))
+            .toEqual({ posts: [ ...initialPosts ], loading: false, hasMoreItems: true });
     });
 
     test('The createPostFailed', () => {
