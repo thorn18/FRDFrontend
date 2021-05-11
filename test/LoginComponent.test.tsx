@@ -5,7 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { useForm } from 'react-hook-form';
 import store from '../src/store/store'
-import decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import UserService from "../src/services/userService";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from 'history';
@@ -23,7 +23,16 @@ jest.mock('react-redux', () => ({
     useDispatch: jest.fn(),
     useSelector: jest.fn()
 }));
-jest.mock('jwt-decode', () => jest.fn());
+jest.mock('jwt-decode', () => jest.fn().mockImplementation((x) => {
+        //returns a token that expires tomorrow
+        let exp = new Date();
+        exp.setDate(exp.getDate() + 1);
+        let expNum = Number(exp) / 1000;
+        return {
+            exp: expNum
+        }
+    })
+);
 const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
