@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, HashRouter, Redirect } from 'react-router-dom'
 import store from './store/store';
-import {useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import LandingPage from './views/LandingPage/LandingPage'
@@ -16,29 +16,29 @@ import { loginSuccess } from './store/actions';
 function App() {
   let token: any = useSelector((state: AppState) => state.userState.token);
   let dispatch = useDispatch();
-  
-  useEffect( () => {
-  if (token) {
+
+  useEffect(() => {
+    if (token) {
       let decodedToken: tokenInfo = jwt_decode(token);
       dispatch(loginSuccess(decodedToken.nameid, token));
     }
-    }, []);
+  }, []);
 
   return (
 
-      <HashRouter>
-        <div className="App">
-          <Navbar />
-          <Switch>
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-            <Route exact path="/login" component={LoginComponent} />
-            <Route exact path="/home" component={LandingPage} />
-            <AuthRoute exact path="/newpost" component={CreatePost} />
-          </Switch>
-        </div>
-      </HashRouter>
+    <HashRouter>
+      <div className="App">
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/login" component={LoginComponent} />
+          <Route exact path="/home" component={LandingPage} />
+          <AuthRoute exact path="/newpost" component={CreatePost} />
+        </Switch>
+      </div>
+    </HashRouter>
   )
 }
 export default App;
