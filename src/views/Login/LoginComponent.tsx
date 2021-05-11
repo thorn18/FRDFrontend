@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
-import { tokenInfo } from '../AuthRoute';
+import { tokenInfo } from '../../components/AuthRoute';
 import pixelgramlogo from '../../pixelgram-logo.png'
 import './LoginComponent.css';
 import { useForm, SubmitHandler } from "react-hook-form";
