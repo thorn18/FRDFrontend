@@ -41,7 +41,7 @@ function PostComponent(props: postProp) {
             </div>
             <div className="replyList">
                 <ReplyList post={props.post}/>
-                {(post.comments.items).map((reply) => {
+                {(post.comments.items).map((reply: Reply) => {
                     return <ReplyComponent reply={reply} key={reply.id}/>
                 })}
             </div>
