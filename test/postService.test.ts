@@ -4,7 +4,7 @@ import { postActionTypes } from '../src/store/actions';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as posts from './fivePosts.json'
-import { post0, newPost } from './testData'
+import { newPost } from './testData'
 import { NewPost } from '../src/models/post';
 
 jest.mock('axios');

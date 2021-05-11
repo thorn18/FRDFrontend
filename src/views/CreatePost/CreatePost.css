@@ -14,30 +14,16 @@
 
 }
 
-.chooseImage-button {
-    background-color: #5197E9; 
-    width: 156px;
-    padding: 14px 0;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 2px;
-    margin-bottom: 50px; 
-}
-
-.createLogo {
+#createPost .createLogo {
     margin: auto;
     padding: 64px; 
 }
 
-input[type="file"] {
-    display: none;
+#createPost input[type="file"] {
+    color: #ffffff;
 }
 
-.actionButtonContainer{
+#createPost .actionButtonContainer{
     display: flex;
     justify-content: flex-end;
 }
@@ -55,7 +41,7 @@ input[type="file"] {
 
 }
 
-.buttonCreatePost {
+#createPost .buttonCreatePost {
     background-color: #5197E9; 
     width: 156px;
     height: 45px;
@@ -69,7 +55,7 @@ input[type="file"] {
     margin: 70px 0 0 12px;
 }
 
-.buttonCancel {
+#createPost .buttonCancel {
     background-color:#5751E9; 
     width: 156px;
     height: 45px;
@@ -81,4 +67,31 @@ input[type="file"] {
     font-size: 16px;
     border-radius: 2px;
     margin: 70px 12px 0;
+}
+
+.chooseImage-button::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.chooseImage-button::before {
+    content: 'Choose Image';
+    color: #fff;
+    display: inline-block;
+    background-color: #5197E9; 
+    width: 156px;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    padding: 13px 6px;
+    border-radius: 2px;
+    margin-bottom: 75px;
+}
+.chooseImage-button:hover::before {
+    border-color: black;
+}
+.chooseImage-button:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
