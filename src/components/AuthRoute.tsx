@@ -9,8 +9,7 @@ export interface tokenInfo {
     iat: number
 }
 
-
-const AuthRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => {
+const AuthRoute: React.FC<RouteProps> = ({ ...rest }) => {
     let id_token = localStorage.getItem("id_token");
     if (id_token !== null) {
         let decodedToken: tokenInfo = jwt_decode(id_token);
