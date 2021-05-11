@@ -61,7 +61,10 @@ const Navbar = () => {
         <div className="nav-action-items">
           {(token !== '')? <>
               <button
-                onClick={() => history.push('/newpost')}
+                onClick={() => {
+                history.push('/newpost')
+                console.log('go to new post');
+              }}
                 data-tip
                 data-for='addPostTip'
                 data-testid="post-btn"
