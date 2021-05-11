@@ -39,7 +39,7 @@ function PostComponent(props: postProp) {
                 {/* <span className="descriptionUser">{post.post.username}</span>
                 <span className="postDesc">{post.post.description}</span> */}
             </div>
-            <div>
+            <div className="replyList">
                 <ReplyList post={props.post}/>
                 {(post.comments.items).map((reply) => {
                     return <ReplyComponent reply={reply} key={reply.id}/>
