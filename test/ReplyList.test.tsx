@@ -42,9 +42,9 @@ describe('When the ReplyList component gets rendered,', () => {
         expect(getByTestId('more-com-btn')).toBeEnabled();
     })
 
-    describe('and when there are more than 10 comments left,', () => {
+    describe('and when there are more than 5 comments left to display,', () => {
         it('the correct message "View More Comments" will display before the button is pressed;', () => {
-            //because there are 10 comments left
+            //because there are 10 comments left in the test data
             const { getByTestId } = render(<Provider store={store}><PostComponent post={props1} /></Provider>);
             replyService.getMoreReplies = jest.fn().mockResolvedValueOnce(replyListB);
             expect(getByTestId('more-com-btn')).toHaveTextContent('View more comments')
@@ -61,7 +61,7 @@ describe('When the ReplyList component gets rendered,', () => {
         })
 
         it('and the correct message "View All Comments" will display.', ()=>{
-            //because 5 comments are left
+            //because 5 comments are left in the test data
             const { getByTestId, rerender } = render(<Provider store={store}><PostComponent post={props1} /></Provider>);
             props1.comments.items = [...replyListA.items, ...replyListB.items]
             rerender(<ReplyList post={props1}></ReplyList>)
