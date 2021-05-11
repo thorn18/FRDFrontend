@@ -5,8 +5,9 @@ import { Provider } from 'react-redux';
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import LandingPage from './views/LandingPage/LandingPage'
-import LoginComponent from './components/Login/LoginComponent';
+import LoginComponent from './views/Login/LoginComponent';
 import AuthRoute from '../src/components/AuthRoute'
+import CreatePost from './views/CreatePost/CreatePost';
 
 
 function App() {
@@ -20,10 +21,9 @@ function App() {
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
-            {/** This component will be used when we create a new post.*/}
-            {/* <AuthRoute exact path="/newpost" component={CreatePost} /> */}
             <Route exact path="/login" component={LoginComponent} />
             <Route exact path="/home" component={LandingPage} />
+            <AuthRoute exact path="/newpost" component={CreatePost} />
           </Switch>
         </div>
       </HashRouter>
