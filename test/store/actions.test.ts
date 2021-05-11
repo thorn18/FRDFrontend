@@ -1,8 +1,8 @@
 import * as actions from '../../src/store/actions';
-import Post from '../../src/models/post';
+import Post, { NewPost } from '../../src/models/post';
 import Replies from '../../src/models/replies';
 import { replyList0 } from '../testReplyData';
-import { post0 } from '../testData';
+import { post0, newPost } from '../testData';
 
 describe('Tests for Redux actions to do with getting posts', () => {
 
@@ -104,13 +104,13 @@ describe('Test for Redux actions for creating a new post', () => {
         expect(actions.creatingPost()).toEqual(testAction);
     });
 
-    test('should create an action of createPostSuccess with post as a payload', () => {
-        const testPost: Post = post0
+    test('should create an action of createPostSuccess with a status code as a payload', () => {
+        const testCode: number = 201;
         const testAction = {
             type: actions.postActionTypes.createPostSuccess,
-            payload: post0
+            payload: 201
         }
-        expect(actions.createPostSuccess(testPost)).toEqual(testAction);
+        expect(actions.createPostSuccess(testCode)).toEqual(testAction);
     });
 
     test('should create action for createPostFailed with error as a payload', () => {
