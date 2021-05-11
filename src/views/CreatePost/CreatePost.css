@@ -33,25 +33,9 @@
     padding: 64px; 
 }
 
-/* #createPost .container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-#createPost .button-wrap {
-    position: relative;
-}
-
 #createPost input[type="file"] {
-    position: absolute;
-    z-index: -1;
-    top: 10px;
-    left: 8px;
-    font-size: 25px;
     color: #ffffff;
-  } */
+}
 
 #createPost .actionButtonContainer{
     display: flex;
@@ -101,6 +85,7 @@
 
 .chooseImage-button::-webkit-file-upload-button {
     visibility: hidden;
+<<<<<<< HEAD
   }
   .chooseImage-button::before {
     content: 'Choose Image';
@@ -110,11 +95,21 @@
     background-color: #5197E9; 
     width: 156px;
     height: 45px;
+=======
+}
+.chooseImage-button::before {
+    content: 'Choose Image';
+    color: #fff;
+    display: inline-block;
+    background-color: #5197E9; 
+    width: 156px;
+>>>>>>> f69344f28c30bdaf63b636425247452234e37929
     border: none;
     outline: none;
     white-space: nowrap;
     -webkit-user-select: none;
     cursor: pointer;
+<<<<<<< HEAD
     text-shadow: 1px 1px #fff;
     font-weight: 700;
     font-size: 10pt;
@@ -125,3 +120,17 @@
   .chooseImage-button:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
   }
+=======
+    font-size: 16px;
+    text-align: center;
+    padding: 13px 6px;
+    border-radius: 2px;
+    margin-bottom: 75px;
+}
+.chooseImage-button:hover::before {
+    border-color: black;
+}
+.chooseImage-button:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+>>>>>>> f69344f28c30bdaf63b636425247452234e37929

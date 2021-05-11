@@ -54,7 +54,7 @@ function CreatePost(): JSX.Element {
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
             <form>                
                 <input type="file" className="chooseImage-button" data-testid="chooseImageButton" name="file" onChange={imageHandler}/>
-                <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input.description} onChange={handleInput} placeholder="Description..."/>
+                <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input.description} placeholder="Description..."/>
             
                 <div className='actionButtonContainer'>
                     <button className="buttonCancel" data-testid='cancelButton'  onClick={handleCancel}>Cancel</button>
