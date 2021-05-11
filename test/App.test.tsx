@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
+import configureMockStore, { MockStoreEnhanced } from 'redux-mock-store';
 import Post from '../src/models/post';
 
 // jest.mock('react-redux', () => ({
@@ -19,7 +19,7 @@ import Post from '../src/models/post';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares)
-let store;
+let store: MockStoreEnhanced;
 
 let posts: Post[] = [];
 beforeEach(() => {
