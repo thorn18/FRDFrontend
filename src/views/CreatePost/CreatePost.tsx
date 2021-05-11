@@ -5,6 +5,11 @@ import './CreatePost.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../store/postReducer';
 
+export interface PostInput {
+    image: any;
+    description: any;
+}
+
 function CreatePost(): JSX.Element {
 
     const handleInput = (e: SyntheticEvent) => {
