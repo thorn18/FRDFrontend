@@ -32,10 +32,8 @@ class PostService {
             dispatch(creatingPost());
             return axios.post(`${this.URI}/posts`, newPost)
             .then(response => {
-                console.log('createPost - success' + response);
                 dispatch(createPostSuccess(response.status));
             }).catch(err => {
-                console.log('createPost - failure');
                 dispatch(createPostFailed(err));
             });
         }

@@ -43,13 +43,10 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.gotRepliesFailed:
             return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload};
         case postActionTypes.creatingPost:
-            console.log('creatingPost - reducer');
             return {posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems};
         case postActionTypes.createPostSuccess:
-            console.log('createPostSuccess - reducer');
             return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems};
         case postActionTypes.createPostFailed:
-            console.log('createPostFailed - reducer');
             return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload}
         default:
             return state;
