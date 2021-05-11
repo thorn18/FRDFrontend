@@ -181,4 +181,18 @@ describe('authenticated user tests', () => {
 
     expect(history.location.pathname).toBe('/newpost');
   });
+
+  it('Shows tooltip when hovering over add post button', () => {
+    const history = createMemoryHistory();
+    const { getByTestId, container } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar/>
+        </Router>
+      </Provider>
+    );
+
+    fireEvent.mouseOver(getByTestId('post-btn'));
+    expect(container).toHaveTextContent('Add a new post');
+  });
 });

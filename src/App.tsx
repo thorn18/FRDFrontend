@@ -21,10 +21,9 @@ function App() {
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
-            {/** This component will be used when we create a new post.*/}
-            <Route exact path="/newpost" component={CreatePost} /> 
             <Route exact path="/login" component={LoginComponent} />
             <Route exact path="/home" component={LandingPage} />
+            <AuthRoute exact path="/newpost" component={CreatePost} />
           </Switch>
         </div>
       </HashRouter>
