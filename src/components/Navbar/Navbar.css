@@ -49,6 +49,18 @@
     background-color: white;
 }
 
+.nav_placeholder {
+    margin: 13px 20px 13px 0;
+    align-self: baseline;
+    padding: 10px;
+    padding-right: 14px;
+    height: 22px;
+    width: 22px;
+    border: none;
+    background-color: white; 
+    border: 0px solid white;
+}
+
 .nav_addImg {
     position: relative;
     right: 12px;

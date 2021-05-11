@@ -3,14 +3,16 @@ import {userActionTypes} from './actions';
 export interface UserState {
     username: string,
     token: string,
-    loggedIn: boolean
+    loggedIn: boolean,
+    error: any
 }
 
 //initial states
 export const initialUserState: UserState = {
     username: '', 
     token: '',
-    loggedIn: false
+    loggedIn: false,
+    error: undefined
 }
 
 //reducers
