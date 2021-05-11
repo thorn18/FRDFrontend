@@ -37,11 +37,13 @@ function CreatePost(): JSX.Element {
     const imageHandler = (event: any) => {
         setSelectedFile(event.target.files[0]);
         setIsFilePicked(true);
+        console.log('filepicked?', isFilePicked);
     }
 
-    const onSubmit = () => {
+    const onSubmit = (event: any) => {
         const newPost: NewPost = {username: '', image: selectedFile, description: input.description};
         console.log(newPost);
+        
         //PostService.createPost(newPost);
     }
 
@@ -58,7 +60,7 @@ function CreatePost(): JSX.Element {
             
                 <div className='actionButtonContainer'>
                     <button className="buttonCancel" data-testid='cancelButton'  onClick={handleCancel}>Cancel</button>
-                    <button className="buttonCreatePost" data-testid='createPostButton' onClick={onSubmit}>Create Post</button>
+                    <button type='button' className="buttonCreatePost" data-testid='createPostButton' onClick={onSubmit}>Create Post</button>
                 </div>
             </form>
         </div>
