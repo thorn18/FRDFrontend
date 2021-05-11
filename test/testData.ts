@@ -1,6 +1,7 @@
-import Post from "../src/models/post";
+import Post, { NewPost } from "../src/models/post";
 import Reply from "../src/models/reply";
 import {replyList0, replyList1} from './testReplyData';
+import * as loginIcon from '../src/images/loginIcon.png';
 
 export const post0: Post = {
     post: {
@@ -81,6 +82,12 @@ export const post4: Post = {
     },
     user: { id: 'userId3', username: 'user4', profileImage: 'prof4' },
     comments: replyList0
+}
+
+export const newPost: NewPost = {
+    username: 'user1',
+    description: 'New Post',
+    image: loginIcon
 }
 
 export const noProfilePic: Post = {
