@@ -40,14 +40,12 @@ describe('Tests for Create Post Component', () => {
     let handleSubmit = jest.fn();
     let register = jest.fn();
 
-    let input: PostInput = { image: '', description: '' };
+    let input: PostInput = { description: '' };
 
     const setupWithSetState = () => {
         (useState as jest.Mock).mockImplementationOnce(() => [input, jest.fn().mockImplementation((x) => {
             let newInput = { ...input };
-            if (x.image) {
-                newInput.image = x.image;
-            } else if (x.description) {
+            if (x.description) {
                 newInput.description = x.description;
             }
             input = newInput;

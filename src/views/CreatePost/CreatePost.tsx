@@ -7,9 +7,9 @@ import {AppState} from '../../store/postReducer';
 import { useHistory } from 'react-router';
 import { useForm, SubmitHandler } from "react-hook-form";
 import PostService from '../../services/postService';
+import { NewPost } from '../../models/post';
 
 export interface PostInput {
-    image: any;
     description: any;
 }
 
@@ -19,7 +19,7 @@ type FormValues = {
 }
 
 function CreatePost(): JSX.Element {
-    const [input, setInput] = useState<PostInput>({image: '', description: ''});
+    const [input, setInput] = useState<PostInput>({description: ''});
     const [selectedFile, setSelectedFile] = useState();
     const [isFilePicked, setIsFilePicked] = useState(false);
     const {register, handleSubmit} = useForm<FormValues>();
@@ -34,14 +34,15 @@ function CreatePost(): JSX.Element {
         }
     }
 
-    const changeHandler = (event: any) => {
+    const imageHandler = (event: any) => {
         setSelectedFile(event.target.files[0]);
         setIsFilePicked(true);
     }
 
     const onSubmit = () => {
-        //PostService.createPost(input.image, input.description);
-        const formData = new FormData();
+        const newPost: NewPost = {username: '', image: selectedFile, description: input.description};
+        console.log(newPost);
+        //PostService.createPost(newPost);
     }
 
     const handleCancel = () =>{
@@ -52,12 +53,12 @@ function CreatePost(): JSX.Element {
         <div id="createPost" data-testid="createPostForm">
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
             <form>                
-                <input type="file" className="chooseImage-button" data-testid="chooseImageButton" />
-                <textarea data-testid='postDescriptionInput' rows={10} cols={80} placeholder="Description..."/>
+                <input type="file" className="chooseImage-button" data-testid="chooseImageButton" name="file" onChange={imageHandler}/>
+                <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input.description} onChange={handleInput} placeholder="Description..."/>
             
                 <div className='actionButtonContainer'>
                     <button className="buttonCancel" data-testid='cancelButton'  onClick={handleCancel}>Cancel</button>
-                    <button className="buttonCreatePost" data-testid='createPostButton' >Create Post</button>
+                    <button className="buttonCreatePost" data-testid='createPostButton' onClick={onSubmit}>Create Post</button>
                 </div>
             </form>
         </div>
