@@ -51,17 +51,14 @@ function CreatePost(): JSX.Element {
     return (
         <div id="createPost" data-testid="createPostForm">
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                    <label htmlFor="file-upload" className="chooseImage-button">
-                        Choose Image
-                    </label>
-                    <input type="file" data-testid="chooseImageButton" name="file" onChange={changeHandler} />
-                    <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input.description} onChange={handleInput} placeholder="Description..."/>
-                
-                    <div className='actionButtonContainer'>
-                        <button className="buttonCancel" data-testid='cancelButton' onClick={handleCancel}>Cancel</button>
-                        <button className="buttonCreatePost" data-testid='createPostButton' >Create Post</button>
-                    </div>
+            <form>                
+                <input type="file" className="chooseImage-button" data-testid="chooseImageButton" />
+                <textarea data-testid='postDescriptionInput' rows={10} cols={80} placeholder="Description..."/>
+            
+                <div className='actionButtonContainer'>
+                    <button className="buttonCancel" data-testid='cancelButton'  onClick={handleCancel}>Cancel</button>
+                    <button className="buttonCreatePost" data-testid='createPostButton' >Create Post</button>
+                </div>
             </form>
         </div>
     )
