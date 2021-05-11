@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { screen, render, fireEvent, cleanup } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
-import LoginComponent, { Input } from '../src/components/Login/LoginComponent'
+import LoginComponent, { Input } from '../src/views/Login/LoginComponent'
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';

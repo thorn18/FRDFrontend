@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, cleanup } from "@testing-library/react";
-import LoginComponent from '../src/components/Login/LoginComponent'
+import LoginComponent from '../src/views/Login/LoginComponent'
 import "@testing-library/jest-dom/extend-expect";
 import { Provider, useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';

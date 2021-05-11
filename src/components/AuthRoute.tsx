@@ -14,13 +14,12 @@ const AuthRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => {
     let id_token = localStorage.getItem("id_token");
     if (id_token !== null) {
         let decodedToken: tokenInfo = jwt_decode(id_token)
-        let isValid = decodedToken.exp > Date.now();
+        //*1000 to convert from milliseconds to seconds
+        let isValid = decodedToken.exp*1000 > Date.now();
         if (isValid) {
             console.log('Token is still valid')
-            return (
-                <div data-testid="TokenValidRedirect" >
-                    <Route {...rest} />
-                </div>
+            return ( 
+                <Route {...rest} />
             )
         } else {
             console.log('Token expired')
