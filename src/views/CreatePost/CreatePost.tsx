@@ -14,7 +14,6 @@ function CreatePost(): JSX.Element {
 
     const handleCancel = () =>{
         history.push('/home');
-
     }
 
     return (

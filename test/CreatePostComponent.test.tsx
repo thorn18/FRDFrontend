@@ -5,7 +5,6 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import store from '../src/store/store';
 import CreatePostComponent from '../src/views/CreatePost/CreatePost';
 import { Router } from "react-router-dom";
-import { createMemoryHistory } from 'history';
 
 const mockPush = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -18,7 +17,7 @@ jest.mock('react-router-dom', () => ({
 afterEach(cleanup);
 
 describe('The Create Post Component test', () => {
-    
+
     it('shows that the Create Post Form is visible', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
         expect(getByTestId('createPostForm')).toBeVisible();
@@ -36,13 +35,12 @@ describe('The Create Post Component test', () => {
 
     describe('The Cancel Button tests will make sure that the Cancel Button', () => {
 
-        it('is visible', ()=>{
+        it('is visible', () => {
             const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
             expect(getByTestId('cancelButton')).toBeVisible();
         })
 
         it('and when it is clicked, the user will go to /home.', () => {
-            const history = createMemoryHistory();
             const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
             fireEvent.click(getByTestId('cancelButton'));
             expect(mockPush).toHaveBeenCalledWith('/home');
