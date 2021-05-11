@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction, postActionTypes } from '../store/actions';
+import Post, { NewPost } from '../models/post';
+import { createPostFailed, createPostSuccess, creatingPost, gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction, postActionTypes } from '../store/actions';
 
 class PostService {
     private URI: string;
@@ -24,8 +25,19 @@ class PostService {
                 dispatch(gotPostsFailed(err)); //action
             });
         };
-    }
+    };
 
+    createPost(newPost: NewPost){
+        return (dispatch: (action: PostAction) => void) => {
+            dispatch(creatingPost());
+            return axios.post(`${this.URI}/posts`, newPost)
+            .then(response => {
+                dispatch(createPostSuccess(response.status));
+            }).catch(err => {
+                dispatch(createPostFailed(err));
+            });
+        }
+    }
 }
 
 export default new PostService;

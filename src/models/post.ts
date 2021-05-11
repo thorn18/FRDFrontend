@@ -13,3 +13,9 @@ export default interface Post {
     user: User,
     comments: Replies
 }
+
+export interface NewPost {
+    username: string,
+    description: string,
+    image: File
+}
