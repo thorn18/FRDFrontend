@@ -64,7 +64,6 @@ export const gotRepliesFailed = (error: String) => {
         payload: error
     }
 }
-export const loginSuccess = (username: string, token: string) => {
 
 export const creatingPost = () => {
     return {
@@ -86,10 +85,10 @@ export const createPostFailed = (error: String) => {
     }
 }
 
-export const loginSuccess = (token: string) => {
+export const loginSuccess = (username: string, token: string) => {
     return {
         type: userActionTypes.loginSuccess,
-        payload: token, username
+        payload: {token, username}
     }
 }
 

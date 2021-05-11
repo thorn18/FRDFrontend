@@ -16,7 +16,8 @@ const Navbar = () => {
   const [toggleButton, setToggleButton] = useState(false);
   const [input, setInput] = useState('');
 
-  const token: string = useSelector((state: AppState) => state.userState.token);
+  //const token: string | null = useSelector((state: AppState) => state.userState.token);
+  const loggedIn: boolean = useSelector((state: AppState) => state.userState.loggedIn);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -59,7 +60,7 @@ const Navbar = () => {
 
       <IconContext.Provider value={{ size: "2em" }}>
         <div className="nav-action-items">
-          {(token !== '')? <>
+          {(loggedIn === true)? <>
               <button
                 onClick={() => {
                 history.push('/newpost')
@@ -84,7 +85,7 @@ const Navbar = () => {
                 <BsPerson />
               </button>
 
-              {toggleButton && (token == '')
+              {toggleButton && (loggedIn === false)
                 ? <button
                   disabled={isMenuOpen ? false : true}
                   data-testid="login-link"
@@ -95,7 +96,7 @@ const Navbar = () => {
                   </button>
                 : null
               }
-              {toggleButton && (token !== '')
+              {toggleButton && (loggedIn === true)
                 ? <button
                   disabled={isMenuOpen ? false : true}
                   data-testid="logout-link"

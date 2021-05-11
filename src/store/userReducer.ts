@@ -1,8 +1,9 @@
 import {userActionTypes} from './actions';
+import decode from 'jwt-decode';
 
 export interface UserState {
     username: string,
-    token: string,
+    token: string | null,
     loggedIn: boolean,
     error: any
 }
@@ -10,8 +11,8 @@ export interface UserState {
 //initial states
 export const initialUserState: UserState = {
     username: '', 
-    token: '',
-    loggedIn: false,
+    token: localStorage.getItem('id_token') ? localStorage.getItem('id_token') : '',
+    loggedIn: localStorage.getItem('id_token') ? true : false,
     error: undefined
 }
 

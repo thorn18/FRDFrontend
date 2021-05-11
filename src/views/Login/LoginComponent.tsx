@@ -29,7 +29,7 @@ function LoginComponent(): JSX.Element {
     const { register, handleSubmit } = useForm<FormValues>();
     const dispatch = useDispatch();
     let history = useHistory();
-    let token: string = useSelector((state: AppState) => state.userState.token);
+    let token: any = useSelector((state: AppState) => state.userState.token);
     let error: string = useSelector((state: AppState) => state.userState.error);
 
     const handleInput = (e: SyntheticEvent) => {

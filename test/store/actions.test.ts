@@ -71,11 +71,13 @@ describe('Tests for Redux actions to do with logging in and out a user', () => {
 
     test('should create an action with token object that it got via axios', () => {
         const testToken = 'aToken';
+        const username = 'aUser';
+
         const testAction = {
             type: actions.userActionTypes.loginSuccess,
-            payload: testToken
+            payload: {username, testToken}
         }
-        expect(actions.loginSuccess(testToken)).toEqual(testAction);
+        expect(actions.loginSuccess(username, testToken)).toEqual(testAction);
     });
 
      test('should create an action to logout without payload', () => {
