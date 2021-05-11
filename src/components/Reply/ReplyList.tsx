@@ -10,7 +10,7 @@ interface replyListProp {
 
 /**
  * This component adds functionality for the view more/all comment buttons which displays the hidden comments.
- * If there are between 6 and 10 comments remaining, button will display 'View more comments'.
+ * If there are more than 5 comments remaining, button will display 'View more comments'.
  * If there are 5 or less comments remaining, button will display 'View all comments'.
  * @param props - the specific post for which the comments are displayed.
  */
