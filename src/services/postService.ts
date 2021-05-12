@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Post, { NewPost } from '../models/post';
-import { createPostFailed, createPostSuccess, creatingPost, gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction, postActionTypes } from '../store/actions';
+import { NewPost } from '../models/post';
+import { createPostFailed, createPostSuccess, creatingPost, deletedPostFailed, deletedPostSuccess, deletingPost, gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction } from '../store/actions';
 
 class PostService {
     private URI: string;
@@ -27,6 +27,26 @@ class PostService {
         };
     };
 
+    /**
+     * Deletes a post from the API
+     * @returns an action to dispatch
+     */
+    deletePost(postId: string, token: string) {
+        return async (dispatch: (action: PostAction) => void) => {
+            try {
+                dispatch(deletingPost()); //action
+                let res = await axios.delete(`${this.URI}/posts/${postId}`, { headers: { Authorization: `Bearer ${token}` } });
+                if (res.status === 200) {
+                    dispatch(deletedPostSuccess(postId));
+                } else {
+                    dispatch(deletedPostFailed(res.statusText));
+                }
+            } catch (error) {
+                dispatch(deletedPostFailed(error));
+            }
+        }
+    }
+    
     createPost(newPost: NewPost, token: string) {
         return (dispatch: (action: PostAction) => void) => {
             dispatch(creatingPost());

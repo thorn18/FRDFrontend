@@ -92,7 +92,32 @@ describe('tests of posts reducer', () => {
         expect(postsReducer(testInitialState, { type: postActionTypes.gotRepliesFailed, payload: error }))
             .toEqual({ posts: [post1, post2], loading: false, hasMoreItems: true, error: error });
     });
-})
+});
+
+describe('testing the reducer for the deletePost service', () => {
+
+    test('The deleting action', () => {
+        const initialPosts: Post[] = [post1, post2];
+        const testInitialState: PostsState = { posts: initialPosts, loading: false, hasMoreItems: true };
+        expect(postsReducer(testInitialState, { type: postActionTypes.deletingPost }))
+            .toEqual({ posts: [post1, post2], loading: true, hasMoreItems: true });
+    });
+
+    test('The deletePostSuccess', () => {
+        const initialPosts: Post[] = [post1, post2];
+        const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true };
+        expect(postsReducer(testInitialState, { type: postActionTypes.deletedPostSuccess, payload: post1.post.id }))
+            .toEqual({ posts: [ post2 ], loading: false, hasMoreItems: true });
+    });
+
+    test('The deletePostFailed', () => {
+        const initialPosts: Post[] = [post1, post2];
+        const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true };
+        const error = 'error';
+        expect(postsReducer(testInitialState, { type: postActionTypes.deletedPostFailed, payload: error }))
+            .toEqual({ posts: initialPosts, loading: false, hasMoreItems: true, error: error });
+    });
+});
 
 describe('testing the reducer for the createPost service', () => {
 

@@ -11,6 +11,10 @@ jest.mock('axios');
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('getPosts()', () => {
 
   test('should return all posts', async () => {
@@ -18,7 +22,7 @@ describe('getPosts()', () => {
       { type: postActionTypes.gettingPosts },
       { type: postActionTypes.gotPostsSuccess, payload: posts }
     ]
-    const store = mockStore({ posts: [] })
+    const store = mockStore({ posts: [] });
 
     axios.get.mockResolvedValue({
       data: posts,
@@ -30,8 +34,8 @@ describe('getPosts()', () => {
 
     return store.dispatch(PostService.getAllPosts()).then(() => {
       expect(axios.get).toHaveBeenCalled();
-      expect(store.getActions()).toEqual(expectedActions)
-    })
+      expect(store.getActions()).toEqual(expectedActions);
+    });
   });
 
   test('should catch a thrown error', async () => {
@@ -57,13 +61,88 @@ describe('getPosts()', () => {
   });
 });
 
+describe('Tests for deletePost', () => {
+
+  let store: any;
+  let expectedActions: any;
+  let testPostId = 'testPostId';
+  const token = 'testToken';
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    expectedActions = [
+      { type: postActionTypes.deletingPost },
+      { type: postActionTypes.deletedPostSuccess, payload: testPostId }
+    ];
+    store = mockStore({ posts: [] });
+  });
+
+  test('That calling deletePost makes an axios call', async () => {
+    axios.delete.mockResolvedValue({
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    });
+
+    await store.dispatch(PostService.deletePost(testPostId, token));
+    expect(axios.delete).toHaveBeenCalled();
+  });
+
+  test('That calling deletePost makes an axios call with the correct uri', async () => {
+    axios.delete.mockResolvedValue({
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    });
+
+    await store.dispatch(PostService.deletePost(testPostId, token));
+    expect(axios.delete).toHaveBeenCalledWith(`http://35.223.52.208/api/posts/${testPostId}`, {"headers": {"Authorization": "Bearer testToken"}});
+
+  });
+
+  test('That deletePost dispatches deletedPostSuccess when the axios call is successful', async () => {
+    axios.delete.mockResolvedValue({
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    });
+
+    await store.dispatch(PostService.deletePost(testPostId, token));
+    expect(store.getActions()).toEqual(expectedActions);
+
+  });
+
+  test('That deletePost returns false when the axios call is unsuccessful', async () => {
+    expectedActions = [
+      { type: postActionTypes.deletingPost },
+      { type: postActionTypes.deletedPostFailed, payload: 'FORBIDDEN' }
+    ]
+
+    axios.delete.mockResolvedValue({
+      status: 403,
+      statusText: 'FORBIDDEN',
+      headers: {},
+      config: {},
+    });
+
+    await store.dispatch(PostService.deletePost(testPostId, token));
+    expect(store.getActions()).toEqual(expectedActions);
+
+  });
+
+});
+
 describe('createPost()', () => {
 
   test('should add a newly created post', () => {
     const token = 'testToken';
     const expectedActions = [
       { type: postActionTypes.creatingPost },
-      { type: postActionTypes.createPostSuccess, payload: 201}
+      { type: postActionTypes.createPostSuccess, payload: 201 }
     ]
 
     const store = mockStore({ posts: [] })

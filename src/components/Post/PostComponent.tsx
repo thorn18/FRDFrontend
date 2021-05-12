@@ -16,8 +16,10 @@ interface postProp {
  * @param: post - the post consist of the user, post image and description, and replies
  */
 function PostComponent(props: postProp) {
-
+    
     const { post } = props;
+    //use this console log for getting post ids for testing delete
+    //console.log(JSON.stringify(post))
     return (
         <div className="postCard" data-testid='post-card'>
             <div className="postHeader">
