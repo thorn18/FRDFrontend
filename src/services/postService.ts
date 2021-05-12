@@ -15,27 +15,27 @@ class PostService {
      * See PaginationList.tsx for an example
      * @returns posts from API
      */
-    getAllPosts(pageSize: number = 5, offset: number = 0 ) {
+    getAllPosts(pageSize: number = 5, offset: number = 0) {
         return (dispatch: (action: PostAction) => void) => {
             dispatch(gettingPosts()); //action
             return axios.get(`${this.URI}/posts?offset=${offset}&pageSize=${pageSize}&comPageSize=5`) //need to include comment pagesize
-            .then(response => {
-                dispatch(gotPostsSuccess(response.data)); //type any as of now
-            }).catch(err => {
-                dispatch(gotPostsFailed(err)); //action
-            });
+                .then(response => {
+                    dispatch(gotPostsSuccess(response.data)); //type any as of now
+                }).catch(err => {
+                    dispatch(gotPostsFailed(err)); //action
+                });
         };
     };
 
-    createPost(newPost: NewPost){
+    createPost(newPost: NewPost, token: string) {
         return (dispatch: (action: PostAction) => void) => {
             dispatch(creatingPost());
-            return axios.post(`${this.URI}/posts`, newPost)
-            .then(response => {
-                dispatch(createPostSuccess(response.status));
-            }).catch(err => {
-                dispatch(createPostFailed(err));
-            });
+            return axios.post(`${this.URI}/posts`, newPost, { headers: { Authorization: `Bearer ${token}` } })
+                .then(response => {
+                    dispatch(createPostSuccess(response.status));
+                }).catch(err => {
+                    dispatch(createPostFailed(err));
+                });
         }
     }
 }
