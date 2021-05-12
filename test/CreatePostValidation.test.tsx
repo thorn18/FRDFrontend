@@ -39,6 +39,7 @@ let input = '';
 let selectedFile = undefined;
 let descriptionInteracted: boolean = false;
 let imgInteracted: boolean = false;
+let createErr: boolean = false;
 
 let setAState = jest.fn();
 
@@ -50,7 +51,8 @@ const setupNoSetState = () => {
     (useState as jest.Mock).mockImplementationOnce(() => [input, jest.fn()])
         .mockImplementationOnce(() => [selectedFile, jest.fn()])
         .mockImplementationOnce(() => [descriptionInteracted, jest.fn()])
-        .mockImplementationOnce(() => [imgInteracted, jest.fn()]);
+        .mockImplementationOnce(() => [imgInteracted, jest.fn()])
+        .mockImplementationOnce(() => [createErr, jest.fn()]);
 }
 
 const setupWithSetState = () => {
@@ -64,6 +66,7 @@ const setupWithSetState = () => {
         selectedFile = newFile;
     })]).mockImplementationOnce(() => [descriptionInteracted, jest.fn().mockImplementation((x) => descriptionInteracted = x)])
     .mockImplementationOnce(() => [imgInteracted, jest.fn().mockImplementation((x) => imgInteracted = x)])
+    .mockImplementationOnce(() => [createErr, jest.fn().mockImplementation((x) => createErr = x)]);
 }
 
 beforeEach(() => {
@@ -89,7 +92,14 @@ describe('Tests for Form Input', () => {
     input = 'hello';
     selectedFile = !undefined;
 
-    it('Test that clicking create post button, the form submits', () => {
+    it('Tests that clicking create post button will redirect to home on sucess', () => {
+        let dispatch = jest.fn();
+        dispatch.mockImplementation((x): void => {
+            return;
+        });
+        (useDispatch as jest.Mock).mockImplementation(() => {
+            return dispatch;
+        })
         setupWithSetState();
         const { getByTestId } = render(<Provider store={store}><CreatePost /></Provider>)
         fireEvent.click(getByTestId('createPostButton'));

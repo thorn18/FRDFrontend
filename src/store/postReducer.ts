@@ -6,7 +6,8 @@ import { UserState } from './userReducer';
 export interface PostsState {
     posts: Post[],
     loading: boolean,
-    hasMoreItems: boolean
+    hasMoreItems: boolean,
+    error?: any
 }
 
 export interface AppState {

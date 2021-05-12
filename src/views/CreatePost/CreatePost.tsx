@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import logo from '../../images/CreatePostLogo.png';
 import './CreatePost.css';
 import { useHistory } from 'react-router-dom';
@@ -21,9 +21,22 @@ function CreatePost(): JSX.Element {
     const [selectedFile, setSelectedFile] = useState();
     const [descriptionInteracted, setDI] = useState(false);
     const [imgInteracted, setII] = useState(false);
+    const [createErr, setErr] = useState(false);
+
     let token: string = useSelector((state: AppState) => state.userState.token);
+    let status: boolean = useSelector((state:AppState) => state.postsState.loading);
+    let error: any = useSelector((state:AppState) => state.postsState.error);
     const history = useHistory();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(status == false && error == undefined){
+            setErr(false);
+            history.push('/home');
+        } else if (status == false && error !== undefined){
+            setErr(true);
+        }
+    })
 
     const handleInput = (e: SyntheticEvent) => {
         let newInput = input;
@@ -39,8 +52,7 @@ function CreatePost(): JSX.Element {
 
     const onSubmit = (event: any) => {
         const newPost: NewPost = { username: '', image: selectedFile, description: input };
-        PostService.createPost(newPost, token);
-        history.push('/home');
+        dispatch(PostService.createPost(newPost, token));
     }
 
     const handleCancel = () => {
@@ -66,6 +78,7 @@ function CreatePost(): JSX.Element {
                         onClick={onSubmit}>
                         Create Post
                     </button>
+                    {createErr === true && <p style={{color: 'red', textAlign: 'left'}}>Failed to create post</p>}
                 </div>
             </form>
         </div>
