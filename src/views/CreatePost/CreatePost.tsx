@@ -34,7 +34,7 @@ function CreatePost(): JSX.Element {
 
     const imageHandler = (event: any) => {
         setSelectedFile(event.target.files[0]);
-        setII(true);
+        
     }
 
     const onSubmit = (event: any) => {
@@ -51,7 +51,7 @@ function CreatePost(): JSX.Element {
         <div id="createPost" data-testid="createPostForm">
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
             <form>
-                <input type="file" className="chooseImage-button" data-testid="chooseImageButton" name="file" onChange={imageHandler} />
+                <input type="file" className="chooseImage-button" data-testid="chooseImageButton" name="file" onChange={imageHandler} onClick={() => setII(true)}/>
                 {selectedFile == undefined && imgInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Image is required</p>}
                 <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input} onChange={handleInput} placeholder="Description..." />
                 {input == '' && descriptionInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Description is required</p>}
@@ -62,7 +62,7 @@ function CreatePost(): JSX.Element {
                         type='button'
                         className="buttonCreatePost"
                         data-testid='createPostButton'
-                        disabled={selectedFile ? false : true}
+                        disabled={selectedFile && input ? false : true}
                         onClick={onSubmit}>
                         Create Post
                     </button>
