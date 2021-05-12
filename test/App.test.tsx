@@ -5,6 +5,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore, { MockStoreEnhanced } from 'redux-mock-store';
 import Post from '../src/models/post';
+import * as fivePosts from './fivePosts.json'
 
 // jest.mock('react-redux', () => ({
 //   ...jest.requireActual('react-redux'),
@@ -21,11 +22,10 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares)
 let store: MockStoreEnhanced;
 
-let posts: Post[] = [];
 beforeEach(() => {
   store = mockStore({
       postsState: {
-          posts: posts,
+          posts: fivePosts.items,
           loading: false,
           hasMoreItems: true
       },
