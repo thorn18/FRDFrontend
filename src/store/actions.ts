@@ -14,6 +14,9 @@ export enum postActionTypes {
     gettingReplies = "GETTING_REPLIES",
     gotRepliesSuccess = "GOT_REPLIES_SUCCESS",
     gotRepliesFailed = "GOT_REPLIES_FAILED",
+    deletingPost = "DELETE_POST",
+    deletedPostSuccess = "DELETED_POST_SUCCESS",
+    deletedPostFailed = "DELETED_POST_FAILED",
     creatingPost = "CREATING_POST",
     createPostSuccess = "CREATE_POST_SUCCESS",
     createPostFailed = "CREATE_POST_FAILED"
@@ -65,6 +68,26 @@ export const gotRepliesFailed = (error: String) => {
     }
 }
 
+export const deletingPost = () => {
+    return {
+        type: postActionTypes.deletingPost
+    }
+}
+
+export const deletedPostSuccess = (postId: string) => {
+    return {
+        type: postActionTypes.deletedPostSuccess,
+        payload: postId
+    }
+}
+
+export const deletedPostFailed = (error: string) => {
+    return {
+        type: postActionTypes.deletedPostFailed,
+        payload: error
+    }
+}
+        
 export const creatingPost = () => {
     return {
         type: postActionTypes.creatingPost
