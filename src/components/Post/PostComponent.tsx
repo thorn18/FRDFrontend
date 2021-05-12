@@ -32,7 +32,9 @@ function PostComponent(props: postProp) {
     const token: string | null = useSelector((state: AppState) => state.userState.token);
 
     function deletePost() {
-        if (loggedin && token)  dispatch(postService.deletePost(post.post.id, token));
+        if (loggedin && token) {
+            dispatch(postService.deletePost(post.post.id, token));
+        } 
     }
 
     return (
