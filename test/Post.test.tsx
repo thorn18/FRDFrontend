@@ -9,6 +9,15 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { replyList0 } from './testReplyData';
 
+
+jest.mock('react-redux', () => ({
+    ...jest.requireActual('react-redux'),
+    useSelector: jest.fn().mockImplementationOnce(() => 
+    {username: "Billy";
+    loggedIn:false;
+    })
+}));
+
 afterEach(cleanup);
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares)
