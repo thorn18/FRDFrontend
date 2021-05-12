@@ -12,6 +12,7 @@ const PaginationList = () => {
     let posts: Post[] = useSelector((state: AppState) => state.postsState.posts);
     let loading: boolean = useSelector((state: AppState) => state.postsState.loading);
     let hasMoreItems: boolean = useSelector((state: AppState) => state.postsState.hasMoreItems);
+    let processed: boolean = useSelector((state: AppState) => state.postsState.processed)
 
     const dispatch = useDispatch();
     const getPosts = () => {
@@ -22,6 +23,7 @@ const PaginationList = () => {
 
     useEffect(() => {
         if (posts.length == 0) {
+            console.log('pagination use effect');
             getPosts();
         }
 

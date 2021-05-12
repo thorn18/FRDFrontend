@@ -39,16 +39,19 @@ beforeEach(() => {
 const setupNoLogin = () => {
     (useSelector as jest.Mock).mockImplementationOnce(() => '')
         .mockImplementationOnce(() => false)
+        .mockImplementationOnce(() => '');
 }
 
 const setupLogin = () => {
     (useSelector as jest.Mock).mockImplementationOnce(() => 'Bob')
         .mockImplementationOnce(() => true)
+        .mockImplementationOnce(() => 'aToken');
 }
 
 const setupLoginDifferentUser = () => {
     (useSelector as jest.Mock).mockImplementationOnce(() => 'Billy')
         .mockImplementationOnce(() => true)
+        .mockImplementationOnce(() => 'aToken');
 }
 
 
