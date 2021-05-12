@@ -19,7 +19,8 @@ export enum postActionTypes {
     deletedPostFailed = "DELETED_POST_FAILED",
     creatingPost = "CREATING_POST",
     createPostSuccess = "CREATE_POST_SUCCESS",
-    createPostFailed = "CREATE_POST_FAILED"
+    createPostFailed = "CREATE_POST_FAILED",
+    reset = "RESET_POST_STATE",
 }
 
 export enum userActionTypes {
@@ -125,5 +126,11 @@ export const loginError = (error: String) => {
 export const logoutUser = () => {
     return {
         type: userActionTypes.logout
+    }
+}
+
+export const resetPostState = () => {
+    return {
+        type: postActionTypes.reset
     }
 }
