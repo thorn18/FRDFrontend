@@ -139,12 +139,16 @@ describe('Tests for Form Input', () => {
 
     it('changes image if event fires', () => {
         setAState.mockImplementationOnce((x) => {selectedFile = x});
-        (useState as jest.Mock).mockImplementation((x) => [selectedFile, setAState]);
+        //(useState as jest.Mock).mockImplementation((x) => [selectedFile, setAState]);
+        (useState as jest.Mock).mockImplementationOnce(() => [input, jest.fn()])
+        .mockImplementationOnce(() => [selectedFile, setAState])
+        .mockImplementationOnce(() => [descriptionInteracted, jest.fn()])
+        .mockImplementationOnce(() => [imgInteracted, jest.fn()])
+        .mockImplementationOnce(() => [createErr, jest.fn()]);
 
         const {getByTestId} = render(<Provider store={store}><CreatePost/></Provider>)
-        let image = getByTestId('chooseImageButton');
-        const img = '';
-        fireEvent.change(image, {target: {value: img}});
+        const img = new File([''], '');
+        fireEvent.change(getByTestId('chooseImageButton'), {target: {files: [img]}});
 
         expect(selectedFile).toBe(img);
         expect(useState).toHaveBeenCalled();
