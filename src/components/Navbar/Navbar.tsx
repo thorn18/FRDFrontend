@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch} from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { IconContext } from "react-icons";
 import { BsPerson, BsSearch } from "react-icons/bs";
 import Logo from "../../images/logo.svg";
@@ -20,6 +20,8 @@ const Navbar = () => {
   const loggedIn: boolean = useSelector((state: AppState) => state.userState.loggedIn);
   const history = useHistory();
   const dispatch = useDispatch();
+  const location = useLocation();
+ 
 
   const setLoginButton = () => {
     setToggleButton(!toggleButton);
@@ -45,73 +47,74 @@ const Navbar = () => {
   return (
     <nav data-testid="navbar" id="navbar">
       <img className="nav_logo" data-testid="nav-logo" src={Logo} alt="Nav Logo" />
-
-      <div className="wrapper">
-        <BsSearch className="searchIcon" />
-        <input
-          type="search"
-          onChange={handleChange}
-          value={input}
-          placeholder="Search"
-          className="input"
-          data-testid="search-bar"
-        />
-      </div>
-
-      <IconContext.Provider value={{ size: "2em" }}>
-        <div className="nav-action-items">
-          {(loggedIn === true)? <>
-              <button
-                onClick={() => {
-                history.push('/newpost')
-                console.log('go to new post');
-              }}
-                data-tip
-                data-for='addPostTip'
-                data-testid="post-btn"
-                className="nav_addIcon"><img className="nav_addImg" src={addIcon} /></button>
+      {location.pathname !== '/login' &&
+        <div className='navbarContainer' data-testid='navbarContainer'>
+          <div className="wrapper">
+            <BsSearch className="searchIcon" />
+            <input
+              type="search"
+              onChange={handleChange}
+              value={input}
+              placeholder="Search"
+              className="input"
+              data-testid="search-bar"
+            />
+          </div>
+          <IconContext.Provider value={{ size: "2em" }}>
+            <div className="nav-action-items">
+              {(loggedIn === true) ? <>
+                <button
+                  onClick={() => {
+                    history.push('/newpost')
+                  }}
+                  data-tip
+                  data-for='addPostTip'
+                  data-testid="post-btn"
+                  className="nav_addIcon"><img className="nav_addImg" src={addIcon} /></button>
                 <ReactTooltip id='addPostTip' place='top' effect='solid'>Add a new post</ReactTooltip>
-            </> : <button data-testid="placeholder-btn" className="nav_placeholder"></button> }
-          <article
-            data-testid="login-menu"
-            onClick={() => setMenu(!isMenuOpen)}
-          >
-            <div className="login-menu">
-              <button
-                data-testid="toggle-btn"
-                onClick={setLoginButton}
-                className="clearBButton"
+              </> : <button data-testid="placeholder-btn" className="nav_placeholder"></button>}
+              <article
+                data-testid="login-menu"
+                onClick={() => setMenu(!isMenuOpen)}
               >
-                <BsPerson />
-              </button>
+                <div className="login-menu">
+                  <button
+                    data-testid="toggle-btn"
+                    onClick={setLoginButton}
+                    className="clearBButton"
+                  >
+                    <BsPerson />
+                  </button>
 
-              {(toggleButton && !loggedIn)
-                ? <button
-                  disabled={isMenuOpen ? false : true}
-                  data-testid="login-link"
-                  className="logButton"
-                  onClick={() => { loginButton() }}
-                >
-                  Login
+                  {(toggleButton && !loggedIn)
+                    ? <button
+                      disabled={isMenuOpen ? false : true}
+                      data-testid="login-link"
+                      className="logButton"
+                      onClick={() => { loginButton() }}
+                    >
+                      Login
                   </button>
-                : null
-              }
-              {(toggleButton && loggedIn)
-                ? <button
-                  disabled={isMenuOpen ? false : true}
-                  data-testid="logout-link"
-                  className="logButton"
-                  onClick={() => { logoutButton() }}
-                >
-                  Logout
+                    : null
+                  }
+                  {(toggleButton && loggedIn)
+                    ? <button
+                      disabled={isMenuOpen ? false : true}
+                      data-testid="logout-link"
+                      className="logButton"
+                      onClick={() => { logoutButton() }}
+                    >
+                      Logout
                   </button>
-                : null
-              }
+                    : null
+                  }
+                </div>
+              </article>
             </div>
-          </article>
+          </IconContext.Provider>
         </div>
-      </IconContext.Provider>
-    </nav>
+      }
+    </nav >
   );
 };
 

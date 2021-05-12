@@ -6,12 +6,16 @@
     background-color: #FFFFFF;
     position: fixed;
     top: 0;
-    width:100%
+    width:100%;
+    justify-content: left;   
+    height: 57px; 
 }
 
 #navbar .nav-action-items {
     display: flex;
-    width: 167px;
+    width: 100%;
+    align-items: right;
+    justify-content: flex-end;
 }
 
 #navbar .closed {
@@ -35,7 +39,7 @@
 
 .wrapper {
     position: relative;
-    margin: 10px 0 10px 0;
+    margin: 13px 0 13px 0;
     /* width: 200px; */
 }
 
@@ -67,6 +71,11 @@
     bottom: 12px;
 }
 
+.nav_logo{
+   height: fit-content;
+    margin: 13px 0 13px 17.5%;
+}
+
 .searchIcon {
     top: 7px;
     left: 50px;
@@ -83,11 +92,12 @@
     color: gray;
     background-color: #FAFAFA;
     font-weight: 700;
+    border-radius:3px
 }
 
 .login-menu {
     position: relative;
-    margin: 13px 0 13px 0;
+    margin: 13px 0 13px 0; 
 }
 
 .clearBButton {
@@ -106,4 +116,12 @@
     color: black;
     width: 102px;
     height: 47px;
+}
+
+.navbarContainer{
+    display:flex;
+    flex-direction: row;
+    margin-left: 14%;
+    margin-right: 17.5%;
+    width: 100%;
 }
