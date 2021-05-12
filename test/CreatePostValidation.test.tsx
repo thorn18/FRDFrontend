@@ -2,15 +2,10 @@ import React, { useState } from "react";
 import configureMockStore from 'redux-mock-store';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import "@testing-library/jest-dom/extend-expect";
-import { useForm } from 'react-hook-form';
-import { screen, render, fireEvent, cleanup, getByDisplayValue } from "@testing-library/react";
-import userEvent from '@testing-library/user-event';
+import { render, fireEvent, cleanup } from "@testing-library/react";
 import PostService from '../src/services/postService';
-import { Router, useHistory } from "react-router-dom";
-import { createMemoryHistory } from 'history';
 import CreatePost from "../src/views/CreatePost/CreatePost";
 import thunk from "redux-thunk";
-import postService from "../src/services/postService";
 
 const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -47,6 +42,7 @@ let error: any = undefined;
 let username: string = '';
 
 let setAState = jest.fn();
+let setFileState = jest.fn();
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -139,14 +135,13 @@ describe('Tests for Form Input', () => {
 
     it('changes image if event fires', () => {
         setAState.mockImplementationOnce((x) => {selectedFile = x});
-        //(useState as jest.Mock).mockImplementation((x) => [selectedFile, setAState]);
         (useState as jest.Mock).mockImplementationOnce(() => [input, jest.fn()])
         .mockImplementationOnce(() => [selectedFile, setAState])
         .mockImplementationOnce(() => [descriptionInteracted, jest.fn()])
         .mockImplementationOnce(() => [imgInteracted, jest.fn()])
         .mockImplementationOnce(() => [createErr, jest.fn()]);
 
-        const {getByTestId} = render(<Provider store={store}><CreatePost/></Provider>)
+        const {getByTestId} = render(<Provider store={store}><CreatePost/></Provider>);
         const img = new File([''], '');
         fireEvent.change(getByTestId('chooseImageButton'), {target: {files: [img]}});
 
@@ -204,4 +199,41 @@ describe('Tests for Form Validation', () => {
         expect(container).toHaveTextContent('Image is required');
     })
 
+})
+
+describe('Tests for form submit', () => {
+
+    it('sets the createErr to false on a success', () => {
+        processed = true;
+        error = undefined;
+
+        setupWithSetState();
+
+        const { getByTestId } = render(
+            <Provider store={store}>
+                <CreatePost />
+            </Provider>);
+
+        fireEvent.click(getByTestId('createPostButton'));
+
+        expect(createErr).toBe(false);
+        expect(useState).toHaveBeenCalled();
+    })
+
+    it('sets the createErr to true on a failure', () => {
+        processed = true;
+        error = 'error';
+
+        setupWithSetState();
+
+        const { getByTestId } = render(
+            <Provider store={store}>
+                <CreatePost />
+            </Provider>);
+
+        fireEvent.click(getByTestId('createPostButton'));
+
+        expect(createErr).toBe(true);
+        expect(useState).toHaveBeenCalled();
+    })
 })
