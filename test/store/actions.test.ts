@@ -70,12 +70,14 @@ describe('Tests for Redux actions to do with logging in and out a user', () => {
     //actions: getting replies, got replies success, got replies failed
 
     test('should create an action with token object that it got via axios', () => {
-        const testToken = 'aToken';
+        const token = 'aToken';
+        const username = 'aUser';
+
         const testAction = {
             type: actions.userActionTypes.loginSuccess,
-            payload: testToken
+            payload: {username, token}
         }
-        expect(actions.loginSuccess(testToken)).toEqual(testAction);
+        expect(actions.loginSuccess(username, token)).toEqual(testAction);
     });
 
      test('should create an action to logout without payload', () => {
@@ -93,7 +95,39 @@ describe('Tests for Redux actions to do with logging in and out a user', () => {
         }
         expect(actions.loginError(testError)).toEqual(testAction);
     });
-})
+});
+
+describe('Tests for Redux actions to do with deleting posts', () => {
+
+    //actions: deleting post, deleted post success, deleted post failed
+    const testPostId = 'testPostId';
+
+    test('should create an action with no payload', () => {
+        const testAction = {
+            type: actions.postActionTypes.deletingPost
+        }
+        expect(actions.deletingPost()).toEqual(testAction);
+    });
+
+    test('should create an action with the post id to be deleted', () => {
+        
+        const testAction = {
+            type: actions.postActionTypes.deletedPostSuccess,
+            payload: testPostId
+        }
+        expect(actions.deletedPostSuccess(testPostId)).toEqual(testAction);
+    });
+
+    test('should create an action with the error that it got via axios', () => {
+        const testError = 'oh no!';
+        const testAction = {
+            type: actions.postActionTypes.deletedPostFailed,
+            payload: testError
+        }
+        expect(actions.deletedPostFailed(testError)).toEqual(testAction);
+    });
+
+});
 
 describe('Test for Redux actions for creating a new post', () => {
 
@@ -122,4 +156,4 @@ describe('Test for Redux actions for creating a new post', () => {
         expect(actions.createPostFailed(testError)).toEqual(testAction);
     });
 
-})
+});
