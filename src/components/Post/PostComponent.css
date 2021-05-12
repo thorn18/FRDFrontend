@@ -13,14 +13,15 @@
 }
 .postHeader{
     height: 45px;
-    width: 500px;
+    width: 616px;
     display: flex;
-    margin: 5px 10px 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .pfp{
     width:40px;
     height:40px;
-    margin-left: 5px;
+    margin-left: 15px;
     margin-top:2px;
     border-radius: 100%;
     
@@ -28,7 +29,7 @@
 .headerText{
     padding-left: 10px;
     font-weight: bold;
-    width: 500px;
+    width: 514px;
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
@@ -92,8 +93,37 @@
     justify-content: center;
     align-items: center;
 }
+.deletePostButtonBox {
+    background: #8F8F8F30;
+    height: 26px;
+    width: 32px;
+    border-radius:3px;
+    border-style: hidden;
+    justify-self: right;
+    margin-top: 10px;
+    outline: none;
 
-.replyList{
-    padding-top: 11px;
-    margin-top: -11px;
+}
+#deletePostButton {
+    position: relative;
+    right: 84px;
+    top: 3px;
+    height: 47px;
+    width: 102px;
+    background: #FFFFFF;
+    border-radius: 3px;
+    border-style:solid;
+    border-color:#E6E6E6;
+    border-width: 1px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+
+}
+
+.threeDots {
+    position: relative;
+    padding-top: 2px;
+    margin-top: 5px;
+    transform: scale(1.5);
 }

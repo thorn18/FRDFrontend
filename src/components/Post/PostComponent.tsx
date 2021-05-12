@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Post from '../../models/post';
 import User from '../../models/user';
 import './PostComponent.css';
@@ -6,26 +6,41 @@ import likes from '../../images/Likes.png';
 import ReplyComponent from '../Reply/Reply';
 import Reply from '../../models/reply';
 import ReplyList from '../Reply/ReplyList';
+import { IconContext } from 'react-icons';
+import { BsThreeDots } from "react-icons/bs";
+import { UserState } from '../../store/userReducer';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store/postReducer';
+//import Dropdown from 'react-dropdown'
 
 interface postProp {
     post: Post
 }
+
 
 /**
  * This component displays the individual post content
  * @param: post - the post consist of the user, post image and description, and replies
  */
 function PostComponent(props: postProp) {
+
+    function deletePost() {
+
+    }
     
     const { post } = props;
-    //use this console log for getting post ids for testing delete
-    //console.log(JSON.stringify(post))
+    const [showMenu, setShowMenu] = useState(false);
+    const user: string = useSelector((state: AppState) => state.userState.username);
+    const loggedin: boolean = useSelector((state: AppState) => state.userState.loggedIn)
     return (
         <div className="postCard" data-testid='post-card'>
             <div className="postHeader">
                 {post.user.profileImage ? <img className="pfp" src={post.user.profileImage} />
                     : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
                 <span className="headerText">{post.user.username}</span>
+                {loggedin && user === post.user.username && <button className="deletePostButtonBox" data-testid = "deleteButtonBox" onClick={() => setShowMenu(!showMenu)}><BsThreeDots className="threeDots"/>
+                    {showMenu && <button id="deletePostButton" data-testid = "deleteButton"><label>Delete Post</label></button>}
+                </button>}
             </div>
             <div className="imageDiv">
                 <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId} />

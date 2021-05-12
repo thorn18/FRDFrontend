@@ -26,19 +26,49 @@ describe('unathenticated user tests', () => {
   });
 
   it('displays logos', () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
 
     expect(getByTestId('nav-logo')).toBeVisible();
   });
 
   it('displays search bar', () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
 
     expect(getByTestId('search-bar')).toBeVisible();
   });
 
   it('recognizes input in search bar', () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar/></Provider>);
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
 
     const targetValue = 'A';
 
@@ -48,13 +78,33 @@ describe('unathenticated user tests', () => {
   });
 
   it('renders with menu closed and no post button', () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
 
     expect(getByTestId('placeholder-btn')).toBeVisible();
   });
 
   it('displays login button', () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
 
     fireEvent.click(getByTestId('toggle-btn'));
 
@@ -63,10 +113,12 @@ describe('unathenticated user tests', () => {
 
   it('Navigates to login screen when clicking on login', () => {
     const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
     const { getByTestId } = render(
       <Provider store={store}>
         <Router history={history}>
-          <Navbar/>
+          <Navbar />
         </Router>
       </Provider>
     );
@@ -90,37 +142,79 @@ describe('authenticated user tests', () => {
   });
 
   it('displays logos', () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
 
     expect(getByTestId('nav-logo')).toBeVisible();
   });
 
   it('displays search bar', () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
-  
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
+
     expect(getByTestId('search-bar')).toBeVisible();
   });
 
   it("renders with menu closed and post button", () => {
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
 
     expect(getByTestId('post-btn')).toBeVisible();
   });
-  
-  it("displays logout button", () => {  
-    const { getByTestId } = render(<Provider store={store}><Navbar /></Provider>);
-  
+
+  it("displays logout button", () => {
+    const history = createMemoryHistory();
+    const route = '/some-route'
+    history.push(route);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Navbar />
+        </Router>
+      </Provider>
+    );
+
+
     fireEvent.click(getByTestId('toggle-btn'));
-  
+
     expect(getByTestId('logout-link')).toBeVisible();
   });
 
   it('Navigates to the landing page when clicking on logout', () => {
     const history = createMemoryHistory();
+    const route = '/home';
+    history.push(route);
     const { getByTestId } = render(
       <Provider store={store}>
         <Router history={history}>
-          <Navbar/>
+          <Navbar />
         </Router>
       </Provider>
     );
@@ -133,10 +227,12 @@ describe('authenticated user tests', () => {
 
   it('Clears local storage upon logging out', () => {
     const history = createMemoryHistory();
+    const route = '/home';
+    history.push(route);
     const { getByTestId } = render(
       <Provider store={store}>
         <Router history={history}>
-          <Navbar/>
+          <Navbar />
         </Router>
       </Provider>
     );
@@ -149,14 +245,16 @@ describe('authenticated user tests', () => {
 
   it('Calls dispatch to clear user when logging out', () => {
     const history = createMemoryHistory();
+    const route = '/home';
+    history.push(route);
     const { getByTestId } = render(
       <Provider store={store}>
         <Router history={history}>
-          <Navbar/>
+          <Navbar />
         </Router>
       </Provider>
     );
-    
+
     const useDispatchSpy = jest.spyOn(redux, 'useDispatch');
     const mockedDispatch = jest.fn();
     useDispatchSpy.mockReturnValue(mockedDispatch);
@@ -169,10 +267,12 @@ describe('authenticated user tests', () => {
 
   it('Navigates to the add post when clicking on add post', () => {
     const history = createMemoryHistory();
+    const route = '/home';
+    history.push(route);
     const { getByTestId } = render(
       <Provider store={store}>
         <Router history={history}>
-          <Navbar/>
+          <Navbar />
         </Router>
       </Provider>
     );
@@ -184,10 +284,12 @@ describe('authenticated user tests', () => {
 
   it('Shows tooltip when hovering over add post button', () => {
     const history = createMemoryHistory();
+    const route = '/home';
+    history.push(route);
     const { getByTestId, container } = render(
       <Provider store={store}>
         <Router history={history}>
-          <Navbar/>
+          <Navbar />
         </Router>
       </Provider>
     );
