@@ -7,6 +7,7 @@ export interface PostsState {
     posts: Post[],
     loading: boolean,
     hasMoreItems: boolean,
+    processed: boolean,
     error?: any
 }
 
@@ -19,7 +20,8 @@ export interface AppState {
 export const initialPostsState: PostsState = {
     posts: [],
     loading: false,
-    hasMoreItems: true
+    hasMoreItems: true,
+    processed: false
 }
 
 //reducers
@@ -28,9 +30,9 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.gettingPosts:
             return { posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems };
         case postActionTypes.gotPostsSuccess:
-            return { posts: [...state.posts, ...action.payload.items], loading: false, hasMoreItems: action.payload.hasNext };
+            return { posts: [...state.posts, ...action.payload.items], loading: false, processed: false, hasMoreItems: action.payload.hasNext };
         case postActionTypes.gotPostsFailed:
-            return { posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload };
+            return { posts: state.posts, loading: false, processed: false, hasMoreItems: state.hasMoreItems, error: action.payload };
         case postActionTypes.gettingReplies:
             return { posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems };
         case postActionTypes.gotRepliesSuccess:
@@ -51,11 +53,11 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.deletedPostFailed:
             return { posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload };
         case postActionTypes.creatingPost:
-            return {posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems};
+            return { posts: state.posts, loading: true, hasMoreItems: state.hasMoreItems };
         case postActionTypes.createPostSuccess:
-            return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems};
+            return { posts: state.posts, loading: false, processed: true, hasMoreItems: state.hasMoreItems };
         case postActionTypes.createPostFailed:
-            return {posts: state.posts, loading: false, hasMoreItems: state.hasMoreItems, error: action.payload}
+            return { posts: state.posts, loading: false, processed: true, hasMoreItems: state.hasMoreItems, error: action.payload };
         default:
             return state;
     }

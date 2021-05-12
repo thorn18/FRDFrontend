@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import configureMockStore from 'redux-mock-store';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import "@testing-library/jest-dom/extend-expect";
 import { useForm } from 'react-hook-form';
 import { screen, render, fireEvent, cleanup, getByDisplayValue } from "@testing-library/react";
@@ -10,6 +10,7 @@ import { Router, useHistory } from "react-router-dom";
 import { createMemoryHistory } from 'history';
 import CreatePost from "../src/views/CreatePost/CreatePost";
 import thunk from "redux-thunk";
+import postService from "../src/services/postService";
 
 const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -40,6 +41,10 @@ let selectedFile = undefined;
 let descriptionInteracted: boolean = false;
 let imgInteracted: boolean = false;
 let createErr: boolean = false;
+let token: string = '';
+let processed: boolean = false;
+let error: any = undefined;
+let username: string = '';
 
 let setAState = jest.fn();
 
@@ -67,6 +72,10 @@ const setupWithSetState = () => {
     })]).mockImplementationOnce(() => [descriptionInteracted, jest.fn().mockImplementation((x) => descriptionInteracted = x)])
     .mockImplementationOnce(() => [imgInteracted, jest.fn().mockImplementation((x) => imgInteracted = x)])
     .mockImplementationOnce(() => [createErr, jest.fn().mockImplementation((x) => createErr = x)]);
+    (useSelector as jest.Mock).mockImplementationOnce((x) => {return token})
+    .mockImplementationOnce((x) => {return processed})
+    .mockImplementationOnce((x) => {return error})
+    .mockImplementationOnce((x) => {return username});
 }
 
 beforeEach(() => {
@@ -99,10 +108,14 @@ describe('Tests for Form Input', () => {
         });
         (useDispatch as jest.Mock).mockImplementation(() => {
             return dispatch;
-        })
+        });
+        
         setupWithSetState();
-        const { getByTestId } = render(<Provider store={store}><CreatePost /></Provider>)
+        const { getByTestId, rerender } = render(<Provider store={store}><CreatePost /></Provider>)
         fireEvent.click(getByTestId('createPostButton'));
+        processed = true;
+        setupWithSetState();
+        rerender(<CreatePost/>);
         expect(mockPush).toHaveBeenCalledWith('/home');
     })
 

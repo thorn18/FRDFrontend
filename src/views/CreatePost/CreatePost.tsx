@@ -7,33 +7,26 @@ import { NewPost } from '../../models/post';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/postReducer';
 
-// export interface PostInput {
-//     description: any;
-// }
-
-// type FormValues = {
-//     image: any;
-//     description: string;
-// }
 
 function CreatePost(): JSX.Element {
     const [input, setInput] = useState('');
-    const [selectedFile, setSelectedFile] = useState();
+    const [selectedFile, setSelectedFile] = useState(new File([''],''));
     const [descriptionInteracted, setDI] = useState(false);
     const [imgInteracted, setII] = useState(false);
     const [createErr, setErr] = useState(false);
 
-    let token: string = useSelector((state: AppState) => state.userState.token);
-    let status: boolean = useSelector((state:AppState) => state.postsState.loading);
+    let token: any = useSelector((state: AppState) => state.userState.token);
+    let processed: boolean = useSelector((state:AppState) => state.postsState.processed);
     let error: any = useSelector((state:AppState) => state.postsState.error);
+    let username: string = useSelector((state:AppState) => state.userState.username);
     const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(status == false && error == undefined){
+        if(processed == true && error == undefined){
             setErr(false);
             history.push('/home');
-        } else if (status == false && error !== undefined){
+        } else if (processed == true && error !== undefined){
             setErr(true);
         }
     })
@@ -51,7 +44,7 @@ function CreatePost(): JSX.Element {
     }
 
     const onSubmit = (event: any) => {
-        const newPost: NewPost = { username: '', image: selectedFile, description: input };
+        const newPost: NewPost = { username: username, image: selectedFile, description: input };
         dispatch(PostService.createPost(newPost, token));
     }
 
