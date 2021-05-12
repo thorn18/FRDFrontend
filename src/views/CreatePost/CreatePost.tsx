@@ -25,7 +25,7 @@ function CreatePost(): JSX.Element {
     useEffect(() => {
         if(processed == true && error == undefined){
             setErr(false);
-            history.push('/home');
+            window.location.replace('/home')
         } else if (processed == true && error !== undefined){
             setErr(true);
         }
@@ -40,7 +40,6 @@ function CreatePost(): JSX.Element {
 
     const imageHandler = (event: any) => {
         setSelectedFile(event.target.files[0]);
-        
     }
 
     const onSubmit = (event: any) => {
@@ -57,6 +56,7 @@ function CreatePost(): JSX.Element {
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
             <form>
                 <input type="file" className="chooseImage-button" data-testid="chooseImageButton" name="file" onChange={imageHandler} onClick={() => setII(true)}/>
+                {selectedFile !== undefined && imgInteracted == true && <p>Filename: {selectedFile.name}</p>}
                 {selectedFile == undefined && imgInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Image is required</p>}
                 <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input} onChange={handleInput} placeholder="Description..." />
                 {input == '' && descriptionInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Description is required</p>}
