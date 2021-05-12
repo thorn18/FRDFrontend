@@ -1,15 +1,18 @@
 import {userActionTypes} from './actions';
+import decode from 'jwt-decode';
 
 export interface UserState {
-    token: string,
+    username: string,
+    token: string | null,
     loggedIn: boolean,
     error: any
 }
 
 //initial states
 export const initialUserState: UserState = {
-    token: '',
-    loggedIn: false,
+    username: '', 
+    token: localStorage.getItem('id_token') ? localStorage.getItem('id_token') : '',
+    loggedIn: localStorage.getItem('id_token') ? true : false,
     error: undefined
 }
 
@@ -17,11 +20,11 @@ export const initialUserState: UserState = {
 const userReducer = (state: UserState = initialUserState, action: any) => {
     switch(action.type) {
         case userActionTypes.loginSuccess:
-            return {token: action.payload.token, loggedIn: true, error: undefined}
+            return {username: action.payload.username, token: action.payload.token, loggedIn: true}
         case userActionTypes.loginError:
             return {token: state.token, error: action.payload, loggedIn: false}
         case userActionTypes.logout:
-            return {token: '', loggedIn: false, error: undefined};
+            return {username: '', token: '', loggedIn: false};
         default:
             return state;
     }

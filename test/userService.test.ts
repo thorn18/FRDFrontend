@@ -44,7 +44,7 @@ describe('User authentication', () => {
       axios.post.mockResolvedValue({
         data: 'message',
         status: 401,
-        statusText: 'Unauthorizedd',
+        statusText: 'Unauthorized',
         headers: {},
         config: {},
       });

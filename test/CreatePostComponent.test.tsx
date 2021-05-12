@@ -4,9 +4,12 @@ import "@testing-library/jest-dom/extend-expect";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from '../src/store/store';
 import CreatePostComponent from '../src/views/CreatePost/CreatePost';
+import { useForm } from "react-hook-form";
+import PostService from '../src/services/postService';
+import { createMemoryHistory } from 'history';
 import { Router } from "react-router-dom";
 
-const mockPush = jest.fn()
+const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useHistory: () => ({
@@ -16,9 +19,9 @@ jest.mock('react-router-dom', () => ({
 
 afterEach(cleanup);
 
-describe('The Create Post Component test', () => {
+describe('Tests for Create Post Component', () => {
 
-    it('shows that the Create Post Form is visible', () => {
+    it('Test to make sure that Create Post Form is visible', () => {
         const { getByTestId } = render(<Provider store={store}> <CreatePostComponent /> </Provider>);
         expect(getByTestId('createPostForm')).toBeVisible();
     });

@@ -1,8 +1,8 @@
 #landing {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   /* position: absolute; */
   /* top: 8vh; */
-  bottom: 0; 
+  bottom: 0;
   width: 100%;
   /* margin-top: 70px; */
   /* margin-bottom: 500px; */
@@ -10,3 +10,25 @@
   overflow-y: hidden;
 }
 
+.model {
+  display: flex;
+  justify-content: space-evenly;
+  width: 160px;
+  height: min-content;
+  margin: auto;
+  color: white;
+  background: red;
+}
+
+.modal-btn {
+  background-color: red; 
+  align-self: center;
+  height: 45px;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  font-weight:800;
+  border-radius: 2px;
+}
