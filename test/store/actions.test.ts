@@ -129,6 +129,38 @@ describe('Tests for Redux actions to do with deleting posts', () => {
 
 });
 
+describe('Tests for Redux actions to do with deleting posts', () => {
+
+    //actions: deleting post, deleted post success, deleted post failed
+    const testPostId = 'testPostId';
+
+    test('should create an action with no payload', () => {
+        const testAction = {
+            type: actions.postActionTypes.deletingPost
+        }
+        expect(actions.deletingPost()).toEqual(testAction);
+    });
+
+    test('should create an action with the post id to be deleted', () => {
+        
+        const testAction = {
+            type: actions.postActionTypes.deletedPostSuccess,
+            payload: testPostId
+        }
+        expect(actions.deletedPostSuccess(testPostId)).toEqual(testAction);
+    });
+
+    test('should create an action with the error that it got via axios', () => {
+        const testError = 'oh no!';
+        const testAction = {
+            type: actions.postActionTypes.deletedPostFailed,
+            payload: testError
+        }
+        expect(actions.deletedPostFailed(testError)).toEqual(testAction);
+    });
+
+});
+
 describe('Test for Redux actions for creating a new post', () => {
 
     test('should create an action of creatingPost there should be no payload', () => {
@@ -155,5 +187,13 @@ describe('Test for Redux actions for creating a new post', () => {
         }
         expect(actions.createPostFailed(testError)).toEqual(testAction);
     });
+});
 
+describe('resetting postsState tests', () => {
+    test('should create action for resetting postsState with no payload', () => {
+        const testAction = {
+            type: actions.postActionTypes.reset
+        }
+        expect(actions.resetPostState()).toEqual(testAction);
+    });
 });
