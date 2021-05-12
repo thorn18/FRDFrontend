@@ -4,6 +4,7 @@ import './CreatePost.css';
 import { useHistory } from 'react-router-dom';
 import PostService from '../../services/postService';
 import { NewPost } from '../../models/post';
+import { useDispatch } from 'react-redux';
 
 // export interface PostInput {
 //     description: any;
@@ -17,24 +18,25 @@ import { NewPost } from '../../models/post';
 function CreatePost(): JSX.Element {
     const [input, setInput] = useState('');
     const [selectedFile, setSelectedFile] = useState();
+    const [descriptionInteracted, setDI] = useState(false);
+    const [imgInteracted, setII] = useState(false);
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const handleInput = (e: SyntheticEvent) => {
         let newInput = input;
-
-        if ((e.target as HTMLInputElement).name === "description") {
-            newInput = (e.target as HTMLInputElement).value;
-            setInput(newInput);
-        }
+        newInput = (e.target as HTMLInputElement).value;
+        setInput(newInput);
+        setDI(true);
     }
 
     const imageHandler = (event: any) => {
         setSelectedFile(event.target.files[0]);
+        setII(true);
     }
 
     const onSubmit = (event: any) => {
         const newPost: NewPost = { username: '', image: selectedFile, description: input };
-        console.log(newPost);
         PostService.createPost(newPost);
         history.push('/home');
     }
@@ -48,11 +50,20 @@ function CreatePost(): JSX.Element {
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
             <form>
                 <input type="file" className="chooseImage-button" data-testid="chooseImageButton" name="file" onChange={imageHandler} />
+                {selectedFile == undefined && imgInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Image is required</p>}
                 <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input} onChange={handleInput} placeholder="Description..." />
+                {input == '' && descriptionInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Description is required</p>}
 
                 <div className='actionButtonContainer'>
                     <button className="buttonCancel" data-testid='cancelButton' onClick={handleCancel}>Cancel</button>
-                    <button type='button' className="buttonCreatePost" data-testid='createPostButton' onClick={onSubmit}>Create Post</button>
+                    <button
+                        type='button'
+                        className="buttonCreatePost"
+                        data-testid='createPostButton'
+                        disabled={selectedFile ? false : true}
+                        onClick={onSubmit}>
+                        Create Post
+                    </button>
                 </div>
             </form>
         </div>
