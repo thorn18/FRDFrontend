@@ -25,7 +25,7 @@ function CreatePost(): JSX.Element {
     useEffect(() => {
         if(processed == true && error == undefined){
             setErr(false);
-            window.location.replace('/home')
+            window.location.replace('/home');
         } else if (processed == true && error !== undefined){
             setErr(true);
         }

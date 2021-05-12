@@ -101,24 +101,6 @@ describe('Tests for Form Input', () => {
     input = 'hello';
     selectedFile = !undefined;
 
-    it('Tests that clicking create post button will redirect to home on sucess', () => {
-        let dispatch = jest.fn();
-        dispatch.mockImplementation((x): void => {
-            return;
-        });
-        (useDispatch as jest.Mock).mockImplementation(() => {
-            return dispatch;
-        });
-        
-        setupWithSetState();
-        const { getByTestId, rerender } = render(<Provider store={store}><CreatePost /></Provider>)
-        fireEvent.click(getByTestId('createPostButton'));
-        processed = true;
-        setupWithSetState();
-        rerender(<CreatePost/>);
-        expect(mockPush).toHaveBeenCalledWith('/home');
-    })
-
     it('Test that onSubmit dispatches to PostService', () => {
         let dispatch = jest.fn();
         dispatch.mockImplementation((x): void => {
