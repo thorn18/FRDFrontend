@@ -35,7 +35,8 @@ class PostService {
         return async (dispatch: (action: PostAction) => void) => {
             try {
                 dispatch(deletingPost()); //action
-                let res = await axios.delete(`${this.URI}/posts/${postId}`, { headers: { Authorization: `Bearer ${token}` } });
+                const config = { data: { id: postId }, headers: { Authorization: `Bearer ${token}` } };
+                let res = await axios.delete(`${this.URI}/posts`, config);
                 if (res.status === 200) {
                     dispatch(deletedPostSuccess(postId));
                 } else {
@@ -46,7 +47,7 @@ class PostService {
             }
         }
     }
-    
+
     createPost(newPost: NewPost, token: string) {
         return (dispatch: (action: PostAction) => void) => {
             dispatch(creatingPost());
@@ -54,11 +55,11 @@ class PostService {
             formData.append('username', newPost.username);
             formData.append('description', newPost.description);
             formData.append('image', newPost.image)
-            const config = { 
-                headers: { 
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'multipart/form-data' 
-                } 
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
             }
             return axios.post(`${this.URI}/posts`, formData, config)
                 .then(response => {

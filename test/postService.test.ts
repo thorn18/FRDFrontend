@@ -99,7 +99,7 @@ describe('Tests for deletePost', () => {
     });
 
     await store.dispatch(PostService.deletePost(testPostId, token));
-    expect(axios.delete).toHaveBeenCalledWith(`http://35.223.52.208/api/posts/${testPostId}`, {"headers": {"Authorization": "Bearer testToken"}});
+    expect(axios.delete).toHaveBeenCalledWith(`http://35.223.52.208/api/posts`, {data:{id:testPostId},"headers": {"Authorization": "Bearer testToken"}});
 
   });
 
