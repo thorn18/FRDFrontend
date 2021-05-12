@@ -4,7 +4,8 @@ import './CreatePost.css';
 import { useHistory } from 'react-router-dom';
 import PostService from '../../services/postService';
 import { NewPost } from '../../models/post';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/postReducer';
 
 // export interface PostInput {
 //     description: any;
@@ -20,6 +21,7 @@ function CreatePost(): JSX.Element {
     const [selectedFile, setSelectedFile] = useState();
     const [descriptionInteracted, setDI] = useState(false);
     const [imgInteracted, setII] = useState(false);
+    let token: string = useSelector((state: AppState) => state.userState.token);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -37,7 +39,7 @@ function CreatePost(): JSX.Element {
 
     const onSubmit = (event: any) => {
         const newPost: NewPost = { username: '', image: selectedFile, description: input };
-        PostService.createPost(newPost);
+        PostService.createPost(newPost, token);
         history.push('/home');
     }
 
