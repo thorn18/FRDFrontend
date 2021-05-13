@@ -1,9 +1,10 @@
 import Post from '../models/post';
 import Replies from '../models/replies';
+import Reply from '../models/reply';
 
 export interface PostAction {
     type: postActionTypes,
-    payload?: String | Post[] | Post | Replies | number
+    payload?: String | Post[] | Post | Replies | Reply | number
 }
 
 export interface UserAction {
@@ -122,10 +123,10 @@ export const creatingReply = () => {
     }
 }
 
-export const createReplySuccess = (status: number) => {
+export const createReplySuccess = (reply: Reply) => {
     return {
         type: postActionTypes.createReplySuccess,
-        payload: status
+        payload: reply
     }
 }
 

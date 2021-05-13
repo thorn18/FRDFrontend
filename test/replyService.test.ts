@@ -3,7 +3,7 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import ReplyService from '../src/services/replyService';
 import { postActionTypes } from '../src/store/actions';
 import configureMockStore from 'redux-mock-store';
-import { newReply, replyList0 } from './testReplyData';
+import { newReply, reply0, replyList0 } from './testReplyData';
 import { AnyAction } from 'redux';
 
 jest.mock('axios');
@@ -102,12 +102,12 @@ describe('should create a comment for a post', () => {
     test('that an axios call is made', async () => {
         const expectedActions = [
             { type: postActionTypes.creatingReply },
-            { type: postActionTypes.createReplySuccess, payload: 201 }
+            { type: postActionTypes.createReplySuccess, payload: reply0 }
         ]
         const store = mockStore({ posts: [] })
 
         axios.post.mockResolvedValue({
-            data: null,
+            data: reply0,
             status: 201,
             statusText: 'OK',
             headers: {},

@@ -151,11 +151,11 @@ describe('testing the reducer for the createReply service', () => {
         expect(postsReducer(testInitialState, { type: postActionTypes.creatingReply }))
             .toEqual({ posts: [], loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false });
     });
-
+    //this might need some work
     test('The createReplySuccess', () => {
         const initialPosts: Post[] = [post1, post2];
         const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
-        expect(postsReducer(testInitialState, { type: postActionTypes.createReplySuccess, payload: { status: 201 } }))
+        expect(postsReducer(testInitialState, { type: postActionTypes.createReplySuccess, payload: { reply: reply0 } }))
             .toEqual({ posts: [ ...initialPosts ], loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: true });
     });
 
