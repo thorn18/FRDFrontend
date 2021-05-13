@@ -76,7 +76,7 @@ const Navbar = () => {
                     data-tip
                     data-for='addPostTip'
                     data-testid="post-btn"
-                    className="nav_addIcon"><img className="nav_addImg" src={addIcon} /></button>
+                    className="nav_addIcon"><img className="nav_addImg" src={addIcon} alt='Add a new post' /></button>
                   <ReactTooltip id='addPostTip' place='top' effect='solid'>Add a new post</ReactTooltip>
                 </> : <button data-testid="placeholder-btn" className="nav_placeholder"></button>}
                 <article
