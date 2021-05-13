@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { postActionTypes, gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction } from '../store/actions';
+import Reply, { NewReply } from '../models/reply';
+import { postActionTypes, gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction, creatingReply, createReplySuccess, createReplyFailed } from '../store/actions';
 
 class ReplyService {
     private URI: string;
@@ -16,6 +17,23 @@ class ReplyService {
                 dispatch(gotRepliesSuccess(response.data)); //type any as of now
             }).catch(err => {
                 dispatch(gotRepliesFailed(err)); //action
+            });
+        };
+    }
+
+    createReply(reply:NewReply, token:string) {
+        return (dispatch: (action: PostAction) => void) => {
+            dispatch(creatingReply()); //action
+            const config = { 
+                headers: { 
+                    'Authorization': `Bearer ${token}`
+                } 
+            }
+            return axios.post(`${this.URI}${reply.postId}`, reply, config)
+            .then(response => {
+                dispatch(createReplySuccess(response.status)); 
+            }).catch(err => {
+                dispatch(createReplyFailed(err)); //action
             });
         };
     }
