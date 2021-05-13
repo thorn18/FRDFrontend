@@ -21,21 +21,28 @@ class ReplyService {
         };
     }
 
-    createReply(reply:NewReply, token:string) {
-        return (dispatch: (action: PostAction) => void) => {
-            dispatch(creatingReply()); //action
-            const config = { 
-                headers: { 
-                    'Authorization': `Bearer ${token}`
-                } 
+    createReply(reply:NewReply, token:string, local?:boolean) {
+        if (local == true) {
+            return (dispatch: (action: PostAction) => void) => {
+                return (dispatch(createReplySuccess(201)))
             }
-            return axios.post(`${this.URI}${reply.postId}`, reply, config)
-            .then(response => {
-                dispatch(createReplySuccess(response.status)); 
-            }).catch(err => {
-                dispatch(createReplyFailed(err)); //action
-            });
-        };
+        } else {
+            return (dispatch: (action: PostAction) => void) => {
+                dispatch(creatingReply()); //action
+                const config = { 
+                    headers: { 
+                        'Authorization': `Bearer ${token}`
+                    } 
+                }
+                return axios.post(`${this.URI}${reply.postId}`, reply, config)
+                .then(response => {
+                    dispatch(createReplySuccess(response.status)); 
+                }).catch(err => {
+                    dispatch(createReplyFailed(err)); //action
+                });
+            };
+        }
+        
     }
 }
 
