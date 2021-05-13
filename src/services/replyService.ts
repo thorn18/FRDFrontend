@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Reply, { NewReply } from '../models/reply';
-import { postActionTypes, gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction, creatingReply, createReplySuccess, createReplyFailed } from '../store/actions';
+import { NewReply } from '../models/reply';
+import { gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction, creatingReply, createReplySuccess, createReplyFailed } from '../store/actions';
 
 class ReplyService {
     private URI: string;
@@ -39,4 +39,4 @@ class ReplyService {
     }
 }
 
-export default new ReplyService;
+export default new ReplyService();

@@ -1,10 +1,14 @@
-import Post, { NewPost } from '../models/post';
-import User from '../models/user';
+import Post from '../models/post';
 import Replies from '../models/replies';
 
 export interface PostAction {
     type: postActionTypes,
     payload?: String | Post[] | Post | Replies | number
+}
+
+export interface UserAction {
+    type: userActionTypes,
+    payload?: String | Error | Object
 }
 
 export enum postActionTypes {

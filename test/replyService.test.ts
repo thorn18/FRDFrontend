@@ -1,13 +1,17 @@
 import axios from 'axios';
-import thunk from 'redux-thunk';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import ReplyService from '../src/services/replyService';
 import { postActionTypes } from '../src/store/actions';
 import configureMockStore from 'redux-mock-store';
 import { newReply, replyList0 } from './testReplyData';
+import { AnyAction } from 'redux';
 
 jest.mock('axios');
+
+const initialState = {};
+type State = typeof initialState;
 const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+const mockStore = configureMockStore<State, ThunkDispatch<State, any, AnyAction>>(middlewares);
 
 afterEach(() => {
     jest.clearAllMocks();
@@ -22,9 +26,9 @@ describe('should get more comments for a post', () => {
             { type: postActionTypes.gettingReplies },
             { type: postActionTypes.gotRepliesSuccess, payload: replyList0 }
         ]
-        const store = mockStore({ posts: [] })
+        const store = mockStore({ posts: [] });
 
-        axios.get.mockResolvedValue({
+        (axios.get as jest.Mock).mockResolvedValue({
             data: replyList0,
             status: 200,
             statusText: 'OK',
@@ -47,9 +51,9 @@ describe('should get more comments for a post', () => {
             { type: postActionTypes.gettingReplies },
             { type: postActionTypes.gotRepliesSuccess, payload: replyList0 }
         ]
-        const store = mockStore({ posts: [] })
+        const store = mockStore({ posts: [] });
 
-        axios.get.mockResolvedValue({
+        (axios.get as jest.Mock).mockResolvedValue({
             data: replyList0,
             status: 200,
             statusText: 'OK',
@@ -79,9 +83,9 @@ describe('should get more comments for a post', () => {
             { type: postActionTypes.gettingReplies },
             { type: postActionTypes.gotRepliesFailed, payload: error }
         ]
-        const store = mockStore({ posts: [] })
+        const store = mockStore({ posts: [] });
 
-        axios.get.mockRejectedValue(error);
+        (axios.get as jest.Mock).mockRejectedValue(error);
 
         return store.dispatch(ReplyService.getMoreReplies(testPostId)).then(() => {
             expect(axios.get).toHaveBeenCalledTimes(1);

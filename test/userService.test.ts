@@ -1,15 +1,21 @@
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import decode from 'jwt-decode';
-
+import { AnyAction } from 'redux';
 import { userActionTypes } from '../src/store/actions';
 import UserService from '../src/services/userService';
 
 jest.mock('axios');
 jest.mock('jwt-decode');
+
+const initialState = {};
+type State = typeof initialState;
 const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+const mockStore = configureMockStore<State, ThunkDispatch<State, any, AnyAction>>(middlewares);
+
+const mockUsername = 'username';
+const mockPassword = 'password';
 
 describe('User authentication', () => {
 
@@ -18,9 +24,9 @@ describe('User authentication', () => {
         { payload: {token: 'aToken'},
           type: userActionTypes.loginSuccess}
       ]
-      const store = mockStore({ token: ''})
-      decode.mockReturnValue('');
-      axios.post.mockResolvedValue({
+      const store = mockStore({ token: ''});
+      (decode as jest.Mock).mockReturnValue('');
+      (axios.post as jest.Mock).mockResolvedValue({
         data: {token: 'aToken'},
         status: 200,
         statusText: 'OK',
@@ -28,20 +34,20 @@ describe('User authentication', () => {
         config: {},
       });
   
-      return store.dispatch(UserService.login()).then(() => {
+      return store.dispatch(UserService.login(mockUsername, mockPassword)).then(() => {
         expect(decode).toHaveBeenCalled();
         expect(axios.post).toHaveBeenCalled();
         expect(store.getActions()).toEqual(expectedActions)
-      })
+      });
     });
 
     test('If user authentication fails, it should return an error message', async () => {
       const expectedActions = [
         { type: userActionTypes.loginError}
       ]
-      const store = mockStore({ token: ''})
+      const store = mockStore({ token: ''});
   
-      axios.post.mockResolvedValue({
+      (axios.post as jest.Mock).mockResolvedValue({
         data: 'message',
         status: 401,
         statusText: 'Unauthorized',
@@ -49,10 +55,10 @@ describe('User authentication', () => {
         config: {},
       });
   
-      return store.dispatch(UserService.login()).then(() => {
+      return store.dispatch(UserService.login(mockUsername, mockPassword)).then(() => {
         expect(axios.post).toHaveBeenCalled();
         expect(store.getActions()).toEqual(expectedActions)
-      })
+      });
     });
 
   });
