@@ -3,7 +3,7 @@ import Post from '../../models/post';
 import PostComponent from './PostComponent';
 import './PaginationList.css'
 import { useDispatch, useSelector } from 'react-redux';
-import postsReducer, { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/postReducer';
 import PostService from '../../services/postService';
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -12,7 +12,7 @@ const PaginationList = () => {
     let posts: Post[] = useSelector((state: AppState) => state.postsState.posts);
     let loading: boolean = useSelector((state: AppState) => state.postsState.loading);
     let hasMoreItems: boolean = useSelector((state: AppState) => state.postsState.hasMoreItems);
-    let processed: boolean = useSelector((state: AppState) => state.postsState.processed)
+    // let processed: boolean = useSelector((state: AppState) => state.postsState.processed);
 
     const dispatch = useDispatch();
     const getPosts = () => {
@@ -22,12 +22,11 @@ const PaginationList = () => {
     }
 
     useEffect(() => {
-        if (posts.length == 0) {
+        if (posts.length === 0) {
             console.log('pagination use effect');
             getPosts();
         }
-
-    }, []);
+    });
 
     return (
         <div className='listContainer' id='postContainer' data-testid='scrollContainer'>

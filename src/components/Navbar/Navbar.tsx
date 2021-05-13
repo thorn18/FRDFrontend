@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactTooltip from "react-tooltip";
 import { useSelector, useDispatch} from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -7,7 +7,6 @@ import { BsPerson, BsSearch } from "react-icons/bs";
 import Logo from "../../images/logo.svg";
 import addIcon from "../../images/addIcon.svg";
 import "./Navbar.css";
-import { UserState } from '../../store/userReducer';
 import { logoutUser } from '../../store/actions';
 import { AppState } from "../../store/postReducer";
 
@@ -16,13 +15,11 @@ const Navbar = () => {
   const [toggleButton, setToggleButton] = useState(false);
   const [input, setInput] = useState('');
 
-  //const token: string | null = useSelector((state: AppState) => state.userState.token);
   const loggedIn: boolean = useSelector((state: AppState) => state.userState.loggedIn);
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
  
-
   const setLoginButton = () => {
     setToggleButton(!toggleButton);
   }
@@ -70,7 +67,7 @@ const Navbar = () => {
                   data-tip
                   data-for='addPostTip'
                   data-testid="post-btn"
-                  className="nav_addIcon"><img className="nav_addImg" src={addIcon} /></button>
+                  className="nav_addIcon"><img className="nav_addImg" src={addIcon} alt='Add Post'/></button>
                 <ReactTooltip id='addPostTip' place='top' effect='solid'>Add a new post</ReactTooltip>
               </> : <button data-testid="placeholder-btn" className="nav_placeholder"></button>}
               <article

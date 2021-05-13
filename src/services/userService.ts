@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { userActionTypes, loginSuccess, loginError } from '../store/actions';
+import { loginSuccess, loginError, UserAction } from '../store/actions';
 import decode from 'jwt-decode';
 
 class UserService {
@@ -10,10 +10,10 @@ class UserService {
     }
 
     login(usernameTry: string, passwordTry: string) {
-        return (dispatch: (arg0: { type: userActionTypes; payload?: any; }) => void) => {
+        return (dispatch: (action: UserAction) => void) => {
             return axios.post(`${this.URI}`, { username: usernameTry, password: passwordTry })
                 .then(response => {
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         let decoded: any = decode(response.data.token);
                         localStorage.setItem("id_token", response.data.token); 
                         dispatch(loginSuccess(decoded.nameid, response.data.token)); //retrieve token
@@ -28,4 +28,4 @@ class UserService {
     }
 }
 
-export default new UserService;
+export default new UserService();
