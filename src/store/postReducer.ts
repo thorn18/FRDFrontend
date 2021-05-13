@@ -2,7 +2,6 @@ import { postActionTypes } from './actions';
 import Post from '../models/post';
 import { UserState } from './userReducer';
 import Reply from '../models/reply';
-import { isTemplateSpan } from 'typescript';
 
 //interfaces to give states types
 export interface PostsState {
@@ -66,7 +65,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.creatingReply:
             return { ...state, loading: true };
         case postActionTypes.createReplySuccess:
-            //adds comments to a specific post. must use index because of pass by reference. 
+            //adds comments to a specific post. must use index because of pass by reference.
             let postNewCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.postId);
             if (state.posts[postNewCommentIndex]) {
                 let allComments: Reply[] = [...state.posts[postNewCommentIndex].comments.items, action.payload];
