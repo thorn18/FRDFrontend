@@ -9,6 +9,7 @@
     width:100%;
     justify-content: left;   
     height: 57px; 
+    z-index: 99;
 }
 
 #navbar .nav-action-items {
