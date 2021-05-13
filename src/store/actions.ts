@@ -20,6 +20,9 @@ export enum postActionTypes {
     creatingPost = "CREATING_POST",
     createPostSuccess = "CREATE_POST_SUCCESS",
     createPostFailed = "CREATE_POST_FAILED",
+    creatingReply = "CREATING_REPLY",
+    createReplySuccess = "CREATE_REPLY_SUCCESS",
+    createReplyFailed = "CREATE_REPLY_FAILED",
     reset = "RESET_POST_STATE",
 }
 
@@ -105,6 +108,26 @@ export const createPostSuccess = (status: number) => {
 export const createPostFailed = (error: String) => {
     return {
         type: postActionTypes.createPostFailed,
+        payload: error
+    }
+}
+
+export const creatingReply = () => {
+    return {
+        type: postActionTypes.creatingReply
+    }
+}
+
+export const createReplySuccess = (status: number) => {
+    return {
+        type: postActionTypes.createReplySuccess,
+        payload: status
+    }
+}
+
+export const createReplyFailed = (error: String) => {
+    return {
+        type: postActionTypes.createReplyFailed,
         payload: error
     }
 }
