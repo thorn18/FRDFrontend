@@ -1,6 +1,8 @@
 import { postActionTypes } from './actions';
 import Post from '../models/post';
 import { UserState } from './userReducer';
+import Reply from '../models/reply';
+import { isTemplateSpan } from 'typescript';
 
 //interfaces to give states types
 export interface PostsState {
@@ -35,9 +37,9 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.gotPostsSuccess:
             return { ...state, posts: [...state.posts, ...action.payload.items], loading: false, hasMoreItems: action.payload.hasNext, error: undefined };
         case postActionTypes.gotPostsFailed:
-            return {  ...state, loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };
         case postActionTypes.gettingReplies:
-            return {  ...state, loading: true };
+            return { ...state, loading: true };
         case postActionTypes.gotRepliesSuccess:
             //adds comments to a specific post. must use index because of pass by reference. 
             let postWithNewCommentsIndex = state.posts.findIndex((post) => post.post.id === action.payload.items[0].postId);
@@ -45,11 +47,11 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
                 let allComments = [...state.posts[postWithNewCommentsIndex].comments.items, ...action.payload.items];
                 state.posts[postWithNewCommentsIndex].comments = { ...action.payload, items: allComments };
             }
-            return {  ...state, loading: false, error: undefined };
+            return { ...state, loading: false, error: undefined };
         case postActionTypes.gotRepliesFailed:
-            return {  ...state, loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };
         case postActionTypes.deletingPost:
-            return {  ...state, loading: true, deleted: true };
+            return { ...state, loading: true, deleted: true };
         case postActionTypes.deletedPostSuccess:
             let posts = state.posts.filter((post) => { return post.post.id !== action.payload });
             return { ...state, posts: [...posts], loading: false, error: undefined };
@@ -64,7 +66,17 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.creatingReply:
             return { ...state, loading: true };
         case postActionTypes.createReplySuccess:
-            return { ...state, loading: false, error: undefined, processed: true };
+            //adds comments to a specific post. must use index because of pass by reference. 
+            let postNewCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.postId);
+            if (state.posts[postNewCommentIndex]) {
+                let allComments: Reply[] = [...state.posts[postNewCommentIndex].comments.items, action.payload];
+                state.posts[postNewCommentIndex].comments = { 
+                    ...state.posts[postNewCommentIndex].comments, 
+                    items: allComments, 
+                    totalCount: state.posts[postNewCommentIndex].comments.totalCount + 1 
+                };
+            }
+            return { ...state, loading: false, error: undefined };
         case postActionTypes.createReplyFailed:
             return { ...state, loading: false, error: action.payload, processed: true };
         case postActionTypes.reset:
