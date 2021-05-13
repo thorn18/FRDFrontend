@@ -1,9 +1,10 @@
 import Post from '../models/post';
 import Replies from '../models/replies';
+import Reply from '../models/reply';
 
 export interface PostAction {
     type: postActionTypes,
-    payload?: String | Post[] | Post | Replies | number
+    payload?: String | Post[] | Post | Replies | Reply | number
 }
 
 export interface UserAction {
@@ -24,6 +25,9 @@ export enum postActionTypes {
     creatingPost = "CREATING_POST",
     createPostSuccess = "CREATE_POST_SUCCESS",
     createPostFailed = "CREATE_POST_FAILED",
+    creatingReply = "CREATING_REPLY",
+    createReplySuccess = "CREATE_REPLY_SUCCESS",
+    createReplyFailed = "CREATE_REPLY_FAILED",
     reset = "RESET_POST_STATE",
 }
 
@@ -113,6 +117,32 @@ export const createPostFailed = (error: String) => {
     }
 }
 
+export const creatingReply = () => {
+    return {
+        type: postActionTypes.creatingReply
+    }
+}
+
+export const createReplySuccess = (reply: Reply) => {
+    return {
+        type: postActionTypes.createReplySuccess,
+        payload: reply
+    }
+}
+
+export const createReplyFailed = (error: String) => {
+    return {
+        type: postActionTypes.createReplyFailed,
+        payload: error
+    }
+}
+
+export const resetPostState = () => {
+    return {
+        type: postActionTypes.reset
+    }
+}
+
 export const loginSuccess = (username: string, token: string) => {
     return {
         type: userActionTypes.loginSuccess,
@@ -133,8 +163,3 @@ export const logoutUser = () => {
     }
 }
 
-export const resetPostState = () => {
-    return {
-        type: postActionTypes.reset
-    }
-}
