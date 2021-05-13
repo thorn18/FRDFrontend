@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import postService from "../../services/postService";
 import { UserState } from '../../store/userReducer';
 import { AppState } from '../../store/postReducer';
+import CreateReplyComponent from '../Reply/CreateReply';
 //import Dropdown from 'react-dropdown'
 
 interface postProp {
@@ -64,6 +65,7 @@ function PostComponent(props: postProp) {
                 {(post.comments.items).map((reply: Reply) => {
                     return <ReplyComponent reply={reply} key={reply.id}/>
                 })}
+                <CreateReplyComponent post={props.post}/>
             </div>
         </div>
     );
