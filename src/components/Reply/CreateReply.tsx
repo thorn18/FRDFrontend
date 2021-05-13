@@ -50,7 +50,7 @@ export default function CreateReplyComponent(props: CreateReplyProp) {
 
     return (
         <>
-            {token !== '' && <div className='createReply' data-testid='createReply'>
+            <div className='createReply' data-testid='createReply'>
                 <input
                     data-testid='createReplyInput'
                     className='createReplyInput'
@@ -61,7 +61,7 @@ export default function CreateReplyComponent(props: CreateReplyProp) {
                     onChange={handleInput}
                 />
                 <button data-testid='createReplyButton' className='createReplyButton' onClick={handleSubmit}>↑</button>
-            </div>}
+            </div>
             {error && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Comment is required</p>}
         </>
     )
