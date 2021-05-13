@@ -132,6 +132,12 @@ export const createReplyFailed = (error: String) => {
     }
 }
 
+export const resetPostState = () => {
+    return {
+        type: postActionTypes.reset
+    }
+}
+
 export const loginSuccess = (username: string, token: string) => {
     return {
         type: userActionTypes.loginSuccess,
@@ -152,8 +158,3 @@ export const logoutUser = () => {
     }
 }
 
-export const resetPostState = () => {
-    return {
-        type: postActionTypes.reset
-    }
-}
