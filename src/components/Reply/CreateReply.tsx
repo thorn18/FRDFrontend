@@ -5,6 +5,7 @@ import { NewReply } from '../../models/reply';
 import replyService from '../../services/replyService';
 import { AppState } from '../../store/postReducer';
 import '../Post/PostComponent.css';
+import './CreateReply.css';
 
 interface CreateReplyProp {
     post: Post
@@ -45,13 +46,14 @@ export default function CreateReplyComponent(props: CreateReplyProp) {
         <div className='createReply' data-testid='createReply'>
             <input
                 data-testid='createReplyInput'
+                className='createReplyInput'
                 type='text'
-                placeholder='Write a comment'
+                placeholder='Add a comment...'
                 value={input}
                 name='content'
                 onChange={handleInput}
             />
-            <button data-testid='createReplyButton' onClick={handleSubmit}>Submit Comment</button>
+            <button data-testid='createReplyButton' className='createReplyButton' onClick={handleSubmit}>↑</button>
         </div>
     )
 }
