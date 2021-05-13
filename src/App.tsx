@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, HashRouter, Redirect } from 'react-router-dom'
-import store from './store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
@@ -22,7 +21,7 @@ function App() {
       let decodedToken: tokenInfo = jwt_decode(token);
       dispatch(loginSuccess(decodedToken.nameid, token));
     }
-  }, []);
+  });
 
   return (
 

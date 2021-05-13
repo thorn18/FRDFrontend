@@ -5,3 +5,9 @@ export default interface Reply{
     timestamp: Date,
     postId: string
 }
+
+export interface NewReply{
+    username: string,
+    content: string,
+    postId: string
+}

@@ -1,4 +1,4 @@
-import Reply from "../src/models/reply";
+import Reply, { NewReply } from "../src/models/reply";
 
 export const reply0: Reply = {
     "id": "dd2074bf-92f0-44af-8314-f708039f43b7",
@@ -133,3 +133,8 @@ export const replyListC = {
     "totalCount": 15
 }
 
+export const newReply:NewReply = {
+    username: "bob",
+    content: "wow. such a great post.",
+    postId: "123"
+}

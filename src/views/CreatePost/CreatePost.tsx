@@ -23,13 +23,13 @@ function CreatePost(): JSX.Element {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(processed == true && error == undefined){
+        if(processed === true && error === undefined){
             setErr(false);
             window.location.replace('/home');
-        } else if (processed == true && error !== undefined){
+        } else if (processed === true && error !== undefined){
             setErr(true);
         }
-    })
+    }, [processed, error]);
 
     const handleInput = (e: SyntheticEvent) => {
         let newInput = input;
@@ -56,10 +56,10 @@ function CreatePost(): JSX.Element {
             <img src={logo} className="createLogo" alt="Create Post Logo"></img>
             <form>
                 <input type="file" className="chooseImage-button" data-testid="chooseImageButton" name="file" onChange={imageHandler} onClick={() => setII(true)}/>
-                {selectedFile !== undefined && imgInteracted == true && <p>Filename: {selectedFile.name}</p>}
-                {selectedFile == undefined && imgInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Image is required</p>}
+                {selectedFile !== undefined && imgInteracted === true && <p>Filename: {selectedFile.name}</p>}
+                {selectedFile === undefined && imgInteracted === true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Image is required</p>}
                 <textarea data-testid='postDescriptionInput' rows={10} cols={80} name="description" value={input} onChange={handleInput} placeholder="Description..." />
-                {input == '' && descriptionInteracted == true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Description is required</p>}
+                {input === '' && descriptionInteracted === true && <p style={{ color: 'red', textAlign: 'left' }} data-testid="imgWarning">* Description is required</p>}
 
                 <div className='actionButtonContainer'>
                     <button className="buttonCancel" data-testid='cancelButton' onClick={handleCancel}>Cancel</button>
