@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postActionTypes, gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction } from '../store/actions';
+import { gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction } from '../store/actions';
 
 class ReplyService {
     private URI: string;
@@ -21,4 +21,4 @@ class ReplyService {
     }
 }
 
-export default new ReplyService;
+export default new ReplyService();

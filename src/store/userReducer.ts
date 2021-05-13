@@ -1,5 +1,4 @@
 import {userActionTypes} from './actions';
-import decode from 'jwt-decode';
 
 export interface UserState {
     username: string,
