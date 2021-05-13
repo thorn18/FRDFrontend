@@ -24,6 +24,7 @@ class ReplyService {
     createReply(reply:NewReply, token:string, local?:boolean) {
         if (local == true) {
             return (dispatch: (action: PostAction) => void) => {
+                dispatch(creatingReply()); //action
                 return (dispatch(createReplySuccess(201)))
             }
         } else {
