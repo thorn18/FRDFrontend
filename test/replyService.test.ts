@@ -92,12 +92,10 @@ describe('should get more comments for a post', () => {
 });
 
 describe('should create a comment for a post', () => {
-
+    const testPostId = newReply.postId;
+    const token = 'testToken';
+    const config = {'headers': {'Authorization': `Bearer ${token}`}}
     test('that an axios call is made', async () => {
-        const testPostId = newReply.postId;
-        const token = 'testToken';
-        const config = {'headers': {'Authorization': `Bearer ${token}`}}
-
         const expectedActions = [
             { type: postActionTypes.creatingReply },
             { type: postActionTypes.createReplySuccess, payload: 201 }
@@ -120,33 +118,7 @@ describe('should create a comment for a post', () => {
 
     });
 
-    test.skip('that an axios call is made with an offset', async () => {
-        const testPostId = replyList0.items[0].postId;
-
-        const expectedActions = [
-            { type: postActionTypes.gettingReplies },
-            { type: postActionTypes.gotRepliesSuccess, payload: replyList0 }
-        ]
-        const store = mockStore({ posts: [] })
-
-        axios.get.mockResolvedValue({
-            data: replyList0,
-            status: 200,
-            statusText: 'OK',
-            headers: {},
-            config: {},
-        });
-
-        return store.dispatch(ReplyService.getMoreReplies(testPostId, 5)).then(() => {
-            expect(axios.get).toHaveBeenCalledTimes(1);
-            expect(axios.get).toHaveBeenCalledWith(`http://35.223.52.208/api/comments/${testPostId}?offset=5&pageSize=5`);
-            expect(store.getActions()).toEqual(expectedActions);
-        });
-    });
-
-    test.skip('that an axios error is handled', async () => {
-        const testPostId = replyList0.items[0].postId;
-
+    test('that an axios error is handled', async () => {
         //this error brought to you by calling the api with an invalid postid
         let error = {
             "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1", "title": "One or more validation errors occurred.",
@@ -156,16 +128,16 @@ describe('should create a comment for a post', () => {
         }
 
         const expectedActions = [
-            { type: postActionTypes.gettingReplies },
-            { type: postActionTypes.gotRepliesFailed, payload: error }
+            { type: postActionTypes.creatingReply },
+            { type: postActionTypes.createReplyFailed, payload: error }
         ]
         const store = mockStore({ posts: [] })
 
-        axios.get.mockRejectedValue(error);
+        axios.post.mockRejectedValue(error);
 
-        return store.dispatch(ReplyService.getMoreReplies(testPostId)).then(() => {
-            expect(axios.get).toHaveBeenCalledTimes(1);
-            expect(axios.get).toHaveBeenCalledWith(`http://35.223.52.208/api/comments/${testPostId}?offset=0&pageSize=5`);
+        return store.dispatch(ReplyService.createReply(newReply, token)).then(() => {
+            expect(axios.post).toHaveBeenCalledTimes(1);
+            expect(axios.post).toHaveBeenCalledWith(`http://35.223.52.208/api/comments/${testPostId}`, newReply, config);
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
