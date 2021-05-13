@@ -24,6 +24,9 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 let store;
 
+let input: string = '';
+let error: boolean = false;
+
 beforeEach(() => {
     store = mockStore({
         postsState: {
@@ -36,9 +39,15 @@ beforeEach(() => {
             token: 'aToken',
             loggedIn: true,
             error: undefined
-          }
+        }
     });
-  });
+
+    (useState as jest.Mock).mockImplementationOnce((x) => [input, jest.fn()])
+        .mockImplementationOnce((x) => [error, jest.fn()]);
+
+    (useSelector as jest.Mock).mockImplementationOnce((x) => 'aToken')
+        .mockImplementationOnce((x) => 'Bob');
+});
 
 describe('Tests for Create Reply Component, when logged in, that', () => {
 
@@ -68,7 +77,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
 
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
-            
+
             fireEvent.change(content, { target: { value: testInput } });
             //expect(input).toEqual(testInput);
         })
