@@ -47,6 +47,11 @@
     font-size: 16px;
     border-radius: 2px;
 }
+
+.login-button:disabled{
+    background-color: grey;
+}
+
 .inputBox {
     background-color: #FAFAFA;
     width: 524px;

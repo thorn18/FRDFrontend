@@ -2,14 +2,18 @@ import axios from 'axios';
 import PostService from '../src/services/postService';
 import { postActionTypes } from '../src/store/actions';
 import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+import thunk, { ThunkDispatch} from 'redux-thunk'
 import * as posts from './fivePosts.json'
 import { newPost } from './testData'
 import { NewPost } from '../src/models/post';
+import { AnyAction } from 'redux';
 
 jest.mock('axios');
+
+const initialState = {};
+type State = typeof initialState;
 const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+const mockStore = configureMockStore<State, ThunkDispatch<State, any, AnyAction>>(middlewares);
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -24,7 +28,7 @@ describe('getPosts()', () => {
     ]
     const store = mockStore({ posts: [] });
 
-    axios.get.mockResolvedValue({
+    (axios.get as jest.Mock).mockResolvedValue({
       data: posts,
       status: 200,
       statusText: 'OK',
@@ -50,9 +54,9 @@ describe('getPosts()', () => {
       { type: postActionTypes.gettingPosts },
       { type: postActionTypes.gotPostsFailed, payload: error }
     ]
-    const store = mockStore({ posts: [] })
+    const store = mockStore({ posts: [] });
 
-    axios.get.mockRejectedValue(error);
+    (axios.get as jest.Mock).mockRejectedValue(error);
 
     return store.dispatch(PostService.getAllPosts()).then(() => {
       expect(axios.get).toHaveBeenCalled();
@@ -79,7 +83,7 @@ describe('Tests for deletePost', () => {
   });
 
   test('That calling deletePost makes an axios call', async () => {
-    axios.delete.mockResolvedValue({
+    (axios.delete as jest.Mock).mockResolvedValue({
       status: 200,
       statusText: 'OK',
       headers: {},
@@ -91,7 +95,7 @@ describe('Tests for deletePost', () => {
   });
 
   test('That calling deletePost makes an axios call with the correct uri', async () => {
-    axios.delete.mockResolvedValue({
+    (axios.delete as jest.Mock).mockResolvedValue({
       status: 200,
       statusText: 'OK',
       headers: {},
@@ -104,7 +108,7 @@ describe('Tests for deletePost', () => {
   });
 
   test('That deletePost dispatches deletedPostSuccess when the axios call is successful', async () => {
-    axios.delete.mockResolvedValue({
+    (axios.delete as jest.Mock).mockResolvedValue({
       status: 200,
       statusText: 'OK',
       headers: {},
@@ -120,9 +124,9 @@ describe('Tests for deletePost', () => {
     expectedActions = [
       { type: postActionTypes.deletingPost },
       { type: postActionTypes.deletedPostFailed, payload: 'FORBIDDEN' }
-    ]
+    ];
 
-    axios.delete.mockResolvedValue({
+    (axios.delete as jest.Mock).mockResolvedValue({
       status: 403,
       statusText: 'FORBIDDEN',
       headers: {},
@@ -145,9 +149,9 @@ describe('createPost()', () => {
       { type: postActionTypes.createPostSuccess, payload: 201 }
     ]
 
-    const store = mockStore({ posts: [] })
+    const store = mockStore({ posts: [] });
 
-    axios.post.mockResolvedValue({
+    (axios.post as jest.Mock).mockResolvedValue({
       data: null,
       status: 201,
       statusText: 'OK',
@@ -181,9 +185,9 @@ describe('createPost()', () => {
       username: 'username', 
       description: 'description', 
       image: new File([''], '')
-    }
+    };
 
-    axios.post.mockRejectedValue(error);
+    (axios.post as jest.Mock).mockRejectedValue(error);
     
     return store.dispatch(PostService.createPost(newPost, token)).then(() => {
       expect(axios.post).toHaveBeenCalled();

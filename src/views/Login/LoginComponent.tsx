@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import { tokenInfo } from '../../components/AuthRoute';
 import pixelgramlogo from '../../pixelgram-logo.png'
 import './LoginComponent.css';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import UserService from '../../services/userService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';

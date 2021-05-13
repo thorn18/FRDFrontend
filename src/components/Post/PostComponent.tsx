@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import Post from '../../models/post';
-import User from '../../models/user';
 import './PostComponent.css';
 import likes from '../../images/Likes.png';
 import ReplyComponent from '../Reply/Reply';
 import Reply from '../../models/reply';
 import ReplyList from '../Reply/ReplyList';
-import { IconContext } from 'react-icons';
+// import { IconContext } from 'react-icons';
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import postService from "../../services/postService";
-import { UserState } from '../../store/userReducer';
 import { AppState } from '../../store/postReducer';
+import CreateReplyComponent from '../Reply/CreateReply';
 //import Dropdown from 'react-dropdown'
 
 interface postProp {
@@ -40,18 +39,18 @@ function PostComponent(props: postProp) {
     return (
         <div className="postCard" data-testid='post-card'>
             <div className="postHeader">
-                {post.user.profileImage ? <img className="pfp" src={post.user.profileImage} />
-                    : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} />}
+                {post.user.profileImage ? <img className="pfp" src={post.user.profileImage} alt={`${post.user.username}'s Profile`} />
+                    : <img className="pfp" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} alt={`${post.user.username}'s Profile`}/>}
                 <span className="headerText">{post.user.username}</span>
                 {loggedin && user === post.user.username && <button className="deletePostButtonBox" data-testid = "deleteButtonBox" onClick={() => setShowMenu(!showMenu)}><BsThreeDots className="threeDots"/>
                     {showMenu && <button id="deletePostButton" data-testid = "deleteButton" onClick={deletePost}><label>Delete Post</label></button>}
                 </button>}
             </div>
             <div className="imageDiv">
-                <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId} />
+                <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId} alt='Post Content'/>
             </div>
             <div className="postStats">
-                <img src={likes} className="likesIcon" />
+                <img src={likes} className="likesIcon" alt='Likes'/>
                 <div className="postMeta">
                     {post.post.likes} likes &nbsp; {post.comments.totalCount} comments
                 </div>
@@ -66,6 +65,7 @@ function PostComponent(props: postProp) {
                 {(post.comments.items).map((reply: Reply) => {
                     return <ReplyComponent reply={reply} key={reply.id}/>
                 })}
+                <CreateReplyComponent post={props.post}/>
             </div>
         </div>
     );
