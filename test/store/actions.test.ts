@@ -189,6 +189,34 @@ describe('Test for Redux actions for creating a new post', () => {
     });
 });
 
+describe('Test for Redux actions for creating a new reply', () => {
+
+    test('should create an action of creatingReply there should be no payload', () => {
+        const testAction = {
+            type: actions.postActionTypes.creatingReply,
+        }
+        expect(actions.creatingReply()).toEqual(testAction);
+    });
+
+    test('should create an action of createReplySuccess with a status code as a payload', () => {
+        const testCode: number = 201;
+        const testAction = {
+            type: actions.postActionTypes.createReplySuccess,
+            payload: 201
+        }
+        expect(actions.createReplySuccess(testCode)).toEqual(testAction);
+    });
+
+    test('should create action for createReplyFailed with error as a payload', () => {
+        const testError = 'there is an error!';
+        const testAction = {
+            type: actions.postActionTypes.createReplyFailed,
+            payload: testError
+        }
+        expect(actions.createReplyFailed(testError)).toEqual(testAction);
+    });
+});
+
 describe('resetting postsState tests', () => {
     test('should create action for resetting postsState with no payload', () => {
         const testAction = {
