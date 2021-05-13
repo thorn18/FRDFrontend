@@ -15,9 +15,10 @@
   justify-content: space-evenly;
   width: 160px;
   height: min-content;
-  margin: auto;
+  margin: 91px auto;
   color: white;
   background: red;
+  z-index: 100;
 }
 
 .modal-btn {
