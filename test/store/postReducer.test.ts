@@ -143,6 +143,30 @@ describe('testing the reducer for the createPost service', () => {
     });
 });
 
+describe('testing the reducer for the createReply service', () => {
+
+    test('The createReply action', () => {
+        const initialPosts: Post[] = [];
+        const testInitialState: PostsState = { posts: initialPosts, loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: false };
+        expect(postsReducer(testInitialState, { type: postActionTypes.creatingReply }))
+            .toEqual({ posts: [], loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false });
+    });
+
+    test('The createReplySuccess', () => {
+        const initialPosts: Post[] = [post1, post2];
+        const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
+        expect(postsReducer(testInitialState, { type: postActionTypes.createReplySuccess, payload: { status: 201 } }))
+            .toEqual({ posts: [ ...initialPosts ], loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: true });
+    });
+
+    test('The createReplyFailed', () => {
+        const testInitialState: PostsState = { posts: [], loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
+        const error = 'error';
+        expect(postsReducer(testInitialState, { type: postActionTypes.createReplyFailed, payload: error }))
+            .toEqual({ posts: [], loading: false, hasMoreItems: true, error: error, deleted: false, processed: true });
+    });
+});
+
 describe('Tests for resetting postsState', () => {
     test('That we can reset the state after having deleted a post successfully', () => {
         const initialPosts: Post[] = [post1, post2];
