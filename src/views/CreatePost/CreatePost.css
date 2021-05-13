@@ -69,6 +69,10 @@
     margin: 70px 12px 0;
 }
 
+#createPost .buttonCreatePost:disabled {
+    background-color: grey;
+}
+
 .chooseImage-button::-webkit-file-upload-button {
     visibility: hidden;
 }
