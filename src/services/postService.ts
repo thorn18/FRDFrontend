@@ -29,24 +29,33 @@ class PostService {
 
     /**
      * Deletes a post from the API
+     * If local (third argument) is true, then the post is only deleted locally
+     * if local is false, an axios call is made and the post is also deleted on the backend
      * @returns an action to dispatch
      */
-    deletePost(postId: string, token: string) {
-        return async (dispatch: (action: PostAction) => void) => {
-            try {
-                dispatch(deletingPost()); //action
-                let res = await axios.delete(`${this.URI}/posts/${postId}`, { headers: { Authorization: `Bearer ${token}` } });
-                if (res.status === 200) {
-                    dispatch(deletedPostSuccess(postId));
-                } else {
-                    dispatch(deletedPostFailed(res.statusText));
+    deletePost(postId: string, token: string, local: boolean = false) {
+        if (local) {
+            return async (dispatch: (action: PostAction) => void) => {
+                dispatch(deletingPost());
+                dispatch(deletedPostSuccess(postId));
+            }
+        } else {
+            return async (dispatch: (action: PostAction) => void) => {
+                try {
+                    dispatch(deletingPost()); //action
+                    let res = await axios.delete(`${this.URI}/posts/${postId}`, { headers: { Authorization: `Bearer ${token}` } });
+                    if (res.status === 200) {
+                        dispatch(deletedPostSuccess(postId));
+                    } else {
+                        dispatch(deletedPostFailed(res.statusText));
+                    }
+                } catch (error) {
+                    dispatch(deletedPostFailed(error));
                 }
-            } catch (error) {
-                dispatch(deletedPostFailed(error));
             }
         }
     }
-    
+
     createPost(newPost: NewPost, token: string) {
         return (dispatch: (action: PostAction) => void) => {
             dispatch(creatingPost());
@@ -54,11 +63,11 @@ class PostService {
             formData.append('username', newPost.username);
             formData.append('description', newPost.description);
             formData.append('image', newPost.image)
-            const config = { 
-                headers: { 
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'multipart/form-data' 
-                } 
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
             }
             return axios.post(`${this.URI}/posts`, formData, config)
                 .then(response => {

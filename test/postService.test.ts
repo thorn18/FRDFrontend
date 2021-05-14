@@ -140,6 +140,44 @@ describe('Tests for deletePost', () => {
 
 });
 
+describe('Tests for deletePost locally', () => {
+
+  let store: any;
+  let expectedActions: any;
+  let testPostId = 'testPostId';
+  const token = 'testToken';
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    expectedActions = [
+      { type: postActionTypes.deletingPost },
+      { type: postActionTypes.deletedPostSuccess, payload: testPostId }
+    ];
+    store = mockStore({ posts: [] });
+  });
+
+  test('That calling deletePost locally doesn\'t make an axios call', async () => {
+    (axios.delete as jest.Mock).mockResolvedValue({
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    });
+
+    await store.dispatch(PostService.deletePost(testPostId, token, true));
+    expect(axios.delete).not.toHaveBeenCalled();
+  });
+
+  test('That deletePost dispatches deletedPostSuccess', async () => {
+
+    await store.dispatch(PostService.deletePost(testPostId, token, true));
+    expect(store.getActions()).toEqual(expectedActions);
+
+  });
+
+});
+
 describe('createPost()', () => {
 
   test('should add a newly created post', () => {
