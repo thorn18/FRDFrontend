@@ -22,7 +22,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
     const handleInput = (e: SyntheticEvent) => {
         let newInput = input;
         if (((e.target) as HTMLInputElement).name === 'content') {
-            if((e.target as HTMLInputElement).value === ''){
+            if((e.target as HTMLInputElement).value.trim() === ''){
                 // console.log('problem');
                 setError(true);
             } else {

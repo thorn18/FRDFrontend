@@ -8,6 +8,7 @@ import CreateReplyComponent from '../src/components/Reply/CreateReply';
 import { post0, post1 } from './testData';
 import replyService from "../src/services/replyService";
 import { NewReply } from "../src/models/reply";
+import userEvent from "@testing-library/user-event";
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -34,8 +35,8 @@ let mockToken = 'aToken';
 let mockUsername = 'Bob';
 
 const setMocks = () => {
-    setInput.mockImplementation((x) => input = x );
-    setError.mockImplementation((x) => error = x );
+    setInput.mockImplementation((x) => input = x);
+    setError.mockImplementation((x) => error = x);
     (useState as jest.Mock).mockImplementationOnce((x) => [input, setInput])
         .mockImplementationOnce((x) => [error, setError]);
 
@@ -89,48 +90,61 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         });
 
         it('changing input box content calls setInput (to change input state)', () => {
-            let testInput = 'wow. such great photo. many like.';
+            let testInput = 't';
 
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            fireEvent.change(content, { target: { value: testInput } });
+            // fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, testInput);
             expect(setInput).toHaveBeenCalledWith(testInput);
             expect(input).toEqual(testInput);
+            userEvent.type(content, '{backspace}');
         });
 
-        //this one fails but it shouldn't... I need help
-        it.skip('changing input box content calls setError (to make error state false)', () => {
-            let testInput = 'wow. such great photo. many like.';
+        it('changing input box content calls setError (to make error state false)', () => {
             error = true;
+
+            setMocks();
 
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, 't');
             expect(setError).toHaveBeenCalledWith(false);
             expect(error).toBe(false);
+            userEvent.type(content, '{backspace}');
         });
 
         it('changing input box content to empty calls setError', () => {
-            let testInput = '';
-
-            const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+            const { getByTestId, rerender } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
+        
+            //fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, 't');
+            expect(setError).toHaveBeenCalledWith(false);
+            input = 't';
+            setMocks();
+            rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
 
-            fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, '{backspace}');
+            
+            // setMocks();
+            // rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+
+            expect(setInput).toHaveBeenCalledWith('');
             expect(setError).toHaveBeenCalledWith(true);
             expect(error).toEqual(true);
         });
 
-        //This one will require changes to the code
-        it.skip('changing input box content to white space calls setError', () => {
-            let testInput = '    ';
+        it('changing input box content to white space calls setError', () => {
+            let testInput = ' ';
 
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            fireEvent.change(content, { target: { value: testInput } });
+            // fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, testInput);
             expect(setError).toHaveBeenCalledWith(true);
             expect(error).toEqual(true);
         });
@@ -139,7 +153,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
     describe('Submit button tests that ', () => {
         it('when the button is clicked, dispatch is called', () => {
             let testInput = 'wow. such great photo. many like.';
-            
+
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
@@ -151,7 +165,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
 
         it('when the button is clicked, replyService is called', () => {
             let testInput = 'wow. such great photo. many like.';
-            
+
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
@@ -217,7 +231,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             mockUsername = '';
 
             let testInput = 'wow. such great photo. many like.';
-            
+
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
