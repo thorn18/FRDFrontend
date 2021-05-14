@@ -63,7 +63,7 @@ function PostComponent(props: postProp) {
                 {(post.comments.items).map((reply: Reply) => {
                     return <ReplyComponent reply={reply} key={reply.id}/>
                 })}
-                <CreateReplyComponent post={props.post}/>
+                {loggedin && <CreateReplyComponent post={props.post}/>}
             </div>
         </div>
     );

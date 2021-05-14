@@ -11,13 +11,10 @@ interface CreateReplyProp {
     post: Post
 }
 
-// export interface Input {
-//     content: string
-// }
-
-export default function CreateReplyComponent(props: CreateReplyProp) {
+function CreateReplyComponent(props: CreateReplyProp) {
     const { post } = props;
     const [input, setInput] = useState('');
+    const [error, setError] = useState(false);
     const dispatch = useDispatch();
     let token: string | null = useSelector((state: AppState) => state.userState.token);
     let username: string = useSelector((state: AppState) => state.userState.username);
@@ -25,6 +22,11 @@ export default function CreateReplyComponent(props: CreateReplyProp) {
     const handleInput = (e: SyntheticEvent) => {
         let newInput = input;
         if (((e.target) as HTMLInputElement).name === 'content') {
+            if((e.target as HTMLInputElement).value.trim() === ''){
+                setError(true);
+            } else {
+                setError(false);
+            }
             newInput = (e.target as HTMLInputElement).value;
             setInput(newInput);
         }
@@ -43,17 +45,22 @@ export default function CreateReplyComponent(props: CreateReplyProp) {
     }
 
     return (
-        <div className='createReply' data-testid='createReply'>
-            <input
-                data-testid='createReplyInput'
-                className='createReplyInput'
-                type='text'
-                placeholder='Add a comment...'
-                value={input}
-                name='content'
-                onChange={handleInput}
-            />
-            <button data-testid='createReplyButton' className='createReplyButton' onClick={handleSubmit}>↑</button>
-        </div>
+        <>
+            <div className='createReply' data-testid='createReply'>
+                <input
+                    data-testid='createReplyInput'
+                    className='createReplyInput'
+                    type='text'
+                    placeholder='Add a comment...'
+                    value={input}
+                    name='content'
+                    onChange={handleInput}
+                />
+                <button data-testid='createReplyButton' className='createReplyButton' onClick={handleSubmit}>↑</button>
+            </div>
+            {error && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Comment is required</p>}
+        </>
     )
 }
+
+export default CreateReplyComponent;
