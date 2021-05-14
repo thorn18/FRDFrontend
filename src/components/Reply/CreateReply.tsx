@@ -11,11 +11,7 @@ interface CreateReplyProp {
     post: Post
 }
 
-// export interface Input {
-//     content: string
-// }
-
-export default function CreateReplyComponent(props: CreateReplyProp) {
+function CreateReplyComponent(props: CreateReplyProp) {
     const { post } = props;
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
@@ -27,9 +23,11 @@ export default function CreateReplyComponent(props: CreateReplyProp) {
         let newInput = input;
         if (((e.target) as HTMLInputElement).name === 'content') {
             if((e.target as HTMLInputElement).value === ''){
-                setError(true)
+                // console.log('problem');
+                setError(true);
             } else {
-                setError(false)
+                // console.log('no problem');
+                setError(false);
             }
             newInput = (e.target as HTMLInputElement).value;
             setInput(newInput);
@@ -66,3 +64,5 @@ export default function CreateReplyComponent(props: CreateReplyProp) {
         </>
     )
 }
+
+export default CreateReplyComponent;
