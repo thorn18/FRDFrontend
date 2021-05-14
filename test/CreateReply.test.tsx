@@ -28,6 +28,8 @@ let input: string = '';
 const setInput = jest.fn();
 let error: boolean = false;
 const setError = jest.fn();
+let limit: boolean = false;
+const setLimit = jest.fn();
 
 let dispatch = jest.fn();
 
@@ -37,8 +39,10 @@ let mockUsername = 'Bob';
 const setMocks = () => {
     setInput.mockImplementation((x) => input = x);
     setError.mockImplementation((x) => error = x);
+    setLimit.mockImplementation((x) => limit = x);
     (useState as jest.Mock).mockImplementationOnce((x) => [input, setInput])
-        .mockImplementationOnce((x) => [error, setError]);
+        .mockImplementationOnce((x) => [error, setError])
+        .mockImplementationOnce((x) => [limit, setLimit]);
 
     (useSelector as jest.Mock).mockImplementationOnce((x) => mockToken)
         .mockImplementationOnce((x) => mockUsername);
@@ -118,7 +122,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         it('changing input box content to empty calls setError', () => {
             const { getByTestId, rerender } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
-        
+
             userEvent.type(content, 't');
             expect(setError).toHaveBeenCalledWith(false);
             input = 't';
@@ -154,14 +158,16 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         });
     });
 
-    describe('Submit button tests that ', () => {
+    describe('Submit button tests that', () => {
         it('when the button is clicked, dispatch is called', () => {
             let testInput = 'wow. such great photo. many like.';
 
-            const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+            const { getByTestId, rerender } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, testInput);
+            setMocks();
+            rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             fireEvent.click(getByTestId('createReplyButton'));
 
             expect(dispatch).toHaveBeenCalledTimes(1);
@@ -170,10 +176,12 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         it('when the button is clicked, replyService is called', () => {
             let testInput = 'wow. such great photo. many like.';
 
-            const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+            const { getByTestId, rerender } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, testInput);
+            setMocks();
+            rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             fireEvent.click(getByTestId('createReplyButton'));
 
             expect(replyService.createReply).toHaveBeenCalledTimes(1);

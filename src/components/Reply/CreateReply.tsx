@@ -15,6 +15,8 @@ function CreateReplyComponent(props: CreateReplyProp) {
     const { post } = props;
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
+    const [limit, setLimit] = useState(false);
+
     const dispatch = useDispatch();
     let token: string | null = useSelector((state: AppState) => state.userState.token);
     let username: string = useSelector((state: AppState) => state.userState.username);
@@ -27,6 +29,13 @@ function CreateReplyComponent(props: CreateReplyProp) {
             } else {
                 setError(false);
             }
+
+            if((e.target as HTMLInputElement).value.trim().length > 120){
+                setLimit(true);
+            } else {
+                setLimit(false);
+            }
+
             newInput = (e.target as HTMLInputElement).value;
             setInput(newInput);
         }
@@ -38,7 +47,9 @@ function CreateReplyComponent(props: CreateReplyProp) {
             content: input,
             postId: post.post.id,
         }
-        if (token) {
+        if(input === ''){
+            setError(true)
+        }else if (token && error === false && limit === false) {
             dispatch(replyService.createReply(newReply, token, true));
             setInput('');
         }
@@ -59,6 +70,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
                 <button data-testid='createReplyButton' className='createReplyButton' onClick={handleSubmit}>↑</button>
             </div>
             {error && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Comment is required</p>}
+            {limit && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Character limit is 120</p>}
         </>
     )
 }
