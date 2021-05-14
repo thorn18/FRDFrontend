@@ -95,7 +95,6 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            // fireEvent.change(content, { target: { value: testInput } });
             userEvent.type(content, testInput);
             expect(setInput).toHaveBeenCalledWith(testInput);
             expect(input).toEqual(testInput);
@@ -120,7 +119,6 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             const { getByTestId, rerender } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
         
-            //fireEvent.change(content, { target: { value: testInput } });
             userEvent.type(content, 't');
             expect(setError).toHaveBeenCalledWith(false);
             input = 't';
@@ -128,9 +126,6 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
 
             userEvent.type(content, '{backspace}');
-            
-            // setMocks();
-            // rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
 
             expect(setInput).toHaveBeenCalledWith('');
             expect(setError).toHaveBeenCalledWith(true);
@@ -143,7 +138,6 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            // fireEvent.change(content, { target: { value: testInput } });
             userEvent.type(content, testInput);
             expect(setError).toHaveBeenCalledWith(true);
             expect(error).toEqual(true);
@@ -155,7 +149,6 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             const { getByTestId, container } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
-            // fireEvent.change(content, { target: { value: testInput } });
             userEvent.type(content, testInput);
             expect(container).toHaveTextContent('* Comment is required');
         });
