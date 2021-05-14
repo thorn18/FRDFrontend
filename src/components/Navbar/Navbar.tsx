@@ -43,7 +43,7 @@ const Navbar = () => {
 
   return (
     <nav data-testid="navbar" id="navbar">
-      <div className="div1">
+      <div className="div1" onClick={() => history.push('/home')}>
         <img className="nav_logo" data-testid="nav-logo" src={Logo} alt="Nav Logo" />
       </div>
       
