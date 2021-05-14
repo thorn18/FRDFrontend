@@ -148,6 +148,17 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             expect(setError).toHaveBeenCalledWith(true);
             expect(error).toEqual(true);
         });
+
+        it('changing input box content to white space displays error message', () => {
+            let testInput = ' ';
+
+            const { getByTestId, container } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+            let content = getByTestId('createReplyInput');
+
+            // fireEvent.change(content, { target: { value: testInput } });
+            userEvent.type(content, testInput);
+            expect(container).toHaveTextContent('* Comment is required');
+        });
     });
 
     describe('Submit button tests that ', () => {
