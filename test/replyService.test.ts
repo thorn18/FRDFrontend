@@ -153,21 +153,13 @@ describe('should create a comment for a post locally only', () => {
     const token = 'testToken';
     const config = { 'headers': { 'Authorization': `Bearer ${token}` } };
 
-    test('that an axios call is NOT made', async () => {
+    it('that an axios call is NOT made', async () => {
 
         const expectedActions = [
             { type: postActionTypes.creatingReply },
             { type: postActionTypes.createReplySuccess, payload: reply0 }
         ]
         const store = mockStore({ posts: [] });
-
-        axios.post.mockResolvedValue({
-            data: reply0,
-            status: 201,
-            statusText: 'OK',
-            headers: {},
-            config: {},
-        });
 
         store.dispatch(ReplyService.createReply(reply0, token, true));
         expect(axios.post).not.toHaveBeenCalled();

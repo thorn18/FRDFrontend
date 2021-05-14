@@ -23,10 +23,8 @@ function CreateReplyComponent(props: CreateReplyProp) {
         let newInput = input;
         if (((e.target) as HTMLInputElement).name === 'content') {
             if((e.target as HTMLInputElement).value.trim() === ''){
-                // console.log('problem');
                 setError(true);
             } else {
-                // console.log('no problem');
                 setError(false);
             }
             newInput = (e.target as HTMLInputElement).value;

@@ -216,7 +216,9 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             expect(setInput).toHaveBeenLastCalledWith('');
         });
 
-        it('if no one is logged in (how did they see this component?), nothing is dispatched', () => {
+        it('if no one is logged in, nothing is dispatched', () => {
+            // they shouldn't be able to see the component, but just in case they can see it, 
+            // this test makes sure that they can't
             store = mockStore({
                 postsState: {
                     posts: [post0, post1],
