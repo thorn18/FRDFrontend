@@ -59,7 +59,8 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.creatingPost:
             return { ...state, loading: true };
         case postActionTypes.createPostSuccess:
-            return { ...state, loading: false, error: undefined, processed: true };
+            //let newPosts = [action.payload, ...state.posts];
+            return { ...state, posts: [], loading: false, error: undefined, processed: true };
         case postActionTypes.createPostFailed:
             return { ...state, loading: false, error: action.payload, processed: true };
         case postActionTypes.creatingReply:
