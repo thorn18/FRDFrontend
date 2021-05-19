@@ -44,7 +44,7 @@ class ReplyService {
                         'Authorization': `Bearer ${token}`
                     }
                 }
-                return axios.post(`${this.URI}${reply.postId}`, reply, config)
+                return axios.post(`${this.URI}`, reply, config)
                     .then(response => {
                         dispatch(createReplySuccess(response.data));
                     }).catch(err => {

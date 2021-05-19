@@ -117,7 +117,7 @@ describe('should create a comment for a post', () => {
 
         return store.dispatch(ReplyService.createReply(newReply, token)).then(() => {
             expect(axios.post).toHaveBeenCalledTimes(1);
-            expect(axios.post).toHaveBeenCalledWith(`http://35.223.52.208/api/comments/${testPostId}`, newReply, config);
+            expect(axios.post).toHaveBeenCalledWith(`http://35.223.52.208/api/comments/`, newReply, config);
             expect(store.getActions()).toEqual(expectedActions);
         });
 
@@ -142,7 +142,7 @@ describe('should create a comment for a post', () => {
 
         return store.dispatch(ReplyService.createReply(newReply, token)).then(() => {
             expect(axios.post).toHaveBeenCalledTimes(1);
-            expect(axios.post).toHaveBeenCalledWith(`http://35.223.52.208/api/comments/${testPostId}`, newReply, config);
+            expect(axios.post).toHaveBeenCalledWith(`http://35.223.52.208/api/comments/`, newReply, config);
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
