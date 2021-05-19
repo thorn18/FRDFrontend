@@ -14,8 +14,9 @@ interface CreateReplyProp {
 function CreateReplyComponent(props: CreateReplyProp) {
     const { post } = props;
     const [input, setInput] = useState('');
-    const [error, setError] = useState(false);
+    const [userError, setUserError] = useState(false);
     const [limit, setLimit] = useState(false);
+    let serverError: boolean = useSelector((state: AppState) => state.postsState.error);
 
     const dispatch = useDispatch();
     let token: string | null = useSelector((state: AppState) => state.userState.token);
@@ -25,9 +26,9 @@ function CreateReplyComponent(props: CreateReplyProp) {
         let newInput = input;
         if (((e.target) as HTMLInputElement).name === 'content') {
             if((e.target as HTMLInputElement).value.trim() === ''){
-                setError(true);
+                setUserError(true);
             } else {
-                setError(false);
+                setUserError(false);
             }
 
             if((e.target as HTMLInputElement).value.trim().length > 120){
@@ -48,8 +49,8 @@ function CreateReplyComponent(props: CreateReplyProp) {
             postId: post.post.id,
         }
         if(input === ''){
-            setError(true)
-        }else if (token && error === false && limit === false) {
+            setUserError(true)
+        } else if (token && userError === false && limit === false) {
             dispatch(replyService.createReply(newReply, token, false));
             setInput('');
         }
@@ -69,8 +70,9 @@ function CreateReplyComponent(props: CreateReplyProp) {
                 />
                 <button data-testid='createReplyButton' className='createReplyButton' onClick={handleSubmit}>↑</button>
             </div>
-            {error && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Comment is required</p>}
+            {userError && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Comment is required</p>}
             {limit && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Character limit is 120</p>}
+            {serverError && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* The server encountered an error. Please try again</p>}
         </>
     )
 }

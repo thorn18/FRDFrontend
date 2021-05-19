@@ -26,8 +26,8 @@ let store;
 
 let input: string = '';
 const setInput = jest.fn();
-let error: boolean = false;
-const setError = jest.fn();
+let userError: boolean = false;
+const setUserError = jest.fn();
 let limit: boolean = false;
 const setLimit = jest.fn();
 
@@ -38,10 +38,10 @@ let mockUsername = 'Bob';
 
 const setMocks = () => {
     setInput.mockImplementation((x) => input = x);
-    setError.mockImplementation((x) => error = x);
+    setUserError.mockImplementation((x) => userError = x);
     setLimit.mockImplementation((x) => limit = x);
     (useState as jest.Mock).mockImplementationOnce((x) => [input, setInput])
-        .mockImplementationOnce((x) => [error, setError])
+        .mockImplementationOnce((x) => [userError, setUserError])
         .mockImplementationOnce((x) => [limit, setLimit]);
 
     (useSelector as jest.Mock).mockImplementationOnce((x) => mockToken)
@@ -106,7 +106,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         });
 
         it('changing input box content calls setError (to make error state false)', () => {
-            error = true;
+            userError = true;
 
             setMocks();
 
@@ -114,8 +114,8 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             let content = getByTestId('createReplyInput');
 
             userEvent.type(content, 't');
-            expect(setError).toHaveBeenCalledWith(false);
-            expect(error).toBe(false);
+            expect(setUserError).toHaveBeenCalledWith(false);
+            expect(userError).toBe(false);
             userEvent.type(content, '{backspace}');
         });
 
@@ -124,7 +124,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             let content = getByTestId('createReplyInput');
 
             userEvent.type(content, 't');
-            expect(setError).toHaveBeenCalledWith(false);
+            expect(setUserError).toHaveBeenCalledWith(false);
             input = 't';
             setMocks();
             rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
@@ -132,8 +132,8 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             userEvent.type(content, '{backspace}');
 
             expect(setInput).toHaveBeenCalledWith('');
-            expect(setError).toHaveBeenCalledWith(true);
-            expect(error).toEqual(true);
+            expect(setUserError).toHaveBeenCalledWith(true);
+            expect(userError).toEqual(true);
         });
 
         it('changing input box content to white space calls setError', () => {
@@ -143,8 +143,8 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             let content = getByTestId('createReplyInput');
 
             userEvent.type(content, testInput);
-            expect(setError).toHaveBeenCalledWith(true);
-            expect(error).toEqual(true);
+            expect(setUserError).toHaveBeenCalledWith(true);
+            expect(userError).toEqual(true);
         });
 
         it('changing input box content to white space displays error message', () => {
