@@ -33,6 +33,7 @@ const setLimit = jest.fn();
 
 let dispatch = jest.fn();
 
+let mockServerError = null;
 let mockToken = 'aToken';
 let mockUsername = 'Bob';
 
@@ -44,7 +45,8 @@ const setMocks = () => {
         .mockImplementationOnce((x) => [userError, setUserError])
         .mockImplementationOnce((x) => [limit, setLimit]);
 
-    (useSelector as jest.Mock).mockImplementationOnce((x) => mockToken)
+    (useSelector as jest.Mock).mockImplementationOnce((x) => mockServerError)
+    .mockImplementationOnce((x) => mockToken)
         .mockImplementationOnce((x) => mockUsername);
 
     (useDispatch as jest.Mock).mockImplementationOnce(() => dispatch);
@@ -205,7 +207,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             rerender(<CreateReplyComponent post={post0} />);
             fireEvent.click(getByTestId('createReplyButton'));
 
-            expect(replyService.createReply).toHaveBeenCalledWith(newReply, 'aToken', true);
+            expect(replyService.createReply).toHaveBeenCalledWith(newReply, 'aToken', false);
         });
 
         it('when the button is clicked, the input is cleared', () => {
