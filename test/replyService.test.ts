@@ -163,7 +163,7 @@ describe('should create a comment for a post locally only', () => {
 
         store.dispatch(ReplyService.createReply(reply0, token, true));
         expect(axios.post).not.toHaveBeenCalled();
-        expect(axios.post).not.toHaveBeenCalledWith(`http://35.223.52.208/api/comments/${testPostId}`, reply0, config);
+        expect(axios.post).not.toHaveBeenCalledWith(`http://35.223.52.208/api/comments`, reply0, config);
 
         //cannot make timestamp and uuid match perfectly, so we just check the action types, content, username, and post id
         expect(store.getActions().length).toBe(2);
