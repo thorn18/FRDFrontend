@@ -7,11 +7,6 @@ export interface PostAction {
     payload?: String | Post[] | Post | Replies | Reply | number
 }
 
-export interface UserAction {
-    type: userActionTypes,
-    payload?: String | Error | Object
-}
-
 export enum postActionTypes {
     gettingPosts = "GETTING_POSTS",
     gotPostsSuccess = "GOT_POSTS_SUCCESS",
@@ -29,12 +24,6 @@ export enum postActionTypes {
     createReplySuccess = "CREATE_REPLY_SUCCESS",
     createReplyFailed = "CREATE_REPLY_FAILED",
     reset = "RESET_POST_STATE",
-}
-
-export enum userActionTypes {
-    loginSuccess = "LOGIN_SUCCESS",
-    logout = "LOGOUT_USER",
-    loginError = "LOGIN_ERROR"
 }
 
 export const gettingPosts = () => {
@@ -140,26 +129,6 @@ export const createReplyFailed = (error: String) => {
 export const resetPostState = () => {
     return {
         type: postActionTypes.reset
-    }
-}
-
-export const loginSuccess = (username: string, token: string) => {
-    return {
-        type: userActionTypes.loginSuccess,
-        payload: {token, username}
-    }
-}
-
-export const loginError = (error: String) => {
-    return {
-        type: userActionTypes.loginError,
-        payload: error
-    }
-}
-
-export const logoutUser = () => {
-    return {
-        type: userActionTypes.logout
     }
 }
 
