@@ -9,7 +9,7 @@ export interface PostsState {
     loading: boolean,
     hasMoreItems: boolean,
     deleted: boolean,
-    error: any,
+    error: Error | undefined,
     processed: boolean
 }
 
@@ -34,7 +34,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.gettingPosts:
             return { ...state, loading: true };
         case postActionTypes.gotPostsSuccess:
-            return { ...state, posts: [...state.posts, ...action.payload.items], loading: false, hasMoreItems: action.payload.hasNext, error: undefined };
+            return { ...state, posts: [...state.posts, ...action.payload.items], loading: false, hasMoreItems: action.payload.hasNext, error: undefined, processed: false };
         case postActionTypes.gotPostsFailed:
             return { ...state, loading: false, error: action.payload };
         case postActionTypes.gettingReplies:
