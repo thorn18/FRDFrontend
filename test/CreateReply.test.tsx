@@ -26,25 +26,29 @@ let store;
 
 let input: string = '';
 const setInput = jest.fn();
-let error: boolean = false;
-const setError = jest.fn();
+let userError: boolean = false;
+const setUserError = jest.fn();
 let limit: boolean = false;
 const setLimit = jest.fn();
+let serverError: boolean = undefined;
+const setServerError = jest.fn();
 
 let dispatch = jest.fn();
 
+let mockServerError = Error('401 unauthorized.');
 let mockToken = 'aToken';
 let mockUsername = 'Bob';
 
 const setMocks = () => {
     setInput.mockImplementation((x) => input = x);
-    setError.mockImplementation((x) => error = x);
+    setUserError.mockImplementation((x) => userError = x);
     setLimit.mockImplementation((x) => limit = x);
     (useState as jest.Mock).mockImplementationOnce((x) => [input, setInput])
-        .mockImplementationOnce((x) => [error, setError])
+        .mockImplementationOnce((x) => [userError, setUserError])
         .mockImplementationOnce((x) => [limit, setLimit]);
 
-    (useSelector as jest.Mock).mockImplementationOnce((x) => mockToken)
+    (useSelector as jest.Mock).mockImplementationOnce((x) => mockServerError)
+        .mockImplementationOnce((x) => mockToken)
         .mockImplementationOnce((x) => mockUsername);
 
     (useDispatch as jest.Mock).mockImplementationOnce(() => dispatch);
@@ -105,8 +109,8 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             userEvent.type(content, '{backspace}');
         });
 
-        it('changing input box content calls setError (to make error state false)', () => {
-            error = true;
+        it('changing input box content calls setUserError (to make error state false)', () => {
+            userError = true;
 
             setMocks();
 
@@ -114,17 +118,17 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             let content = getByTestId('createReplyInput');
 
             userEvent.type(content, 't');
-            expect(setError).toHaveBeenCalledWith(false);
-            expect(error).toBe(false);
+            expect(setUserError).toHaveBeenCalledWith(false);
+            expect(userError).toBe(false);
             userEvent.type(content, '{backspace}');
         });
 
-        it('changing input box content to empty calls setError', () => {
+        it('changing input box content to empty calls setUserError', () => {
             const { getByTestId, rerender } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
             userEvent.type(content, 't');
-            expect(setError).toHaveBeenCalledWith(false);
+            expect(setUserError).toHaveBeenCalledWith(false);
             input = 't';
             setMocks();
             rerender(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
@@ -132,19 +136,19 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             userEvent.type(content, '{backspace}');
 
             expect(setInput).toHaveBeenCalledWith('');
-            expect(setError).toHaveBeenCalledWith(true);
-            expect(error).toEqual(true);
+            expect(setUserError).toHaveBeenCalledWith(true);
+            expect(userError).toEqual(true);
         });
 
-        it('changing input box content to white space calls setError', () => {
+        it('changing input box content to white space calls setUserError', () => {
             let testInput = ' ';
 
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
             userEvent.type(content, testInput);
-            expect(setError).toHaveBeenCalledWith(true);
-            expect(error).toEqual(true);
+            expect(setUserError).toHaveBeenCalledWith(true);
+            expect(userError).toEqual(true);
         });
 
         it('changing input box content to white space displays error message', () => {
@@ -205,7 +209,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             rerender(<CreateReplyComponent post={post0} />);
             fireEvent.click(getByTestId('createReplyButton'));
 
-            expect(replyService.createReply).toHaveBeenCalledWith(newReply, 'aToken', true);
+            expect(replyService.createReply).toHaveBeenCalledWith(newReply, 'aToken', false);
         });
 
         it('when the button is clicked, the input is cleared', () => {
@@ -223,6 +227,30 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
 
             expect(setInput).toHaveBeenLastCalledWith('');
         });
+
+        it('if there is a serverError, then correct error message is displayed', () => {
+            store = mockStore({
+                postsState: {
+                    posts: [post0, post1],
+                    loading: false,
+                    hasMoreItems: true,
+                    error: Error('401 unauthorized.')
+                },
+                userState: {
+                    username: 'Bob',
+                    token: 'aToken',
+                    loggedIn: true,
+                    error: undefined
+                }
+            });
+
+            mockToken = 'aToken';
+            mockUsername = 'Bob';
+
+            const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+            let content = getByTestId('serverError');
+            expect(content).toHaveTextContent('* The server encountered an error. Please try again')
+        })
 
         it('if no one is logged in, nothing is dispatched', () => {
             // they shouldn't be able to see the component, but just in case they can see it, 
@@ -258,3 +286,18 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         });
     });
 });
+
+describe('tests the input box character limit', ()=>{
+    //this describe is unnested because it needs to be independent in order to work.
+    it('changing input box content to more than 120 characters displays error message', () => {
+        let testInput = 'i wonder why people write really long comments. after people read more than two sentences in a comment, more often than not, people wont change at all.';
+
+        const { getByTestId, container } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+        let content = getByTestId('createReplyInput');
+
+        //fireEvent.change(content, { target: { value: testInput } });
+        userEvent.paste(content, testInput);
+        expect(limit).toEqual(true);
+        userEvent.type(content,'{selectall}{backspace}');
+    });
+})
