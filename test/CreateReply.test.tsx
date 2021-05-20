@@ -30,10 +30,12 @@ let userError: boolean = false;
 const setUserError = jest.fn();
 let limit: boolean = false;
 const setLimit = jest.fn();
+let serverError: boolean = undefined;
+const setServerError = jest.fn();
 
 let dispatch = jest.fn();
 
-let mockServerError = null;
+let mockServerError = Error('401 unauthorized.');
 let mockToken = 'aToken';
 let mockUsername = 'Bob';
 
@@ -46,7 +48,7 @@ const setMocks = () => {
         .mockImplementationOnce((x) => [limit, setLimit]);
 
     (useSelector as jest.Mock).mockImplementationOnce((x) => mockServerError)
-    .mockImplementationOnce((x) => mockToken)
+        .mockImplementationOnce((x) => mockToken)
         .mockImplementationOnce((x) => mockUsername);
 
     (useDispatch as jest.Mock).mockImplementationOnce(() => dispatch);
@@ -107,7 +109,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             userEvent.type(content, '{backspace}');
         });
 
-        it('changing input box content calls setError (to make error state false)', () => {
+        it('changing input box content calls setUserError (to make error state false)', () => {
             userError = true;
 
             setMocks();
@@ -121,7 +123,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             userEvent.type(content, '{backspace}');
         });
 
-        it('changing input box content to empty calls setError', () => {
+        it('changing input box content to empty calls setUserError', () => {
             const { getByTestId, rerender } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
             let content = getByTestId('createReplyInput');
 
@@ -138,7 +140,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             expect(userError).toEqual(true);
         });
 
-        it('changing input box content to white space calls setError', () => {
+        it('changing input box content to white space calls setUserError', () => {
             let testInput = ' ';
 
             const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
@@ -226,6 +228,30 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             expect(setInput).toHaveBeenLastCalledWith('');
         });
 
+        it('if there is a serverError, then correct error message is displayed', () => {
+            store = mockStore({
+                postsState: {
+                    posts: [post0, post1],
+                    loading: false,
+                    hasMoreItems: true,
+                    error: Error('401 unauthorized.')
+                },
+                userState: {
+                    username: 'Bob',
+                    token: 'aToken',
+                    loggedIn: true,
+                    error: undefined
+                }
+            });
+
+            mockToken = 'aToken';
+            mockUsername = 'Bob';
+
+            const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+            let content = getByTestId('serverError');
+            expect(content).toHaveTextContent('* The server encountered an error. Please try again')
+        })
+
         it('if no one is logged in, nothing is dispatched', () => {
             // they shouldn't be able to see the component, but just in case they can see it, 
             // this test makes sure that they can't
@@ -260,3 +286,18 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         });
     });
 });
+
+describe('tests the input box character limit', ()=>{
+    //this describe is unnested because it needs to be independent in order to work.
+    it('changing input box content to more than 120 characters displays error message', () => {
+        let testInput = 'i wonder why people write really long comments. after people read more than two sentences in a comment, more often than not, people wont change at all.';
+
+        const { getByTestId, container } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+        let content = getByTestId('createReplyInput');
+
+        //fireEvent.change(content, { target: { value: testInput } });
+        userEvent.paste(content, testInput);
+        expect(limit).toEqual(true);
+        userEvent.type(content,'{selectall}{backspace}');
+    });
+})

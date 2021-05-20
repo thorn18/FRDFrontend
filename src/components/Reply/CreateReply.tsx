@@ -16,7 +16,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
     const [input, setInput] = useState('');
     const [userError, setUserError] = useState(false);
     const [limit, setLimit] = useState(false);
-    let serverError: boolean = useSelector((state: AppState) => state.postsState.error);
+    let serverError = useSelector((state: AppState) => state.postsState.error);
 
     const dispatch = useDispatch();
     let token: string | null = useSelector((state: AppState) => state.userState.token);
@@ -72,7 +72,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
             </div>
             {userError && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Comment is required</p>}
             {limit && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Character limit is 120</p>}
-            {serverError && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* The server encountered an error. Please try again</p>}
+            {serverError && <p data-testid='serverError' style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* The server encountered an error. Please try again</p>}
         </>
     )
 }
