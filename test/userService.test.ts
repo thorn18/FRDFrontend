@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import decode from 'jwt-decode';
 import { AnyAction } from 'redux';
-import { userActionTypes } from '../src/store/actions';
+import { userActionTypes } from '../src/store/userActions';
 import UserService from '../src/services/userService';
 
 jest.mock('axios');

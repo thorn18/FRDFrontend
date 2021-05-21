@@ -1,4 +1,4 @@
-import { postActionTypes } from '../../src/store/actions';
+import { postActionTypes } from '../../src/store/postActions';
 import postsReducer, { PostsState } from '../../src/store/postReducer';
 import Post from '../../src/models/post';
 import { post1, post2, post3, post4 } from '../testData';

@@ -1,4 +1,4 @@
-import {userActionTypes} from '../../src/store/actions';
+import {userActionTypes} from '../../src/store/userActions';
 import userReducer, {UserState} from '../../src/store/userReducer';
 
 describe('Tests of user reducer', () => {

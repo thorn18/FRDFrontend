@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { NewPost } from '../models/post';
-import { createPostFailed, createPostSuccess, creatingPost, deletedPostFailed, deletedPostSuccess, deletingPost, gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction } from '../store/actions';
+import { createPostFailed, createPostSuccess, creatingPost, deletedPostFailed, deletedPostSuccess, deletingPost, gettingPosts, gotPostsFailed, gotPostsSuccess, PostAction } from '../store/postActions';
 
 class PostService {
     private URI: string;

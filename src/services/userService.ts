@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loginSuccess, loginError, UserAction } from '../store/actions';
+import { loginSuccess, loginError, UserAction } from "../store/userActions";
 import decode from 'jwt-decode';
 
 class UserService {
