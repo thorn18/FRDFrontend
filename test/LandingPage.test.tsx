@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import LandingPage from "../src/views/LandingPage/LandingPage";
 import PaginationList from '../src/components/Post/PaginationList';
-import { resetPostState } from '../src/store/actions';
+import { resetPostState } from '../src/store/postActions';
 
 jest.mock('react-redux', () => ({
     ...jest.requireActual('react-redux'),

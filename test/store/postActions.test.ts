@@ -1,4 +1,4 @@
-import * as actions from '../../src/store/actions';
+import * as actions from '../../src/store/postActions';
 import Post, { NewPost } from '../../src/models/post';
 import Replies from '../../src/models/replies';
 import { replyList0 } from '../testReplyData';
