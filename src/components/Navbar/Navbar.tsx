@@ -7,7 +7,7 @@ import { BsPerson, BsSearch } from "react-icons/bs";
 import Logo from "../../images/logo.svg";
 import addIcon from "../../images/addIcon.svg";
 import "./Navbar.css";
-import { logoutUser } from '../../store/actions';
+import { logoutUser } from "../../store/userActions";
 import { AppState } from "../../store/postReducer";
 
 const Navbar = () => {

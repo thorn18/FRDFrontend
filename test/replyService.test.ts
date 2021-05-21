@@ -1,7 +1,7 @@
 import axios from 'axios';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import ReplyService from '../src/services/replyService';
-import { postActionTypes } from '../src/store/actions';
+import { postActionTypes } from '../src/store/postActions';
 import configureMockStore from 'redux-mock-store';
 import { newReply, reply0, replyList0 } from './testReplyData';
 import { AnyAction } from 'redux';

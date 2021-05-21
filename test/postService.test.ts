@@ -1,6 +1,6 @@
 import axios from 'axios';
 import PostService from '../src/services/postService';
-import { postActionTypes } from '../src/store/actions';
+import { postActionTypes } from '../src/store/postActions';
 import configureMockStore from 'redux-mock-store'
 import thunk, { ThunkDispatch} from 'redux-thunk'
 import * as posts from './fivePosts.json'

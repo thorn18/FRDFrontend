@@ -10,7 +10,7 @@ import CreatePost from './views/CreatePost/CreatePost';
 import { tokenInfo } from './components/AuthRoute';
 import jwt_decode from 'jwt-decode';
 import { AppState } from './store/postReducer';
-import { loginSuccess } from './store/actions';
+import { loginSuccess } from "./store/userActions";
 
 function App() {
   let token: any = useSelector((state: AppState) => state.userState.token);

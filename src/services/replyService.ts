@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { NewReply } from '../models/reply';
-import { gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction, creatingReply, createReplySuccess, createReplyFailed } from '../store/actions';
+import { gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction, creatingReply, createReplySuccess, createReplyFailed } from '../store/postActions';
 import { v4 as uuidv4 } from 'uuid';
 
 class ReplyService {
