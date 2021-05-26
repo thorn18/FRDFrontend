@@ -1,6 +1,5 @@
 import { postActionTypes } from './postActions';
 import Post from '../models/post';
-import { UserState } from './userReducer';
 import Reply from '../models/reply';
 
 //interfaces to give states types
