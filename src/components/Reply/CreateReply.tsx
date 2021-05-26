@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Post from '../../models/post';
 import { NewReply } from '../../models/reply';
 import replyService from '../../services/replyService';
-import { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/initialState';
 import '../Post/PostComponent.css';
 import './CreateReply.css';
 

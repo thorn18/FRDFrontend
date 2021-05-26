@@ -9,7 +9,7 @@ import ReplyList from '../Reply/ReplyList';
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import postService from "../../services/postService";
-import { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/initialState';
 import CreateReplyComponent from '../Reply/CreateReply';
 //import Dropdown from 'react-dropdown'
 

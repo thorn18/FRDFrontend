@@ -13,11 +13,6 @@ export interface PostsState {
     processed: boolean
 }
 
-export interface AppState {
-    postsState: PostsState,
-    userState: UserState
-}
-
 //initial states
 export const initialPostsState: PostsState = {
     posts: [],

@@ -3,9 +3,9 @@ import logo from '../../images/CreatePostLogo.png';
 import './CreatePost.css';
 import { useHistory } from 'react-router-dom';
 import PostService from '../../services/postService';
-import Post, { NewPost } from '../../models/post';
+import { NewPost } from '../../models/post';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/initialState';
 
 
 function CreatePost(): JSX.Element {

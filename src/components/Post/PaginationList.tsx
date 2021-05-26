@@ -3,7 +3,7 @@ import Post from '../../models/post';
 import PostComponent from './PostComponent';
 import './PaginationList.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/initialState';
 import PostService from '../../services/postService';
 import InfiniteScroll from "react-infinite-scroll-component";
 

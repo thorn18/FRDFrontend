@@ -3,7 +3,7 @@ import PaginationList from '../../components/Post/PaginationList';
 import './LandingPage.css'
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/initialState';
 import { resetPostState } from '../../store/postActions';
 
 const LandingPage = () => {

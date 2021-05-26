@@ -8,7 +8,7 @@ import Logo from "../../images/logo.svg";
 import addIcon from "../../images/addIcon.svg";
 import "./Navbar.css";
 import { logoutUser } from "../../store/userActions";
-import { AppState } from "../../store/postReducer";
+import { AppState } from "../../store/initialState";
 
 const Navbar = () => {
   const [isMenuOpen, setMenu] = useState(false);
