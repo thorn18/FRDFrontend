@@ -3,9 +3,9 @@ import logo from '../../images/CreatePostLogo.png';
 import './CreatePost.css';
 import { useHistory } from 'react-router-dom';
 import PostService from '../../services/postService';
-import Post, { NewPost } from '../../models/post';
+import { NewPost } from '../../models/post';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/initialState';
 
 
 function CreatePost(): JSX.Element {
@@ -19,14 +19,12 @@ function CreatePost(): JSX.Element {
     let processed: boolean = useSelector((state:AppState) => state.postsState.processed);
     let error: any = useSelector((state:AppState) => state.postsState.error);
     let username: string = useSelector((state:AppState) => state.userState.username);
-    //let posts: Post[] = useSelector((state: AppState) => state.postsState.posts);
     const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
         if(processed === true && error === undefined){
             setErr(false);
-            // dispatch(PostService.getAllPosts(5, posts.length))
             window.location.replace('/#/home');
         } else if (processed === true && error !== undefined){
             setErr(true);
