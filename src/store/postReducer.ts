@@ -2,7 +2,6 @@ import { postActionTypes } from './postActions';
 import Post from '../models/post';
 import Reply from '../models/reply';
 
-//interfaces to give states types
 export interface PostsState {
     posts: Post[],
     loading: boolean,
@@ -12,7 +11,6 @@ export interface PostsState {
     processed: boolean
 }
 
-//initial states
 export const initialPostsState: PostsState = {
     posts: [],
     loading: false,
@@ -22,7 +20,6 @@ export const initialPostsState: PostsState = {
     processed: false
 }
 
-//reducers
 const postsReducer = (state: PostsState = initialPostsState, action: any) => {
     switch (action.type) {
         case postActionTypes.gettingPosts:
@@ -53,7 +50,6 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.creatingPost:
             return { ...state, loading: true };
         case postActionTypes.createPostSuccess:
-            //let newPosts = [action.payload, ...state.posts];
             return { ...state, posts: [], loading: false, error: undefined, processed: true };
         case postActionTypes.createPostFailed:
             return { ...state, loading: false, error: action.payload, processed: true };
