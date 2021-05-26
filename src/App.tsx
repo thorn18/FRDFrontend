@@ -9,7 +9,7 @@ import AuthRoute from '../src/components/AuthRoute'
 import CreatePost from './views/CreatePost/CreatePost';
 import { tokenInfo } from './components/AuthRoute';
 import jwt_decode from 'jwt-decode';
-import { AppState } from './store/postReducer';
+import { AppState } from './store/initialState';
 import { loginSuccess } from "./store/userActions";
 
 function App() {

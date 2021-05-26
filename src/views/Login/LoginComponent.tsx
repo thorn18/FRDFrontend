@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import UserService from '../../services/userService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AppState } from '../../store/postReducer';
+import { AppState } from '../../store/initialState';
 
 
 export interface Input {
