@@ -5,13 +5,11 @@ import likes from '../../images/Likes.png';
 import ReplyComponent from '../Reply/Reply';
 import Reply from '../../models/reply';
 import ReplyList from '../Reply/ReplyList';
-// import { IconContext } from 'react-icons';
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import postService from "../../services/postService";
 import { AppState } from '../../store/initialState';
 import CreateReplyComponent from '../Reply/CreateReply';
-//import Dropdown from 'react-dropdown'
 
 interface postProp {
     post: Post
@@ -50,13 +48,11 @@ function PostComponent(props: postProp) {
             <div className="postStats">
                 <img src={likes} className="likesIcon" alt='Likes'/>
                 <div className="postMeta">
-                    {post.post.likes} likes &nbsp; {post.comments.totalCount} comments
+                    {post.post.likes} likes &nbsp; {post.comments.totalCount} {post.comments.totalCount === 1 ? 'comment' : 'comments'}
                 </div>
             </div>
             <div className="descriptionCard">
                 <p className="descriptionUser">{post.post.username} <span className="postDesc">{post.post.description}</span></p>
-                {/* <span className="descriptionUser">{post.post.username}</span>
-                <span className="postDesc">{post.post.description}</span> */}
             </div>
             <div className="replyList">
                 <ReplyList post={props.post}/>
