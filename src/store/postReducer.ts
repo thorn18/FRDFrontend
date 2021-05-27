@@ -54,30 +54,42 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
         case postActionTypes.createPostFailed:
             return { ...state, loading: false, error: action.payload, processed: true };
         case postActionTypes.creatingReply:
-            return { ...state, loading: true };
+            //adds pending comment to a specific post. must use index because of pass by reference.
+            let postPendingCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.postId);
+            if (state.posts[postPendingCommentIndex]) {
+                let allComments: Reply[] = [...state.posts[postPendingCommentIndex].comments.items, action.payload];
+                state.posts[postPendingCommentIndex].comments = {
+                    ...state.posts[postPendingCommentIndex].comments,
+                    items: allComments,
+                    totalCount: state.posts[postPendingCommentIndex].comments.totalCount + 1
+                };
+            }
+            return { ...state, loading: true, error: undefined };
         case postActionTypes.createReplySuccess:
             //adds comments to a specific post. must use index because of pass by reference.
             let postNewCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.postId);
             if (state.posts[postNewCommentIndex]) {
                 let allComments: Reply[] = [...state.posts[postNewCommentIndex].comments.items, action.payload];
-                state.posts[postNewCommentIndex].comments = { 
-                    ...state.posts[postNewCommentIndex].comments, 
-                    items: allComments, 
-                    totalCount: state.posts[postNewCommentIndex].comments.totalCount + 1 
+                state.posts[postNewCommentIndex].comments = {
+                    ...state.posts[postNewCommentIndex].comments,
+                    items: allComments
                 };
             }
             return { ...state, loading: false, error: undefined };
         case postActionTypes.createReplyFailed:
             let postFailedCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.localReply.postId);
             if (state.posts[postFailedCommentIndex]) {
-                let commentWithError: Reply = {...action.payload.localReply, error: action.payload.error}
-                let allComments: Reply[] = [...state.posts[postFailedCommentIndex].comments.items, commentWithError];
-                state.posts[postFailedCommentIndex].comments = { 
-                    ...state.posts[postFailedCommentIndex].comments, 
-                    items: allComments,  
-                };
+                let commentPending = state.posts[postFailedCommentIndex].comments.items.find((value: Reply) => value.id == action.payload.localReply.id)
+                if (commentPending) {
+                    let commentWithError: Reply = { ...commentPending, error: action.payload.error }
+                    let allComments: Reply[] = [...state.posts[postFailedCommentIndex].comments.items.filter((value: Reply)=>value.id!=action.payload.localReply.id), commentWithError];
+                    state.posts[postFailedCommentIndex].comments = {
+                        ...state.posts[postFailedCommentIndex].comments,
+                        items: allComments,
+                    };
+                }
             }
-            return { ...state, loading: false, processed: true };
+            return { ...state, loading: false, error:undefined, processed: true };
         case postActionTypes.reset:
             return { ...state, loading: false, deleted: false, error: undefined, processed: false };
         default:
