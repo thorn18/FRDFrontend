@@ -34,7 +34,7 @@ class ReplyService {
         if (local === true) {
             return (dispatch: (action: PostAction) => void) => {
                 dispatch(creatingReply(localReply)); //action
-                return setTimeout(() => { dispatch(createReplySuccess(localReply)) }, 2000)
+                return setTimeout(() => { dispatch(createReplySuccess(localReply, localReply)) }, 2000)
             }
         } else {
             return (dispatch: (action: PostAction) => void) => {
@@ -46,7 +46,7 @@ class ReplyService {
                 }
                 return axios.post(`${this.URI}`, reply, config)
                     .then(response => {
-                        dispatch(createReplySuccess(response.data));
+                        dispatch(createReplySuccess(response.data, localReply));
                     }).catch(err => {
                         dispatch(createReplyFailed(err, localReply)); //action
                     });

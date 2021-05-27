@@ -10,7 +10,7 @@ export default function ReplyComponent(props: replyProp) {
     return (
         <div className="descriptionCard">
             <p className="descriptionUser" data-testid="commenter">{`${props.reply.username} `}
-                <span className="postDesc" data-testid="comment-content">{props.reply.content}</span>
+                <span style={props.reply.local ? { color: "lightgray" } : {}} className="postDesc" data-testid="comment-content">{props.reply.content}</span>
             </p>
         </div>
     )

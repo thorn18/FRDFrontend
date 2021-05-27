@@ -4,7 +4,7 @@ import Reply from '../models/reply';
 
 export interface PostAction {
     type: postActionTypes,
-    payload?: String | Post[] | Post | Replies | Reply | number | {error: Error, localReply: Reply}
+    payload?: String | Post[] | Post | Replies | Reply | number | { reply: Reply, localReply: Reply } | { error: Error, localReply: Reply }
 }
 
 export enum postActionTypes {
@@ -85,7 +85,7 @@ export const deletedPostFailed = (error: string) => {
         payload: error
     }
 }
-        
+
 export const creatingPost = () => {
     return {
         type: postActionTypes.creatingPost
@@ -113,17 +113,17 @@ export const creatingReply = (reply: Reply) => {
     }
 }
 
-export const createReplySuccess = (reply: Reply) => {
+export const createReplySuccess = (reply: Reply, localReply: Reply) => {
     return {
         type: postActionTypes.createReplySuccess,
-        payload: reply
+        payload: { reply, localReply }
     }
 }
 
 export const createReplyFailed = (error: Error, localReply: Reply) => {
     return {
         type: postActionTypes.createReplyFailed,
-        payload: {error, localReply}
+        payload: { error, localReply }
     }
 }
 
