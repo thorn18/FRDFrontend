@@ -22,7 +22,7 @@ class ReplyService {
         };
     }
 
-    createReply(reply: NewReply, token: string, local?: boolean) {
+    createReply(reply: NewReply, token: string, noAxios?: boolean) {
         const localReply = {
             "id": uuidv4(),
             "username": reply.username,
@@ -31,7 +31,7 @@ class ReplyService {
             "postId": reply.postId,
             "local": true
         };
-        if (local === true) {
+        if (noAxios === true) {
             return (dispatch: (action: PostAction) => void) => {
                 dispatch(creatingReply(localReply)); //action
                 return setTimeout(() => { dispatch(createReplySuccess(localReply, localReply)) }, 2000)

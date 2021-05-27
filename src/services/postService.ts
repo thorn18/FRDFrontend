@@ -29,12 +29,12 @@ class PostService {
 
     /**
      * Deletes a post from the API
-     * If local (third argument) is true, then the post is only deleted locally
-     * if local is false, an axios call is made and the post is also deleted on the backend
+     * If noAxios (third argument) is true, then the post is only deleted locally
+     * if noAxios is false, an axios call is made and the post is also deleted on the backend
      * @returns an action to dispatch
      */
-    deletePost(postId: string, token: string, local: boolean = false) {
-        if (local) {
+    deletePost(postId: string, token: string, noAxios: boolean = false) {
+        if (noAxios) {
             return async (dispatch: (action: PostAction) => void) => {
                 dispatch(deletingPost());
                 dispatch(deletedPostSuccess(postId));
