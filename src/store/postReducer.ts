@@ -67,11 +67,14 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
             return { ...state, loading: true, error: undefined };
         case postActionTypes.createReplySuccess:
             //adds comments to a specific post. must use index because of pass by reference.
-            let postNewCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.postId);
+            let postNewCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.reply.postId);
             if (state.posts[postNewCommentIndex]) {
                 let commentPending = state.posts[postNewCommentIndex].comments.items.find((value: Reply) => value.id === action.payload.localReply.id)
                 if (commentPending) {
-                    let allComments: Reply[] = [...state.posts[postNewCommentIndex].comments.items.filter((value: Reply) => value.id !== action.payload.localReply.id), action.payload.reply];
+                    let filteredComments:Reply[] = state.posts[postNewCommentIndex].comments.items.filter((value: Reply) => {
+                        return value.id !== action.payload.localReply.id
+                    })
+                    let allComments: Reply[] = [...filteredComments, action.payload.reply];
                     state.posts[postNewCommentIndex].comments = {
                         ...state.posts[postNewCommentIndex].comments,
                         items: allComments,
