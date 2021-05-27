@@ -68,7 +68,16 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
             }
             return { ...state, loading: false, error: undefined };
         case postActionTypes.createReplyFailed:
-            return { ...state, loading: false, error: action.payload, processed: true };
+            let postFailedCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.localReply.postId);
+            if (state.posts[postFailedCommentIndex]) {
+                let commentWithError: Reply = {...action.payload.localReply, error: action.payload.error}
+                let allComments: Reply[] = [...state.posts[postFailedCommentIndex].comments.items, commentWithError];
+                state.posts[postFailedCommentIndex].comments = { 
+                    ...state.posts[postFailedCommentIndex].comments, 
+                    items: allComments,  
+                };
+            }
+            return { ...state, loading: false, processed: true };
         case postActionTypes.reset:
             return { ...state, loading: false, deleted: false, error: undefined, processed: false };
         default:

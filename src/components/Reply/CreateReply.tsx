@@ -51,7 +51,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
         if (input === '') {
             setUserError(true)
         } else if (token && userError === false && limit === false) {
-            dispatch(replyService.createReply(newReply, token, true));
+            dispatch(replyService.createReply(newReply, token, false));
             setInput('');
         }
     }
