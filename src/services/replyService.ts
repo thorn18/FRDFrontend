@@ -23,22 +23,22 @@ class ReplyService {
     }
 
     createReply(reply: NewReply, token: string, local?: boolean) {
+        const localReply = {
+            "id": uuidv4(),
+            "username": reply.username,
+            "content": reply.content,
+            "timestamp": new Date(),
+            "postId": reply.postId,
+            "local": true
+        };
         if (local === true) {
             return (dispatch: (action: PostAction) => void) => {
-                dispatch(creatingReply()); //action
-                return (dispatch(createReplySuccess(
-                    {
-                        "id": uuidv4(),
-                        "username": reply.username,
-                        "content": reply.content,
-                        "timestamp": new Date(),
-                        "postId": reply.postId
-                    }
-                )))
+                dispatch(creatingReply(localReply)); //action
+                return setTimeout(() => { dispatch(createReplySuccess(localReply)) }, 2000)
             }
         } else {
             return (dispatch: (action: PostAction) => void) => {
-                dispatch(creatingReply()); //action
+                dispatch(creatingReply(localReply)); //action
                 const config = {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -48,7 +48,7 @@ class ReplyService {
                     .then(response => {
                         dispatch(createReplySuccess(response.data));
                     }).catch(err => {
-                        dispatch(createReplyFailed(err)); //action
+                        dispatch(createReplyFailed(err, localReply)); //action
                     });
             };
         }
