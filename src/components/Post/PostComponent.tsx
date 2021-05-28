@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from '../../models/post';
 import './PostComponent.css';
 import likes from '../../images/Likes.png';
@@ -27,6 +27,8 @@ function PostComponent(props: postProp) {
     const user: string = useSelector((state: AppState) => state.userState.username);
     const loggedin: boolean = useSelector((state: AppState) => state.userState.loggedIn);
     const token: string | null = useSelector((state: AppState) => state.userState.token);
+    const posts = useSelector((state: AppState) => state.postsState)
+    useEffect(()=>{}, [posts])
 
     function deletePost() {
         if (loggedin && token)  dispatch(postService.deletePost(post.post.id, token, false));
