@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NewReply } from '../models/reply';
+import Reply, { NewReply } from '../models/reply';
 import { gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction, creatingReply, createReplySuccess, createReplyFailed } from '../store/postActions';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -22,8 +22,8 @@ class ReplyService {
         };
     }
 
-    createReply(reply: NewReply, token: string, noAxios?: boolean) {
-        const localReply = {
+    createReply(reply: NewReply, token: string, noAxios?: boolean, resendReply?: Reply) {
+        let localReply: Reply = {
             "id": uuidv4(),
             "username": reply.username,
             "content": reply.content,
@@ -38,7 +38,12 @@ class ReplyService {
             }
         } else {
             return (dispatch: (action: PostAction) => void) => {
-                dispatch(creatingReply(localReply)); //action
+                if (resendReply) {
+                    console.log('resending reply')
+                    localReply = resendReply
+                } else {
+                    dispatch(creatingReply(localReply))
+                }
                 const config = {
                     headers: {
                         'Authorization': `Bearer ${token}`
