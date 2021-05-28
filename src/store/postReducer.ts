@@ -64,7 +64,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
                     totalCount: state.posts[postPendingCommentIndex].comments.totalCount + 1
                 };
             }
-            return { ...state, loading: true, error: undefined };
+            return { ...state, loading: true, error: undefined, processed: false };
         case postActionTypes.createReplySuccess:
             //adds comments to a specific post. must use index because of pass by reference.
             let postNewCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.serverReply.postId);
@@ -81,7 +81,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
                     };
                 }
             }
-            return { ...state, loading: false, error: undefined };
+            return { ...state, loading: false, error: undefined, processed: false };
         case postActionTypes.createReplyFailed:
             let postFailedCommentIndex = state.posts.findIndex((post) => post.post.id === action.payload.localReply.postId);
             if (state.posts[postFailedCommentIndex]) {
@@ -95,7 +95,7 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
                     };
                 }
             }
-            return { ...state, loading: false, error: undefined, processed: true };
+            return { ...state, loading: false, error: undefined, processed: false };
         case postActionTypes.reset:
             return { ...state, loading: false, deleted: false, error: undefined, processed: false };
         default:
