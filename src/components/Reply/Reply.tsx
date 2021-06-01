@@ -18,8 +18,8 @@ export default function ReplyComponent(props: replyProp): JSX.Element {
     const dispatch = useDispatch();
     const loggedIn: boolean = useSelector((state: AppState) => state.userState.loggedIn);
     const token: string | null = useSelector((state: AppState) => state.userState.token);
-    const currentReplyError = useSelector((state: AppState) => state.postsState.posts.find((value: Post)=>value.post.id===props.reply.postId))?.comments.items.find((value: Reply)=>value.id===props.reply.id)?.error
-    const currentReplyLocal = useSelector((state: AppState) => state.postsState.posts.find((value: Post)=>value.post.id===props.reply.postId))?.comments.items.find((value: Reply)=>value.id===props.reply.id)?.local
+    const currentReplyError = useSelector((state: AppState) => state.postsState.posts.find((value: Post) => value.post.id === props.reply.postId))?.comments.items.find((value: Reply) => value.id === props.reply.id)?.error
+    const currentReplyLocal = useSelector((state: AppState) => state.postsState.posts.find((value: Post) => value.post.id === props.reply.postId))?.comments.items.find((value: Reply) => value.id === props.reply.id)?.local
 
     function handleClick() {
         let localNewReply: NewReply = {
@@ -36,7 +36,7 @@ export default function ReplyComponent(props: replyProp): JSX.Element {
     return (
         <div className="descriptionCard">
             <p className="descriptionUser" data-testid="commenter">{`${props.reply.username} `}
-                <span style={currentReplyLocal ? { color: "lightgray" } : { color: 'inherit'}} className="postDesc" data-testid="comment-content">{props.reply.content}</span>
+                <span style={currentReplyLocal ? { color: "lightgray" } : { color: 'inherit' }} className="postDesc" data-testid="comment-content">{props.reply.content}</span>
                 {currentReplyError &&
                     <>
                         <BsArrowRepeat data-tip='Resend Comment' className='resendComment' onClick={handleClick} />
