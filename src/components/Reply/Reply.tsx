@@ -18,8 +18,20 @@ export default function ReplyComponent(props: replyProp): JSX.Element {
     const dispatch = useDispatch();
     const loggedIn: boolean = useSelector((state: AppState) => state.userState.loggedIn);
     const token: string | null = useSelector((state: AppState) => state.userState.token);
-    const currentReplyError = useSelector((state: AppState) => state.postsState.posts.find((value: Post) => value.post.id === props.reply.postId))?.comments.items.find((value: Reply) => value.id === props.reply.id)?.error
-    const currentReplyLocal = useSelector((state: AppState) => state.postsState.posts.find((value: Post) => value.post.id === props.reply.postId))?.comments.items.find((value: Reply) => value.id === props.reply.id)?.local
+    const currentReplyError = useSelector((state: AppState) =>
+        state.postsState.posts.find((value: Post) =>
+            value.post.id === props.reply.postId
+        )?.comments.items.find((value: Reply) =>
+            value.id === props.reply.id
+        )?.error
+    )
+    const currentReplyLocal = useSelector((state: AppState) =>
+        state.postsState.posts.find((value: Post) =>
+            value.post.id === props.reply.postId
+        )?.comments.items.find((value: Reply) =>
+            value.id === props.reply.id
+        )?.local
+    )
 
     function handleClick() {
         let localNewReply: NewReply = {
