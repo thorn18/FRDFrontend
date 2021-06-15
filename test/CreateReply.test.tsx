@@ -5,7 +5,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import CreateReplyComponent from '../src/components/Reply/CreateReply';
-import { post0, post1 } from './testData';
+import { post0, post1, post2 } from './testData';
 import replyService from "../src/services/replyService";
 import { NewReply } from "../src/models/reply";
 import userEvent from "@testing-library/user-event";
@@ -30,8 +30,8 @@ let userError: boolean = false;
 const setUserError = jest.fn();
 let limit: boolean = false;
 const setLimit = jest.fn();
-let serverError: boolean = undefined;
-const setServerError = jest.fn();
+// let serverError: boolean = undefined;
+// const setServerError = jest.fn();
 
 let dispatch = jest.fn();
 
@@ -47,7 +47,7 @@ const setMocks = () => {
         .mockImplementationOnce((x) => [userError, setUserError])
         .mockImplementationOnce((x) => [limit, setLimit]);
 
-    (useSelector as jest.Mock).mockImplementationOnce((x) => mockServerError)
+    (useSelector as jest.Mock).mockImplementationOnce((x) => post2)
         .mockImplementationOnce((x) => mockToken)
         .mockImplementationOnce((x) => mockUsername);
 
@@ -81,6 +81,7 @@ afterEach(cleanup);
 describe('Tests for Create Reply Component, when logged in, that', () => {
 
     it('will make sure that Create Reply Component is visible', () => {
+        setMocks();
         const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
         expect(getByTestId('createReply')).toBeVisible();
     });
@@ -231,10 +232,9 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
         it('if there is a serverError, then correct error message is displayed', () => {
             store = mockStore({
                 postsState: {
-                    posts: [post0, post1],
+                    posts: [post2, post1],
                     loading: false,
                     hasMoreItems: true,
-                    error: Error('401 unauthorized.')
                 },
                 userState: {
                     username: 'Bob',
@@ -247,7 +247,7 @@ describe('Tests for Create Reply Component, when logged in, that', () => {
             mockToken = 'aToken';
             mockUsername = 'Bob';
 
-            const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post0} /> </Provider>);
+            const { getByTestId } = render(<Provider store={store}> <CreateReplyComponent post={post2} /> </Provider>);
             let content = getByTestId('serverError');
             expect(content).toHaveTextContent('* The server encountered an error. Please try again')
         })

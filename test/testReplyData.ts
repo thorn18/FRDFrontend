@@ -5,7 +5,8 @@ export const reply0: Reply = {
     "username": "Green",
     "content": "pretty sus ngl",
     "timestamp": new Date("2020-11-12T10:00:00"),
-    "postId": "4935a60c-85e0-476b-9999-9cb0fe08764e"
+    "postId": "4935a60c-85e0-476b-9999-9cb0fe08764e",
+    "error": Error('Unauthorized.')
 }
 
 export const reply1: Reply = {
