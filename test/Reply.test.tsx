@@ -1,14 +1,18 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import ReplyComponent from '../src/components/Reply/Reply'
 import Reply from '../src/models/reply';
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { post2 } from './testData';
+import { reply0 } from './testReplyData';
+import replyService from '../src/services/replyService';
 
 jest.mock('react-redux', () => ({
     ...jest.requireActual('react-redux'),
+    useDispatch: jest.fn(),
     useSelector: jest.fn()
 }));
 
@@ -17,16 +21,32 @@ const testComment: Reply = {
     username: 'testUser',
     content: 'bla bla bla',
     timestamp: new Date(),
-    postId: 'testPostId'
+    postId: 'testPostId',
+    error: Error('unauthorized')
 };
-
-(useSelector as jest.Mock).mockImplementationOnce(() => true)
-    .mockImplementationOnce(() => 'aToken')
-    .mockImplementationOnce(() => testComment);
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares)
-let store = mockStore({});
+let store = mockStore({
+    postsState: {
+        posts: post2,
+        loading: false,
+        hasMoreItems: true
+    }
+});
+
+let dispatch = jest.fn();
+
+
+beforeEach(() => {
+    (useSelector as jest.Mock).mockImplementationOnce(() => true)
+        .mockImplementationOnce(() => 'aToken')
+        .mockImplementationOnce(() => reply0);
+    
+    (useDispatch as jest.Mock).mockImplementationOnce(() => dispatch);
+
+    replyService.createReply = jest.fn();
+})
 
 afterEach(cleanup);
 
@@ -37,4 +57,13 @@ describe('Tests for comment component', () => {
         expect(getByTestId('commenter')).toBeVisible();
         expect(getByTestId('comment-content')).toBeVisible();
     });
+
+    it('that clicking the resend reply calls the service', () => {
+        const { getByTestId } = render(<Provider store={store}> <ReplyComponent reply={reply0} /> </Provider>);
+        expect(getByTestId('resendComment')).toBeVisible();
+        fireEvent.click(getByTestId('resendComment'));
+
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(replyService.createReply).toHaveBeenCalledTimes(1)
+    })
 });

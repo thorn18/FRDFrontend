@@ -44,7 +44,7 @@ export default function ReplyComponent(props: replyProp): JSX.Element {
                 <span style={currentReply?.local ? { color: "lightgray" } : { color: 'inherit' }} className="postDesc" data-testid="comment-content">{props.reply.content}</span>
                 {currentReply?.error &&
                     <>
-                        <BsArrowRepeat data-tip='Resend Comment' className='resendComment' onClick={handleClick} />
+                        <BsArrowRepeat data-testid='resendComment' data-tip='Resend Comment' className='resendComment' onClick={handleClick} />
                         <ReactTooltip place='top' effect='solid'>Resend Comment</ReactTooltip>
                     </>
                 }
