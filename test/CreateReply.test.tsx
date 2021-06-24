@@ -30,8 +30,6 @@ let userError: boolean = false;
 const setUserError = jest.fn();
 let limit: boolean = false;
 const setLimit = jest.fn();
-// let serverError: boolean = undefined;
-// const setServerError = jest.fn();
 
 let dispatch = jest.fn();
 

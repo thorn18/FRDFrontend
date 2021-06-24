@@ -39,7 +39,6 @@ class ReplyService {
         } else {
             return (dispatch: (action: PostAction) => void) => {
                 if (resendReply) {
-                    console.log('resending reply')
                     localReply = resendReply
                 } else {
                     dispatch(creatingReply(localReply))
