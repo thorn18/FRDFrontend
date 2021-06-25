@@ -3,6 +3,7 @@ import Post, { NewPost } from '../../src/models/post';
 import Replies from '../../src/models/replies';
 import { replyList0 } from '../testReplyData';
 import { post0, newPost } from '../testData';
+import { reply0 } from '../testReplyData';
 
 describe('Tests for Redux actions to do with getting posts', () => {
 
@@ -79,7 +80,7 @@ describe('Tests for Redux actions to do with deleting posts', () => {
     });
 
     test('should create an action with the post id to be deleted', () => {
-        
+
         const testAction = {
             type: actions.postActionTypes.deletedPostSuccess,
             payload: testPostId
@@ -111,7 +112,7 @@ describe('Tests for Redux actions to do with deleting posts', () => {
     });
 
     test('should create an action with the post id to be deleted', () => {
-        
+
         const testAction = {
             type: actions.postActionTypes.deletedPostSuccess,
             payload: testPostId
@@ -160,29 +161,30 @@ describe('Test for Redux actions for creating a new post', () => {
 
 describe('Test for Redux actions for creating a new reply', () => {
 
-    test('should create an action of creatingReply there should be no payload', () => {
+    test('should create an action of creatingReply there should be a reply in the payload', () => {
         const testAction = {
             type: actions.postActionTypes.creatingReply,
+            payload: reply0
         }
-        expect(actions.creatingReply()).toEqual(testAction);
+        expect(actions.creatingReply(reply0)).toEqual(testAction);
     });
 
-    test('should create an action of createReplySuccess with a status code as a payload', () => {
+    test('should create an action of createReplySuccess with the localReply and serverReply as a payload', () => {
         const testCode: number = 201;
         const testAction = {
             type: actions.postActionTypes.createReplySuccess,
-            payload: 201
+            payload: { localReply: reply0, serverReply: reply0 }
         }
-        expect(actions.createReplySuccess(testCode)).toEqual(testAction);
+        expect(actions.createReplySuccess(reply0, reply0)).toEqual(testAction);
     });
 
-    test('should create action for createReplyFailed with error as a payload', () => {
-        const testError = 'there is an error!';
+    test('should create action for createReplyFailed with error and localReply as a payload', () => {
+        const testError = Error('there is an error!');
         const testAction = {
             type: actions.postActionTypes.createReplyFailed,
-            payload: testError
+            payload: { error: testError, localReply: reply0 }
         }
-        expect(actions.createReplyFailed(testError)).toEqual(testAction);
+        expect(actions.createReplyFailed(testError, reply0)).toEqual(testAction);
     });
 });
 

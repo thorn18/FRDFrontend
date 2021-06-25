@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NewReply } from '../models/reply';
+import Reply, { NewReply } from '../models/reply';
 import { gettingReplies, gotRepliesFailed, gotRepliesSuccess, PostAction, creatingReply, createReplySuccess, createReplyFailed } from '../store/postActions';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -22,23 +22,27 @@ class ReplyService {
         };
     }
 
-    createReply(reply: NewReply, token: string, local?: boolean) {
-        if (local === true) {
+    createReply(reply: NewReply, token: string, noAxios?: boolean, resendReply?: Reply) {
+        let localReply: Reply = {
+            "id": uuidv4(),
+            "username": reply.username,
+            "content": reply.content,
+            "timestamp": new Date(),
+            "postId": reply.postId,
+            "local": true
+        };
+        if (noAxios === true) {
             return (dispatch: (action: PostAction) => void) => {
-                dispatch(creatingReply()); //action
-                return (dispatch(createReplySuccess(
-                    {
-                        "id": uuidv4(),
-                        "username": reply.username,
-                        "content": reply.content,
-                        "timestamp": new Date(),
-                        "postId": reply.postId
-                    }
-                )))
+                dispatch(creatingReply(localReply)); //action
+                return setTimeout(() => { dispatch(createReplySuccess(localReply, localReply)) }, 2000)
             }
         } else {
             return (dispatch: (action: PostAction) => void) => {
-                dispatch(creatingReply()); //action
+                if (resendReply) {
+                    localReply = resendReply
+                } else {
+                    dispatch(creatingReply(localReply))
+                }
                 const config = {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -46,9 +50,9 @@ class ReplyService {
                 }
                 return axios.post(`${this.URI}`, reply, config)
                     .then(response => {
-                        dispatch(createReplySuccess(response.data));
+                        dispatch(createReplySuccess(response.data, localReply));
                     }).catch(err => {
-                        dispatch(createReplyFailed(err)); //action
+                        dispatch(createReplyFailed(err, localReply)); //action
                     });
             };
         }

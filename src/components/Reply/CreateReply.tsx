@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from '../../models/post';
-import { NewReply } from '../../models/reply';
+import Reply, { NewReply } from '../../models/reply';
 import replyService from '../../services/replyService';
 import { AppState } from '../../store/initialState';
 import '../Post/PostComponent.css';
@@ -16,7 +16,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
     const [input, setInput] = useState('');
     const [userError, setUserError] = useState(false);
     const [limit, setLimit] = useState(false);
-    let serverError = useSelector((state: AppState) => state.postsState.error);
+    let serverError = useSelector((state: AppState) => state.postsState.posts.find((value: Post) => value.post.id === props.post.post.id))?.comments.items.some((value: Reply) => value.error);
 
     const dispatch = useDispatch();
     let token: string | null = useSelector((state: AppState) => state.userState.token);
@@ -25,13 +25,13 @@ function CreateReplyComponent(props: CreateReplyProp) {
     const handleInput = (e: SyntheticEvent) => {
         let newInput = input;
         if (((e.target) as HTMLInputElement).name === 'content') {
-            if((e.target as HTMLInputElement).value.trim() === ''){
+            if ((e.target as HTMLInputElement).value.trim() === '') {
                 setUserError(true);
             } else {
                 setUserError(false);
             }
 
-            if((e.target as HTMLInputElement).value.trim().length > 120){
+            if ((e.target as HTMLInputElement).value.trim().length > 120) {
                 setLimit(true);
             } else {
                 setLimit(false);
@@ -48,7 +48,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
             content: input,
             postId: post.post.id,
         }
-        if(input === ''){
+        if (input === '') {
             setUserError(true)
         } else if (token && userError === false && limit === false) {
             dispatch(replyService.createReply(newReply, token, false));
@@ -70,9 +70,9 @@ function CreateReplyComponent(props: CreateReplyProp) {
                 />
                 <button data-testid='createReplyButton' className='createReplyButton' onClick={handleSubmit}>↑</button>
             </div>
-            {userError && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Comment is required</p>}
-            {limit && <p style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* Character limit is 120</p>}
-            {serverError && <p data-testid='serverError' style={{color: 'red', textAlign: 'left', marginLeft: 24}}>* The server encountered an error. Please try again</p>}
+            {userError && <p style={{ color: 'red', textAlign: 'left', marginLeft: 24 }}>* Comment is required</p>}
+            {limit && <p style={{ color: 'red', textAlign: 'left', marginLeft: 24 }}>* Character limit is 120</p>}
+            {serverError && <p data-testid='serverError' style={{ color: 'red', textAlign: 'left', marginLeft: 24 }}>* The server encountered an error. Please try again</p>}
         </>
     )
 }
