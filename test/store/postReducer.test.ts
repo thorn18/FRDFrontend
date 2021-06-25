@@ -64,7 +64,7 @@ describe('tests of posts reducer', () => {
         post1.comments = replyList0;
         const initialPosts: Post[] = [post1, post2];
         const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
-        
+
         const newReplies = replyList1;
         let updatedPost1 = post1;
         updatedPost1.comments = {
@@ -110,7 +110,7 @@ describe('testing the reducer for the deletePost service', () => {
         const initialPosts: Post[] = [post1, post2];
         const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true, deleted: true, error: undefined, processed: false };
         expect(postsReducer(testInitialState, { type: postActionTypes.deletedPostSuccess, payload: post1.post.id }))
-            .toEqual({ posts: [ post2 ], loading: false, hasMoreItems: true, deleted: true, error: undefined, processed: false });
+            .toEqual({ posts: [post2], loading: false, hasMoreItems: true, deleted: true, error: undefined, processed: false });
     });
 
     test('The deletePostFailed', () => {
@@ -148,36 +148,57 @@ describe('testing the reducer for the createPost service', () => {
 
 describe('testing the reducer for the createReply service', () => {
 
-    test('The createReply action', () => {
-        const initialPosts: Post[] = [];
-        const testInitialState: PostsState = { posts: initialPosts, loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: false };
-        expect(postsReducer(testInitialState, { type: postActionTypes.creatingReply }))
-            .toEqual({ posts: [], loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false });
-    });
-    
-    test('The createReplySuccess', () => {
+    test('The creatingReply action', () => {
         const initialPosts: Post[] = [post1, post2];
-        let newReply: Reply = {...reply0, postId: post1.post.id };
+        let newReply: Reply = { ...reply0, postId: post1.post.id, local: true };
         let newReplies: Replies = {
-            items: [...post1.comments.items, newReply ],
+            items: [...post1.comments.items, newReply],
             pageSize: 5,
             totalCount: post1.comments.totalCount + 1,
             offset: post1.comments.offset,
             hasNext: post1.comments.hasNext
         }
-        let post1WithNewComment = {...post1, comments: newReplies };
+        let post1WithNewComment = { ...post1, comments: newReplies };
         const newPosts: Post[] = [post1WithNewComment, post2];
         const testInitialState: PostsState = { posts: initialPosts, loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
-        expect(postsReducer(testInitialState, { type: postActionTypes.createReplySuccess, payload: newReply}))
-            .toEqual({ posts: [ ...newPosts ], loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: false });
+        expect(postsReducer(testInitialState, { type: postActionTypes.creatingReply, payload: newReply }))
+            .toEqual({ posts: [...newPosts], loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false });
+    });
+
+    test('The createReplySuccess action', () => {
+        const initialPosts: Post[] = [post1, post2];
+        let newReply: Reply = { ...reply0, postId: post1.post.id, local: true };
+        let newServerReply: Reply = { ...reply0, postId: post1.post.id };
+        let newReplies: Replies = {
+            items: [...post1.comments.items, newServerReply],
+            pageSize: 5,
+            totalCount: post1.comments.totalCount,
+            offset: post1.comments.offset,
+            hasNext: post1.comments.hasNext
+        }
+        let post1WithNewComment = { ...post1, comments: newReplies };
+        const newPosts: Post[] = [post1WithNewComment, post2];
+        const testInitialState: PostsState = { posts: newPosts, loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
+        expect(postsReducer(testInitialState, { type: postActionTypes.createReplySuccess, payload: { localReply: newReply, serverReply: newServerReply } }))
+            .toEqual({ posts: [...newPosts], loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: false });
     });
 
     test('The createReplyFailed', () => {
-        const testInitialState: PostsState = { posts: [], loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
-        const error = 'error';
-        expect(postsReducer(testInitialState, { type: postActionTypes.createReplyFailed, payload: error }))
-            .toEqual({ posts: [], loading: false, hasMoreItems: true, error: error, deleted: false, processed: true });
-    });
+        const initialPosts: Post[] = [post1, post2];
+        const newError: Error = Error('this is an error');
+        let newReply: Reply = { ...reply0, postId: post1.post.id, local: true, error: newError };
+        let newReplies: Replies = {
+            items: [...post1.comments.items, newReply],
+            pageSize: 5,
+            totalCount: post1.comments.totalCount,
+            offset: post1.comments.offset,
+            hasNext: post1.comments.hasNext
+        }
+        let post1WithNewComment = { ...post1, comments: newReplies };
+        const newPosts: Post[] = [post1WithNewComment, post2];
+        const testInitialState: PostsState = { posts: newPosts, loading: true, hasMoreItems: true, deleted: false, error: undefined, processed: false };
+        expect(postsReducer(testInitialState, { type: postActionTypes.createReplyFailed, payload: { error: newError, localReply: newReply } }))
+            .toEqual({ posts: [...newPosts], loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: false });    });
 });
 
 describe('Tests for resetting postsState', () => {
@@ -190,7 +211,7 @@ describe('Tests for resetting postsState', () => {
 
     test('That we can reset the state after having deleted a post unsuccessfully', () => {
         const initialPosts: Post[] = [post1, post2];
-        const testInitialState: PostsState = { posts: initialPosts, loading: false, hasMoreItems: true, deleted: true, error: 'oh no!', processed: false };
+        const testInitialState: PostsState = { posts: initialPosts, loading: false, hasMoreItems: true, deleted: true, error: Error('oh no!'), processed: false };
         expect(postsReducer(testInitialState, { type: postActionTypes.reset }))
             .toEqual({ posts: initialPosts, loading: false, hasMoreItems: true, deleted: false, error: undefined, processed: false });
     });
