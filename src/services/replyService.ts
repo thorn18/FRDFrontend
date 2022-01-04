@@ -7,7 +7,7 @@ class ReplyService {
     private URI: string;
     constructor() {
         //URL of the API 
-        this.URI = "http://Photonbackend-env.eba-c6syafi3.us-east-2.elasticbeanstalk.com/api/comments";
+        this.URI = "http://Photonbackend-env.eba-c6syafi3.us-east-2.elasticbeanstalk.com/api/replies";
     }
 
     getMoreReplies(postid: string, offset: number = 0) {
