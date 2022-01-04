@@ -45,7 +45,7 @@ function PostComponent(props: postProp) {
                 </button>}
             </div>
             <div className="imageDiv">
-                <img className="postImage" src={'http://35.223.52.208/api/image/' + post.post.imageId} alt='Post Content' />
+                <img className="postImage" src={'https://group3photonimagebucket.s3.amazonaws.com/' + post.post.imageId} alt='Post Content' />
             </div>
             <div className="postStats">
                 <img src={likes} className="likesIcon" alt='Likes' />
