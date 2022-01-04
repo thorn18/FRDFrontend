@@ -7,13 +7,13 @@ class ReplyService {
     private URI: string;
     constructor() {
         //URL of the API 
-        this.URI = "http://35.223.52.208/api/comments/";
+        this.URI = "http://Photonbackend-env.eba-c6syafi3.us-east-2.elasticbeanstalk.com/api/comments";
     }
 
     getMoreReplies(postid: string, offset: number = 0) {
         return (dispatch: (action: PostAction) => void) => {
             dispatch(gettingReplies()); //action
-            return axios.get(`${this.URI}${postid}?offset=${offset}&pageSize=5`)
+            return axios.get(`${this.URI}/${postid}?offset=${offset}&pageSize=5`)
                 .then(response => {
                     dispatch(gotRepliesSuccess(response.data)); //type any as of now
                 }).catch(err => {

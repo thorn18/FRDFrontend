@@ -6,7 +6,7 @@ class UserService {
     private URI: string;
     //URL of the API
     constructor() {
-        this.URI = 'http://34.67.233.119/api/auth/login';
+        this.URI = 'http://Photonbackend-env.eba-c6syafi3.us-east-2.elasticbeanstalk.com/api/auth/login';
     }
 
     login(usernameTry: string, passwordTry: string) {

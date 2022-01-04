@@ -6,7 +6,7 @@ class PostService {
     private URI: string;
     constructor() {
         //URL of the API 
-        this.URI = "http://35.223.52.208/api";
+        this.URI = "http://Photonbackend-env.eba-c6syafi3.us-east-2.elasticbeanstalk.com/api/posts";
     }
 
     /**
@@ -18,7 +18,7 @@ class PostService {
     getAllPosts(pageSize: number = 5, offset: number = 0) {
         return (dispatch: (action: PostAction) => void) => {
             dispatch(gettingPosts()); //action
-            return axios.get(`${this.URI}/posts?offset=${offset}&pageSize=${pageSize}&comPageSize=5`) //need to include comment pagesize
+            return axios.get(`${this.URI}?offset=${offset}&pageSize=${pageSize}&comPageSize=5`) //need to include comment pagesize
                 .then(response => {
                     dispatch(gotPostsSuccess(response.data)); //type any as of now
                 }).catch(err => {
@@ -43,7 +43,7 @@ class PostService {
             return async (dispatch: (action: PostAction) => void) => {
                 try {
                     dispatch(deletingPost()); //action
-                    let res = await axios.delete(`${this.URI}/posts/${postId}`, { headers: { Authorization: `Bearer ${token}` } });
+                    let res = await axios.delete(`${this.URI}/${postId}`, { headers: { Authorization: `Bearer ${token}` } });
                     if (res.status === 200) {
                         dispatch(deletedPostSuccess(postId));
                     } else {
@@ -69,7 +69,7 @@ class PostService {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            return axios.post(`${this.URI}/posts`, formData, config)
+            return axios.post(`${this.URI}`, formData, config)
                 .then(response => {
                     dispatch(createPostSuccess(response.status));
                 }).catch(err => {
