@@ -16,7 +16,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
     const [input, setInput] = useState('');
     const [userError, setUserError] = useState(false);
     const [limit, setLimit] = useState(false);
-    let serverError = useSelector((state: AppState) => state.postsState.posts.find((value: Post) => value.post.id === props.post.post.id))?.comments.items.some((value: Reply) => value.error);
+    let serverError = useSelector((state: AppState) => state.postsState.posts.find((value: Post) => value.post.postId === props.post.post.postId))?.comments.items.some((value: Reply) => value.error);
 
     const dispatch = useDispatch();
     let token: string | null = useSelector((state: AppState) => state.userState.token);
@@ -46,7 +46,7 @@ function CreateReplyComponent(props: CreateReplyProp) {
         let newReply: NewReply = {
             username: username,
             content: input,
-            postId: post.post.id,
+            postId: post.post.postId,
         }
         if (input === '') {
             setUserError(true)

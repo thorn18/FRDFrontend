@@ -31,7 +31,7 @@ function PostComponent(props: postProp) {
     useEffect(() => { }, [posts])
 
     function deletePost() {
-        if (loggedin && token) dispatch(postService.deletePost(post.post.id, token, false));
+        if (loggedin && token) dispatch(postService.deletePost(post.post.postId, token, false));
     }
 
     return (
