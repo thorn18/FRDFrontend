@@ -24,7 +24,7 @@ class ReplyService {
 
     createReply(reply: NewReply, token: string, noAxios?: boolean, resendReply?: Reply) {
         let localReply: Reply = {
-            "id": uuidv4(),
+            "replyId": uuidv4(),
             "username": reply.username,
             "content": reply.content,
             "timestamp": new Date(),

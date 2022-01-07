@@ -69,10 +69,10 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
             //adds comments to a specific post. must use index because of pass by reference.
             let postNewCommentIndex = state.posts.findIndex((post) => post.post.postId === action.payload.serverReply.postId);
             if (state.posts[postNewCommentIndex]) {
-                let commentPending = state.posts[postNewCommentIndex].comments.items.find((value: Reply) => value.id === action.payload.localReply.id)
+                let commentPending = state.posts[postNewCommentIndex].comments.items.find((value: Reply) => value.replyId === action.payload.localReply.id)
                 if (commentPending) {
                     let filteredComments: Reply[] = state.posts[postNewCommentIndex].comments.items.filter((value: Reply) => {
-                        return value.id !== action.payload.localReply.id
+                        return value.replyId !== action.payload.localReply.id
                     });
                     let allComments: Reply[] = [...filteredComments, action.payload.serverReply];
                     state.posts[postNewCommentIndex].comments.items = allComments;
@@ -83,13 +83,13 @@ const postsReducer = (state: PostsState = initialPostsState, action: any) => {
             let postFailedCommentIndex = state.posts.findIndex((post) => post.post.postId === action.payload.localReply.postId);
             if (state.posts[postFailedCommentIndex]) {
                 let commentPending = state.posts[postFailedCommentIndex].comments.items.find((value: Reply) => {
-                    return value.id === action.payload.localReply.id
+                    return value.replyId === action.payload.localReply.id
                 });
                 if (commentPending) {
                     let commentWithError: Reply = { ...commentPending, error: action.payload.error }
                     let allComments: Reply[] = [
                         ...state.posts[postFailedCommentIndex].comments.items.filter((value: Reply) => {
-                            return value.id !== action.payload.localReply.id
+                            return value.replyId !== action.payload.localReply.id
                         }),
                         commentWithError
                     ];

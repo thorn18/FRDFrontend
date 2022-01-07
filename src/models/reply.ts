@@ -1,5 +1,5 @@
 export default interface Reply{
-    id: string,
+    replyId: string,
     username: string,
     content: string,
     timestamp: Date,

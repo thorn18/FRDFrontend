@@ -22,7 +22,7 @@ export default function ReplyComponent(props: replyProp): JSX.Element {
         state.postsState.posts.find((value: Post) =>
             value.post.postId === props.reply.postId
         )?.comments.items.find((value: Reply) =>
-            value.id === props.reply.id
+            value.replyId === props.reply.replyId
         )
     )
 
