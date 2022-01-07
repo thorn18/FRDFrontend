@@ -31,7 +31,7 @@ function PostComponent(props: postProp) {
     useEffect(() => { }, [posts])
 
     function deletePost() {
-        if (loggedin && token) dispatch(postService.deletePost(post.post.id, token, false));
+        if (loggedin && token) dispatch(postService.deletePost(post.post.postId, token, false));
     }
 
     return (
@@ -59,7 +59,7 @@ function PostComponent(props: postProp) {
             <div className="replyList">
                 <ReplyList post={props.post} />
                 {(post.comments.items).map((reply: Reply) => {
-                    return <ReplyComponent reply={reply} key={reply.id} />
+                    return <ReplyComponent reply={reply} key={reply.replyId} />
                 })}
                 {loggedin && <CreateReplyComponent post={props.post} />}
             </div>

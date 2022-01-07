@@ -20,9 +20,9 @@ export default function ReplyComponent(props: replyProp): JSX.Element {
     const token: string | null = useSelector((state: AppState) => state.userState.token);
     const currentReply: Reply | undefined = useSelector((state: AppState) =>
         state.postsState.posts.find((value: Post) =>
-            value.post.id === props.reply.postId
+            value.post.postId === props.reply.postId
         )?.comments.items.find((value: Reply) =>
-            value.id === props.reply.id
+            value.replyId === props.reply.replyId
         )
     )
 

@@ -3,7 +3,7 @@ import Replies from './replies';
 
 export default interface Post {
     post: {
-        id: string,
+        postId: string,
         username: string,
         description: string,
         timestamp: Date,

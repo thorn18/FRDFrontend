@@ -39,7 +39,7 @@ const PaginationList = () => {
             >
                 <div>
                     {posts.map((item) => (
-                        <PostComponent key={item.post.id} data-testid="post-test" post={item} />
+                        <PostComponent key={item.post.postId} data-testid="post-test" post={item} />
                     ))}
                 </div>
             </InfiniteScroll>

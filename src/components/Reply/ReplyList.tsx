@@ -19,7 +19,7 @@ function ReplyList(props: replyListProp) {
 
     const dispatch = useDispatch();
     const loadMoreReplies = () => {
-        dispatch(replyService.getMoreReplies(props.post.post.id, props.post.comments.items.length));
+        dispatch(replyService.getMoreReplies(props.post.post.postId, props.post.comments.items.length));
     }
 
     return (
