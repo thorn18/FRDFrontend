@@ -1,29 +1,33 @@
+import User from "../models/user";
 import { userActionTypes } from "./userActions";
 
 export interface UserState {
+    user:User,
     username: string,
-    token: string | null,
     loggedIn: boolean,
-    error: any
+    error: any,
+    state: any
 }
 
 //initial states
 export const initialUserState: UserState = {
+    user: new User(),
     username: '', 
-    token: localStorage.getItem('id_token') ? localStorage.getItem('id_token') : '',
-    loggedIn: localStorage.getItem('id_token') ? true : false,
-    error: undefined
+    loggedIn: false,
+    error: undefined,
+    state:0
 }
 
 //reducers
 const userReducer = (state: UserState = initialUserState, action: any) => {
     switch(action.type) {
         case userActionTypes.loginSuccess:
-            return {username: action.payload.username, token: action.payload.token, loggedIn: true}
+            console.log(action.payload);
+            return {username: action.payload.user.username, loggedIn: true, user:(action.payload.user as User), state:0}
         case userActionTypes.loginError:
-            return {token: state.token, error: action.payload, loggedIn: false}
+            return {error: action.payload, loggedIn: false}
         case userActionTypes.logout:
-            return {username: '', token: '', loggedIn: false};
+            return {username: '', loggedIn: false, state:0};
         default:
             return state;
     }

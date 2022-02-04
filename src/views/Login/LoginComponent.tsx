@@ -1,13 +1,12 @@
 import React, { SyntheticEvent, useState, useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
-import { tokenInfo } from '../../components/AuthRoute';
-import pixelgramlogo from '../../pixelgram-logo.png'
+import BankOfThorn from '../../BankOfThorn.png'
 import './LoginComponent.css';
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 import UserService from '../../services/userService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { AppState } from '../../store/initialState';
+import User from '../../models/user';
 
 
 export interface Input {
@@ -29,8 +28,9 @@ function LoginComponent(): JSX.Element {
     const { register, handleSubmit } = useForm<FormValues>();
     const dispatch = useDispatch();
     let history = useHistory();
-    let token: string | null = useSelector((state: AppState) => state.userState.token);
     let error: string = useSelector((state: AppState) => state.userState.error);
+    let loggedIn:boolean = useSelector((state:AppState) => state.userState.loggedIn);
+    let user:User|null = useSelector((state:AppState) => state.userState.user);
 
     const handleInput = (e: SyntheticEvent) => {
         let newInput = { ...input };
@@ -58,24 +58,20 @@ function LoginComponent(): JSX.Element {
         }
     }
 
+
+    useEffect(() => {
+        if(loggedIn== true) {
+            history.push('/home');
+        }
+      });
+
     const onSubmit = () => {
         dispatch(UserService.login(input.username, input.password));
     }
 
-    useEffect(() => {
-        //if token exists, we have already logged in
-        //redirect to home
-        if (token) {
-            let decodedToken: tokenInfo = jwt_decode(token);
-            if (decodedToken.exp * 1000 > Date.now()) {
-                history.push('/home');
-            }
-        }
-    });
-
     return (
         <div id="loginForm" data-testid="loginForm">
-            <img src={pixelgramlogo} id="pixelImage" alt="pixelgram logo"></img>
+            <img src={BankOfThorn} id="pixelImage" alt="pixelgram logo"></img>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="formInput">
                     <input

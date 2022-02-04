@@ -1,7 +1,8 @@
+import User from "../models/user";
 
 export interface UserAction {
     type: userActionTypes;
-    payload?: String | Error | Object;
+    payload?: String | Error | Object | User;
 }
 
 export enum userActionTypes {
@@ -10,10 +11,10 @@ export enum userActionTypes {
     loginError = "LOGIN_ERROR"
 }
 
-export const loginSuccess = (username: string, token: string) => {
+export const loginSuccess = (user:User) => {
     return {
         type: userActionTypes.loginSuccess,
-        payload: { token, username }
+        payload: { user }
     };
 };
 

@@ -4,8 +4,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { IconContext } from "react-icons";
 import { BsPerson, BsSearch } from "react-icons/bs";
-import Logo from "../../images/logo.svg";
-import addIcon from "../../images/addIcon.svg";
+import BankOfThorn from "../../images/BankOfThorn.png";
 import "./Navbar.css";
 import { logoutUser } from "../../store/userActions";
 import { AppState } from "../../store/initialState";
@@ -44,7 +43,7 @@ const Navbar = () => {
   return (
     <nav data-testid="navbar" id="navbar">
       <div className="div1" onClick={() => history.push('/home')}>
-        <img className="nav_logo" data-testid="nav-logo" src={Logo} alt="Nav Logo" />
+        <img className="nav_logo" data-testid="nav-logo" src={BankOfThorn} alt="Nav Logo" />
       </div>
       
       <div className="div2">
@@ -68,17 +67,6 @@ const Navbar = () => {
           <div  data-testid='navbarContainer'>
             <IconContext.Provider value={{ size: "2em" }}>
               <div className="nav-action-items">
-                {(loggedIn === true) ? <>
-                  <button
-                    onClick={() => {
-                      history.push('/newpost')
-                    }}
-                    data-tip
-                    data-for='addPostTip'
-                    data-testid="post-btn"
-                    className="nav_addIcon"><img className="nav_addImg" src={addIcon} alt='Add a new post' /></button>
-                  <ReactTooltip id='addPostTip' place='top' effect='solid'>Add a new post</ReactTooltip>
-                </> : <button data-testid="placeholder-btn" className="nav_placeholder"></button>}
                 <article
                   data-testid="login-menu"
                   onClick={() => setMenu(!isMenuOpen)}

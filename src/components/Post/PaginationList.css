@@ -1,9 +1,0 @@
-#postContainer {
-    margin-top: 142px;
-    margin-bottom: 0.5%;
-    padding-bottom: 117px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-}

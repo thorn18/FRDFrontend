@@ -1,12 +1,13 @@
-import { initialPostsState, PostsState } from './postReducer';
 import { initialUserState, UserState } from './userReducer';
 
+import {initialAccountState, AccountState} from './accountReducer';
+
 export interface AppState {
-    postsState: PostsState,
+    accountState: AccountState,
     userState: UserState
 }
 
 const initialState: AppState = {
-    postsState: initialPostsState,
-    userState: initialUserState
+    userState: initialUserState,
+    accountState: initialAccountState
 }

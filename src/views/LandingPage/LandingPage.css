@@ -1,11 +1,11 @@
 #landing {
   background-color: #fafafa;
-  /* position: absolute; */
-  /* top: 8vh; */
+  position: absolute;
+  top: 8vh;
   bottom: 0;
   width: 100%;
-  /* margin-top: 70px; */
-  /* margin-bottom: 500px; */
+  margin-top: 70px;
+  margin-bottom: 500px;
   height: 100%;
   overflow-y: hidden;
 }
@@ -32,4 +32,60 @@
   font-size: 16px;
   font-weight:800;
   border-radius: 2px;
+}
+
+.WelcomeMessage {
+  font-size: 20px;
+  font-family: cursive;
+  text-align: center;
+  height: fit-content;
+}
+
+#AH {
+  color:green;
+  font-size: 25px;
+}
+
+.TaskSelectorPanel {
+  margin-top: 100px;
+  margin-left: 5px;
+  flex: auto;
+  float: left;
+  width: 40%;
+  height: 80%;
+  border-style: double;
+  border-color: black;
+  border-radius: 3px;
+}
+
+.Buttons {
+  font-size: large;
+  margin: 10px;
+  width: 200px;
+  height: 100px;
+  color: Green;
+  border: black;
+  border-radius: 5px;
+  border-style: double;
+}
+
+.TaskPanel {
+  margin-top: 100px;
+  margin-left: 5px;
+  flex: auto;
+  float: right;
+  width: 50%;
+  height: 80%;
+  border-style: double;
+  border-color: black;
+  border-radius: 3px;
+}
+
+#AccountInfoDiv {
+  margin-left: 30px
+}
+
+.Labels {
+  font-weight: 800;
+  font-size: large;
 }

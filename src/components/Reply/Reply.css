@@ -1,8 +1,0 @@
-.resendComment {
-    display: none;
-    margin-left: 5px;
-}
-
-.descriptionCard:hover .resendComment {
-    display: inline-block;
-}
