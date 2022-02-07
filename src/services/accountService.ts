@@ -11,19 +11,18 @@ class AccountService {
     }
 
     getAccounts(usernameTry: string) {
-        return (dispatch: (action: AccountAction) => void) => {
-            return axios.post(`${this.URI + "/" + usernameTry}`, { username: usernameTry})
-                .then(response => {
-                    if (response.status === 200) {
-                        dispatch(accountsLoaded(response.data));
-                    } else {
-                        dispatch(accountsEmpty(response.data.message));
-                    }
+        return axios.get(`${this.URI + "/" + usernameTry}`)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.data
+                } else {
+                    console.log("Inside else service");
+                   return response.data.message;
+                }
 
-                }).catch(err => {
-                    dispatch(accountsEmpty(err)); //action
-                });
-        };
+            }).catch(err => {
+                return err; //action
+            });
     }
 
 

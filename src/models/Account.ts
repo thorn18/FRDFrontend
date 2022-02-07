@@ -6,6 +6,7 @@ export default interface Account{
     owner:string | undefined;
     accountID:number | undefined;
     balance:number |undefined;
+    type:string|undefined;
 
 }
 

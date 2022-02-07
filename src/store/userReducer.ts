@@ -20,15 +20,19 @@ export const initialUserState: UserState = {
 
 //reducers
 const userReducer = (state: UserState = initialUserState, action: any) => {
+    console.log("Top of User Reducer");
     switch(action.type) {
         case userActionTypes.loginSuccess:
-            console.log(action.payload);
+            console.log("loginsuccess");
             return {username: action.payload.user.username, loggedIn: true, user:(action.payload.user as User), state:0}
         case userActionTypes.loginError:
+            console.log("loginError");
             return {error: action.payload, loggedIn: false}
         case userActionTypes.logout:
+            console.log("logout");
             return {username: '', loggedIn: false, state:0};
         default:
+            console.log("default");
             return state;
     }
 }

@@ -8,13 +8,17 @@ import AccountComponent from '../../components/AccountComponent';
 import Account from '../../models/Account';
 import accountService from '../../services/accountService';
 import { AccountAction } from '../../store/accountActions';
+import { AccountState } from '../../store/accountReducer';
+import money from "../../images/money.jpg";
+
 
 const LandingPage = () => {
 
   const dispatch = useDispatch();
   let user: any = useSelector((state: AppState) => state.userState.user);
   const [state, setState] = useState(0);
-  let accounts: Account[] = useSelector((state: AppState) => state.accountState.accounts);
+  const [accounts, setAccount] = useState([]);
+  // let accounts: Account[] = useSelector((state: AccountState) => state.accounts);
 
 
   useEffect(() => {
@@ -30,27 +34,36 @@ const LandingPage = () => {
           <ol id='ButtonList'>
             <button onClick={HandleAccountInfoButton} className='Buttons'>Change Information</button>
             <button onClick={HandleAccountViewButton} className='Buttons'>View My Accounts</button>
-            <button onClick={HandleAccountWithdrawalButton} className='Buttons'>Cash Withdrawal</button>
+            <button onClick={HandleAccountTransactionButton} className='Buttons'>New Transaction</button>
             <button onClick={HandleAccountTrasferButton} className='Buttons' id='TransferButton'>Account Transfer</button>
           </ol>
         </div>}
-      <div className='TaskPanel'>
-        {state == 1 &&
-          <div id='AccountInfoDiv'>
-            <p><span className="Labels">Your Username: </span>{user.username}      <button onClick={ChangeUsernameHandler}>change</button></p>
-            <p><span className="Labels">Your Email: </span>{user.email}      <button onClick={ChangeEmailHandler}>change</button></p>
-            <p><span className="Labels">Your Address: </span>{user.address}      <button onClick={ChangeAddressHandler}>change</button></p>
-            <p><span className="Labels">Your Date of Birth: </span>{user.dob}      <button onClick={ChangeDOBHandler}>change</button></p>
-          </div>
-        }
-        {state == 2 &&
-          <div id='AccountsListDev'>
-            {accounts.map((item: Account) => (
-              <AccountComponent key={item.accountID} data-testid="post-test" post={item} />
-            ))}
-          </div>
-        }
-      </div>
+      {state > 0 &&
+        <div className='TaskPanel'>
+          {state == 1 &&
+            <div id='AccountInfoDiv'>
+              <p><span className="Labels">Your Username: </span>{user.username}      <button onClick={ChangeUsernameHandler}>change</button></p>
+              <p><span className="Labels">Your Email: </span>{user.email}      <button onClick={ChangeEmailHandler}>change</button></p>
+              <p><span className="Labels">Your Address: </span>{user.address}      <button onClick={ChangeAddressHandler}>change</button></p>
+              <p><span className="Labels">Your Date of Birth: </span>{user.dob}      <button onClick={ChangeDOBHandler}>change</button></p>
+            </div>
+          }
+          {state == 2 &&
+            <div id='AccountsListDev'>
+              <p id='AccountLabel'>Accounts:
+                <img src={money} id='moneyimage'></img>
+                <img src={money} id='moneyimage'></img>
+                <img src={money} id='moneyimage'></img>
+                <img src={money} id='moneyimage'></img>
+              </p>
+
+              {accounts && accounts.map((item: Account) => (
+                <AccountComponent key={item.accountID} data-testid="post-test" post={item} />
+              ))}
+            </div>
+          }
+        </div>
+      }
     </div>
   )
 
@@ -58,33 +71,33 @@ const LandingPage = () => {
   function HandleAccountInfoButton() {
     setState(1);
   }
-  
-  function HandleAccountViewButton() {
+
+  async function HandleAccountViewButton() {
     setState(2);
-    let user: any = useSelector((state: AppState) => state.userState.user);
-    accountService.getAccounts(user.username);
+    let ac: any = await accountService.getAccounts(user.username);
+    setAccount(ac);
   }
-  
-  function HandleAccountWithdrawalButton() {
-    throw new Error('Function not implemented.');
+
+  function HandleAccountTransactionButton() {
+    console.log(accounts);
   }
-  
+
   function HandleAccountTrasferButton() {
     throw new Error('Function not implemented.');
   }
-  
+
   function ChangeUsernameHandler() {
     throw new Error('Function not implemented.');
   }
-  
+
   function ChangeEmailHandler() {
     throw new Error('Function not implemented.');
   }
-  
+
   function ChangeAddressHandler() {
     throw new Error('Function not implemented.');
   }
-  
+
   function ChangeDOBHandler() {
     throw new Error('Function not implemented.');
   }

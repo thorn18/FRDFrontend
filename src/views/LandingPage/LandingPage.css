@@ -77,8 +77,9 @@
   width: 50%;
   height: 80%;
   border-style: double;
-  border-color: black;
+  border-color: green;
   border-radius: 3px;
+  border-width: 6px;
 }
 
 #AccountInfoDiv {
@@ -88,4 +89,15 @@
 .Labels {
   font-weight: 800;
   font-size: large;
+}
+
+#AccountLabel {
+  color: green;
+  font-size: larger;
+  margin-left: 5px;
+}
+
+#moneyimage {
+  height: 50px;
+  width: 100px;
 }
