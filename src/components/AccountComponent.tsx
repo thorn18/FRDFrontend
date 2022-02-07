@@ -25,7 +25,10 @@ function AccountComponent(props: accountProp) {
             <p className="Info">Account Type: {post.type}</p>
             <p className="Info">Account Balancee: {post.balance}</p>
             <div id='TransactionList'>
-              {post.transactions && post.transactions.map((item: Transaction) => (
+              {post.transactions && post.transactions.length < 5 && post.transactions.map((item: Transaction) => (
+                <TransactionComponent key={item.transactionID} data-testid="transaction-test" transaction={item} />
+              ))}
+              {post.transactions && post.transactions.length > 5 && post.transactions.slice(0,post.transactions.length).map((item: Transaction) => (
                 <TransactionComponent key={item.transactionID} data-testid="transaction-test" transaction={item} />
               ))}
             </div>

@@ -25,6 +25,21 @@ class AccountService {
             });
     }
 
+    saveAccount(Account1:Account) {
+        return axios.put(`${this.URI + "/"}`, Account1)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.data
+                } else {
+                    console.log("Inside else service");
+                   return response.data.message;
+                }
+
+            }).catch(err => {
+                return err; //action
+            });
+    }
+
 
 }
 

@@ -18,7 +18,12 @@ function TransactionComponent(props: TransactionProp) {
     useEffect(() => { }, [])
 
     return (
-        <div></div>
+        <div className="Container">
+            <p className="TransactionInfo">Date of Transaction: {transaction.transactionDate}</p>
+            <p className="TransactionInfo">Transaction ID: {transaction.transactionID}</p>
+            <p className="TransactionInfo">Transaction Type: {transaction.type}</p>
+            <p className="TransactionInfo">Transaction Type: {transaction.transactionString}</p>
+        </div>
     )
 }
 

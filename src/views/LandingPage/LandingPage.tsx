@@ -17,6 +17,12 @@ const LandingPage = () => {
   const dispatch = useDispatch();
   let user: any = useSelector((state: AppState) => state.userState.user);
   const [state, setState] = useState(0);
+  const [transactionState, setTransactionState] = useState(0);
+
+  const [ac1, setac1] = useState<Account | null>();
+  const [ac2, setac2] = useState<Account | null>();
+
+
   const [accounts, setAccount] = useState([]);
   // let accounts: Account[] = useSelector((state: AccountState) => state.accounts);
 
@@ -62,6 +68,73 @@ const LandingPage = () => {
               ))}
             </div>
           }
+
+          {state == 3 &&
+            <div id='TransactionDiv'>
+              <h3 id='TransactionFormLabel'>Fill out Transaction Form:
+                <form>
+                  <span>Type Of Transaction:  </span>
+                  <select name="TransactionType" id="TransactionTypeSelector" onChange={(val) => handleDropdownChange(val.target.value)}>
+                    <option selected value="op0">Select an Option</option>
+                    <option value="op1">Cash Withdral</option>
+                    <option value="op2">Cash Deposit</option>
+                    <option value="op3">Transfer Money</option>
+                  </select>
+                  {transactionState == 1 &&
+                    <div>
+                      <p>Select what Account you Want to Withdraw From: </p>
+                      <select className='Account1Selector' onChange={(val) => handleWithdrawAccountChange(val.target.value)}>
+                        {accounts.map((item: Account) => (
+                          <option value={JSON.stringify(item)}>{item.accountID + "      " + item.type + "     " + item.balance}</option>
+                        ))}
+                      </select>
+                      <p>Select Amount:</p>
+                      <input type='number' id='account1WithdrawAmmount'></input>
+                      <button id='transactionSubmitButton' onClick={handleWithdrawSubmit}>Submit</button>
+                    </div>
+                  }
+
+                  {transactionState == 2 &&
+                    <div>
+                      <p>Select what Account you Want to Deposit Into: </p>
+                      <select className='Account1Selector' onChange={(val) => handleDepositAccountChange(val.target.value)}>
+                        {accounts.map((item: Account) => (
+                          <option value={JSON.stringify(item)}>{item.accountID + "      " + item.type + "     " + item.balance}</option>
+                        ))}
+                      </select>
+                      <p>Select Amount:</p>
+                      <input type='number' id='account1DepositAmmount'></input>
+                      <button id='transactionSubmitButton' onClick={handleDepositSubmit}>Submit</button>
+                    </div>
+                  }
+
+                  {transactionState == 3 &&
+                    <div>
+                      <p>Select what Account you Want to Transfer From: </p>
+                      <select className='Account1Selector' id='TransferAccount1' onChange={(val) => handleTransferAccount1Change(val.target.value)}>
+                        {accounts.map((item: Account) => (
+                          <option value={JSON.stringify(item)}>{item.accountID + "      " + item.type + "     " + item.balance}</option>
+                        ))}
+                      </select>
+                      <p>Select Amount:</p>
+                      <input type='number' id='Account1TransferAmount'></input>
+
+                      <p>Select what Account you Want to Transfer To: </p>
+                      <select className='Account2Selector' id='TransferAccount2' onChange={(val) => handleTransferAccount2Change(val.target.value)}>
+                        {accounts.map((item: Account) => (
+                          <option value={JSON.stringify(item)}>{item.accountID + "      " + item.type + "     " + item.balance}</option>
+                        ))}
+                      </select>
+                      <p>Select Amount:</p>
+                      <input type='number' id='Account2TransferAmount'></input>
+                      <p></p>
+                      <button id='transactionSubmitButton' onClick={handleTransactionSubmit}>Submit</button>
+                    </div>
+                  }
+                </form>
+              </h3>
+            </div>
+          }
         </div>
       }
     </div>
@@ -78,9 +151,84 @@ const LandingPage = () => {
     setAccount(ac);
   }
 
-  function HandleAccountTransactionButton() {
-    console.log(accounts);
+  async function HandleAccountTransactionButton() {
+    setState(3);
+    let ac: any = await accountService.getAccounts(user.username);
+    setAccount(ac);
   }
+
+
+  function handleDropdownChange(value: string) {
+    switch (value) {
+      case ("op0"): setTransactionState(0);
+        break;
+
+      case ("op1"): setTransactionState(1);
+        break;
+
+      case ("op2"): setTransactionState(2);
+        break;
+
+      case ("op3"): setTransactionState(3);
+        break;
+
+      default: setTransactionState(0);
+    }
+  }
+
+  function handleWithdrawSubmit() {
+    throw new Error('Function not implemented.');
+  }
+
+  function handleDepositSubmit() {
+    throw new Error('Function not implemented.');
+  }
+
+  function handleTransactionSubmit() {
+    throw new Error('Function not implemented.');
+  }
+
+
+  function handleWithdrawAccountChange(ac1: string) {
+    let account1: Account = JSON.parse(ac1);
+    setac1(account1);
+    console.log(ac1);
+
+  }
+
+  function handleTransferAccount1Change(ac1: string) {
+    let account1: Account = JSON.parse(ac1);
+    setac1(account1);
+
+  }
+
+  function handleTransferAccount2Change(ac2: string) {
+    let account2: Account = JSON.parse(ac2);
+    setac2(account2);
+
+
+  }
+
+  function handleDepositAccountChange(ac1: string) {
+    let account1: Account = JSON.parse(ac1);
+    setac1(account1);
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   function HandleAccountTrasferButton() {
     throw new Error('Function not implemented.');
